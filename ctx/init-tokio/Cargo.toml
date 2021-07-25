@@ -1,0 +1,11 @@
+[package]
+name = "init-tokio"
+version = "0.1.0"
+edition = "2018"
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+futures = { path = "../../../../contrib/lib/rust/futures/futures", features = ["async-await", "compat"] }
+tokio = { version = "1.7", default-features = false, features = ["full", "test-util"] }

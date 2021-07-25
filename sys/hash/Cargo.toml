@@ -1,0 +1,15 @@
+[package]
+name = "hash"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+libp2p = { version = "*", path = "../../../../contrib/lib/rust/libp2p", default-features = false }
+blake3 = { version = "*", path = "../../../../contrib/lib/rust/blake3" }
+serde = { version = "*", path = "../../../../contrib/lib/rust/serde/serde", features = ["derive"] }
+hex = { version = "0.4.3", path = "../../../../contrib/lib/rust/hex"  }
+hashbrown = { version = "0.11.2", path = "/mnt/cia1/shed/contrib/lib/rust/hashbrown" }
+rand = { version = "*", path = "../../../../contrib/lib/rust/rand" }
+sha2 = { version = "*", path = "../../../../contrib/lib/rust/hashes/sha2" }

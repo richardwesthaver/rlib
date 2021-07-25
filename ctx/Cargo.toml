@@ -1,0 +1,21 @@
+[package]
+name = "ctx"
+version = "0.1.0"
+edition = "2018"
+
+
+[lib]
+test = false
+doctest = false
+
+[[test]]
+name = "ctx-test"
+path = "tests/ctx-init.rs"
+
+[dependencies]
+sys = {path = "../sys"}
+macros = { version = "0.1.0", path = "macros" }
+quickcheck = { version = "1" }
+init-tokio = { path = "init-tokio" }
+tokio = { version = "1.7", features = ["full"] }
+rayon = { path = "../../../contrib/lib/rust/rayon" } # conflicting dependency with hg-parser

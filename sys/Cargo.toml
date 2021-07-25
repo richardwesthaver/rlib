@@ -1,0 +1,13 @@
+[package]
+name = "sys"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+alc = { version = "*", path = "alc" }
+eve = { version = "*", path = "eve" }
+hash = { version = "*", path = "hash" }
+logger = { version = "*", path = "logger" }
+crypto = { version = "*", path = "crypto" }
+flate = { version = "*", path = "flate" }
+audio = { version = "*", path = "audio", optional = true }

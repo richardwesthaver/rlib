@@ -1,0 +1,32 @@
+Theme (
+    styles: {
+        "base": (
+            properties: {
+                "font_size": "$FONT_SIZE_12",
+                "font_family": "$MEDIUM_FONT",
+                "foreground": "#9dafbf"
+            }
+        ),
+        "button": (
+            base: "base",
+            properties: {
+                "background": "$BLACK",
+            },
+            states: [
+                (
+                    key: "pressed",
+                    properties: {
+                        "background": "$WHITE",
+                    }
+                )
+            ]
+        )
+    },
+    resource: {
+        "BLACK": "#000000",
+        "WHITE": "#ffffff",
+        "MEDIUM_FONT": "Roboto-Medium",
+        "FONT_SIZE_12": 12,
+        "FONT_SIZE_16": 16,
+    }
+)

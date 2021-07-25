@@ -1,0 +1,16 @@
+[package]
+name = "weather"
+version = "0.1.0"
+authors = ["ellis"]
+edition = "2018"
+
+[dependencies]
+tokio = { version = "*", features = ["full"] }
+reqwest = { version = "*", features = ["json"] }
+serde_json = "*"
+
+serde = { version = "*", features = ["derive"] }
+ron = "*"
+
+chrono = { version = "*", features = ["serde"] }
+tracing = "*" # consider other options

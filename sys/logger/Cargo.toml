@@ -1,0 +1,9 @@
+[package]
+name = "logger"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+#log = { path = "../../../../contrib/lib/rust/log", features = ["std", "serde", "kv_unstable"] }
+log = "0.4"
+flexi_logger = { version = "*", path = "../../../../contrib/lib/rust/flexi_logger", features = ["async", "specfile", "compress", "colors", "atty"] }

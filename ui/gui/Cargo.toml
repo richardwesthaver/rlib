@@ -1,0 +1,17 @@
+[package]
+name = "gui"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+cfg = { path = "../../cfg" }
+cli = { path = "../../cli" }
+net = { path = "../../net" }
+chrono = { path = "../../../../contrib/lib/rust/chrono", features = ["serde"] }
+org = { path = "../../app/org" }
+sys = { path = "../../sys" }
+dirs-next = { path = "../../../../contrib/lib/rust/dirs/dirs" }
+orbtk = { version = "0.3.1-alpha3", path = "../../../../contrib/lib/rust/orbtk/orbtk" }
+serde = "1.0.106"
+serde_derive = "1.0.106"
+druid = { path = "../../../../contrib/lib/rust/druid/druid" }

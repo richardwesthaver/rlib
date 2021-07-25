@@ -1,0 +1,16 @@
+[package]
+name = "obj"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+ron = { version = "*", path = "../../../contrib/lib/rust/ron" }
+bincode = { version = "1.3.3" }
+serde = { version = "1.0.126", features = ["derive"] }
+chrono = { version = "*", path = "../../../contrib/lib/rust/chrono", features = ["serde"] }
+sys = { version = "*", path = "../sys" }
+orgize = { version = "*", path = "../../../contrib/lib/rust/orgize", features = ["syntect", "ser", "chrono"] }
+iref = { version = "*", path = "../../../contrib/lib/rust/iref" }
+
+[dev-dependencies]
+tempfile = { version = "*", path = "../../../contrib/lib/rust/tempfile" }

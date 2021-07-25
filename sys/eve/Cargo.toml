@@ -1,0 +1,11 @@
+[package]
+name = "eve"
+version = "0.1.0"
+edition = "2018"
+
+[target.'cfg(unix)'.dependencies]
+io-uring = { version = "0.5.1", path = "../../../../contrib/lib/rust/io-uring" }
+
+[dev-dependencies]
+slab = { path = "../../../../contrib/lib/rust/slab" }
+libc = { path = "../../../../contrib/lib/rust/libc" }
