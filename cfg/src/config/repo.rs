@@ -70,22 +70,21 @@ impl HgSubFile {
   pub fn new() -> Self {
     HgSubFile {
       path: PathBuf::from(".hgsub"),
-      subrepos: Vec::new(),
+      subrepos: vec![],
     }
   }
 
-  // should perform validation to ensure that the path is a hg repo,
-  // and does in fact exist, but the .hgsub file doesn't need to
-  // exist on init.
-  pub fn path(mut self, path: impl AsRef<Path>) -> Result<Self> {
+  /// should perform validation to ensure that the path is a hg repo,
+  /// and does in fact exist, but the .hgsub file doesn't need to.
+  pub fn parent(mut self, path: impl AsRef<Path>) -> Result<Self> {
     self.path = path.as_ref().to_path_buf().join(".hgsub").canonicalize()?;
     Ok(self)
   }
 
-  // insert a subrepo into this HgSubFile. does not clone the source
-  // or ensure that path exists. Takes an optional argument of 'hg'
-  // or 'git' to indicate the subrepo-type. None represents a
-  // local-only repo.
+  /// insert a subrepo into this HgSubFile. does not clone the source
+  /// or ensure that path exists. Takes an optional argument of 'hg'
+  /// or 'git' to indicate the subrepo-type. None represents a
+  /// local-only repo.
   pub fn insert(&self, name: &str, vcs: Option<&str>) -> Result<()> {
     let root = &self.path;
 
@@ -129,19 +128,22 @@ impl HgSubFile {
 impl Default for HgSubFile {
   fn default() -> Self {
     HgSubFile {
-      path: PathBuf::from(".hgsub"),
-      subrepos: Vec::new(),
+      path: PathBuf::from(""),
+      subrepos: vec![],
     }
   }
 }
 
+/// We don't remember the file path in this case because all HgWebConfig values
+/// are relative to $PWD
+#[derive(Serialize, Deserialize, Debug)]
 pub struct HgWebConfig {
   name: String,
   contact: String,
   description: String,
-  paths: HashMap<PathBuf, PathBuf>,
   extensions: Vec<String>,
   sock: SocketAddr,
+  paths: HashMap<PathBuf, PathBuf>,
 }
 
 impl HgWebConfig {
@@ -150,16 +152,20 @@ impl HgWebConfig {
       name: "".to_string(),
       contact: "".to_string(),
       description: "".to_string(),
-      paths: HashMap::new(),
       extensions: vec![],
       sock: "0.0.0.0:0"
         .parse()
         .expect("could not parse hgweb socketaddr"),
+      paths: HashMap::new(),
     }
   }
 
-  pub fn from_path() -> Self {
+  pub fn from_path(path: &Path) -> Self {
     HgWebConfig::new()
+  }
+
+  pub fn write() -> Result<()> {
+    Ok(())
   }
 }
 
@@ -167,4 +173,20 @@ impl Default for HgWebConfig {
   fn default() -> Self {
     HgWebConfig::new()
   }
+}
+
+#[test]
+fn hgweb_test() {
+  let mut web_conf = HgWebConfig::default();
+
+  web_conf
+    .paths
+    .insert(PathBuf::from("foo"), PathBuf::from("bar"));
+
+  let wc2 = web_conf.paths.try_insert(
+    PathBuf::from("contrib/lib/rust/tempdir"),
+    PathBuf::from("contrib/lib/rust/tempdir"),
+  );
+
+  assert!(wc2.is_ok());
 }

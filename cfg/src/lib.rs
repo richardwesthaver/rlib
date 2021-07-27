@@ -1,21 +1,23 @@
 //! cfg/src/lib.rs -- Configuration Primitives for distributed systems
+#![feature(map_try_insert)]
+
 mod config;
 mod de;
 mod err;
 mod ser;
 
+/// Re-exports
+pub use ron;
+
 pub use crate::{
   config::{
     database::DatabaseConfig,
-    lab::LabConfig,
     library::LibraryConfig,
     network::NetworkConfig,
     package::PackageConfig,
     program::ProgramConfig,
     registry::RegistryConfig,
     repo,
-    shed::ShedConfig,
-    store::StoreConfig,
     system::{SysConfig, SystemConfig, VmConfig, VmmConfig},
     user::UserConfig,
   },

@@ -1,26 +1,36 @@
-//! config/shed --++-- Shed configuration
+//! shed/config
 //!
 //! Shed configurationn layer.
+
 use std::{
   fs,
   io::Write,
   path::{Path, PathBuf},
 };
 
-use ron::{
-  de::from_reader,
-  extensions::Extensions,
-  ser::{to_string_pretty, PrettyConfig},
+use ::cfg::{
+  ron::{
+    de::from_reader,
+    extensions::Extensions,
+    ser::{to_string_pretty, PrettyConfig},
+  },
+  NetworkConfig, PackageConfig, Result,
 };
+use hash::{B3Hash, B3Hasher, Id};
 use serde::{Deserialize, Serialize};
-use sys::hash::{B3Hash, B3Hasher, Id};
 
-use super::network::NetworkConfig;
-use super::package::PackageConfig;
-use crate::Result;
+pub fn load_config(path: &str) {
+  let cfg: Config = Config::load(path).unwrap();
+  println!("Config: {:?}", cfg);
+}
+
+/// Write the given Configuration to a config.ron file.
+pub fn write_config(config: Config, output: &Path) {
+  config.write(output).expect("should write config to output");
+}
 
 #[derive(Serialize, Deserialize, Debug, Hash)]
-pub struct ShedConfig {
+pub struct Config {
   id: String,
   shed_path: PathBuf,
   pkg_path: PathBuf,
@@ -30,12 +40,12 @@ pub struct ShedConfig {
   network: Option<NetworkConfig>,
 }
 
-impl Default for ShedConfig {
+impl Default for Config {
   // default params are relative
   fn default() -> Self {
     let id = Id::rand();
     let hash = id.state_hash(&mut B3Hasher::new());
-    ShedConfig {
+    Config {
       id: hash.to_hex(),
       shed_path: PathBuf::from("~/shed"),
       pkg_path: PathBuf::from("pkg"),
@@ -47,9 +57,9 @@ impl Default for ShedConfig {
   }
 }
 
-impl ShedConfig {
+impl Config {
   pub fn new() -> Self {
-    ShedConfig::default()
+    Config::default()
   }
 
   pub fn write(&self, path: &Path) -> Result<()> {
@@ -65,7 +75,7 @@ impl ShedConfig {
 
   pub fn load(path: &str) -> Result<Self> {
     let f = fs::File::open(path).expect("Failed to read config.ron file.");
-    let config: ShedConfig = match from_reader(f) {
+    let config: Config = match from_reader(f) {
       Ok(x) => x,
       Err(e) => {
         println!("Failed to load config: {}", e);
@@ -76,7 +86,7 @@ impl ShedConfig {
   }
   pub fn include(path: &str) -> Result<Self> {
     let f = fs::File::open(path).expect("Failed to read config.ron file.");
-    let config: ShedConfig = match from_reader(f) {
+    let config: Config = match from_reader(f) {
       Ok(x) => x,
       Err(e) => {
         println!("Failed to include config: {}", e);

@@ -1,7 +1,6 @@
 use std::path::Path;
 
 use cfg::{NetworkConfig, PackageConfig, ShedConfig};
-use sys::logger::log;
 
 use super::{
   cmd::{load_cfg_cmd, make_cmd, pack_cmd, write_cfg_cmd},

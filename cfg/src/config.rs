@@ -1,14 +1,10 @@
 pub mod database;
 pub mod display;
-pub mod lab;
 pub mod library;
 pub mod network;
 pub mod package;
 pub mod program;
 pub mod registry;
 pub mod repo;
-pub mod shed;
-pub mod stash;
-pub mod store;
 pub mod system;
 pub mod user;

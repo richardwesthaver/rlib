@@ -1,20 +1,19 @@
 [package]
-name = "cli"
+name = "kala"
 version = "0.1.0"
 edition = "2018"
 
 [dependencies]
 cfg = { path = "../cfg" }
 net = { path = "../net" }
-env_logger = { path = "../../../contrib/lib/rust/env_logger" }
-clap = { version = "2.33.3" }
 chrono = { version = "0.4", path = "../../../contrib/lib/rust/chrono", features = ["serde"] }
 ctx = { path = "../ctx" }
 rusb = { version = "0.8.1", path = "../../../contrib/lib/rust/rusb" }
 weather = { path = "../app/weather" }
 org = { path = "../app/org" }
-sys = { path = "../sys" }
-dirs-next = { path = "../../../contrib/lib/rust/dirs/dirs" }
+hash = { path = "../sys/hash" }
+flate = { path = "../sys/flate" }
+logger = { path = "../sys/logger" }
 cmd_lib = {path = "../../../contrib/lib/rust/cmd_lib"}
 ron = {path = "../../../contrib/lib/rust/ron"}
 rustyline = {path = "../../../contrib/lib/rust/rustyline"}

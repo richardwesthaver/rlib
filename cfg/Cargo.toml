@@ -11,6 +11,3 @@ sys = { version = "*", path = "../sys" }
 hg-parser = { version = "0.6.0", path = "../../../contrib/lib/rust/hg-parser" }
 git2 = { version = "*", path = "../../../contrib/lib/rust/git2", default-features = false }
 regex = { version = "*", path = "../../../contrib/lib/rust/regex" }
-
-[dev-dependencies]
-tempfile = { version = "3.2.0", path = "../../../contrib/lib/rust/tempfile" }

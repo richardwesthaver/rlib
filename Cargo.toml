@@ -1,20 +1,22 @@
 [workspace]
 members = [
+  "app/email",
   "app/org",
+  "app/shed",
   "app/weather",
-  "cli",
   "ui/gui",
   "ui/web",
-  "ctx",
   "cfg",
-#  "dsl",
+  "kala",
+  "ctx",
+  "db",
+  "dsl",
+  "dts",
   "math",
   "net",
-  "dts",
-  "sys",
-  "db",
   "obj",
-  "app/email",
+  "sys",
+  "util",
 ]
 
 resolver = "2"

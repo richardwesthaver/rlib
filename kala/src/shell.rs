@@ -1,8 +1,6 @@
 use std::collections::HashMap;
 use std::process::{Command, Output, Stdio};
 
-use cmd_lib::run_cmd;
-
 use crate::Result;
 
 pub fn make(target: &str) {

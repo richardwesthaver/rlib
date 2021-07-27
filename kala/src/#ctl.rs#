@@ -1,27 +1,17 @@
-use std::{fs::File, path::Path};
+use std::{
+  fs::File,
+  path::PathBuf,
+  str::FromStr,
+};
 
-use cfg::ShedConfig;
+pub use flate::pack;
+use logger::log::info;
 use net::client::{
   ipapi::get_ip,
   nws::{get_forecast, get_point},
   Client, APP_USER_AGENT,
 };
-pub use sys::flate::pack;
-use sys::logger::log::info;
 use weather::Point;
-
-pub mod pass;
-pub mod shell;
-
-pub fn load_config(path: &str) {
-  let cfg: ShedConfig = ShedConfig::load(path).unwrap();
-  println!("ShedConfig: {:?}", cfg);
-}
-
-/// Write the given Configuration to a config.ron file.
-pub fn write_config(config: ShedConfig, output: &Path) {
-  config.write(output).expect("should write config to output");
-}
 
 pub fn usb_devices() {
   for device in rusb::devices().unwrap().iter() {
@@ -41,18 +31,18 @@ pub async fn weather_report() {
     .user_agent(APP_USER_AGENT)
     .build()
     .unwrap();
-  let file = dirs_next::config_dir()
-    .expect("bad XDG_CONFIG!")
-    .join("user.ron");
-  println!("home is: {:?}", &file);
+  let mut file =
+    PathBuf::from_str(option_env!("XDG_CONFIG_HOME").expect("XDG_CONFIG_HOME not found")).unwrap();
+  file.join("user.ron").unwrap();
+  println!("user/cfg :=: {:?}", &file);
   let user_point = File::open(file).expect("user.ron is no good!");
   let point: Point = match ron::de::from_reader(user_point) {
     Ok(x) => {
-      println!("{:#?}", &x);
+      info!("{:#?}", &x);
       x
     }
     Err(e) => {
-      println!("Failed to load config: {}", e);
+      info!("Failed to load config: {}", e);
 
       std::process::exit(1);
     }
@@ -63,7 +53,7 @@ pub async fn weather_report() {
     .expect("could not get point!");
   let resf = get_forecast(&res, &client).await.unwrap();
   for i in resf.properties.periods.iter() {
-    println!("{:#?}, {:#?}", &i.name, &i.detailed_forecast);
+    info!("{:#?}, {:#?}", &i.name, &i.detailed_forecast);
   }
 }
 
