@@ -30,10 +30,10 @@ impl log::Log for SimpleLogger {
   fn flush(&self) {}
 }
 
-pub fn flexi() -> Result<()> {
-  Logger::try_with_env_or_str("trace")?
+pub fn flexi(level: &str) -> Result<()> {
+  Logger::try_with_env_or_str(level)?
     .format(flexi_logger::colored_default_format)
-    .set_palette("196;208;22;7;8".to_string())
+    .set_palette("196;208;50;7;8".to_string())
     .adaptive_format_for_stderr(AdaptiveFormat::Detailed)
     .adaptive_format_for_stdout(AdaptiveFormat::Default)
     .log_to_stdout()

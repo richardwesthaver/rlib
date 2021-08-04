@@ -12,6 +12,7 @@ pub use ron;
 pub use crate::{
   config::{
     database::DatabaseConfig,
+    display::DisplayConfig,
     library::LibraryConfig,
     network::NetworkConfig,
     package::PackageConfig,

@@ -18,3 +18,5 @@ cmd_lib = {path = "../../../contrib/lib/rust/cmd_lib"}
 ron = {path = "../../../contrib/lib/rust/ron"}
 rustyline = {path = "../../../contrib/lib/rust/rustyline"}
 rpassword = {path = "../../../contrib/lib/rust/rpassword"}
+xrandr = {path = "../../../contrib/lib/rust/xrandr"}
+tmux_interface = { version = "^0.1.0", path = "../../../contrib/lib/rust/tmux_interface", features = ["tmux_X_X"] }

@@ -17,3 +17,4 @@ reqwest = { path = "../../../contrib/lib/rust/reqwest", features = ["json", "soc
 serde_json = { version = "1.0.64", path = "../../../contrib/lib/rust/serde_json" }
 ssh2 = { path = "../../../contrib/lib/rust/ssh2" }
 wireguard-rs = { path = "../../../contrib/lib/rust/wireguard-rs" }
+logger = { path = "../sys/logger" }

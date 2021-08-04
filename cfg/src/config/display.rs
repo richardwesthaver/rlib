@@ -3,8 +3,9 @@
 //! The structs in this module pertain to PHYSICAL Display configurations. They
 //! immplement functionality intended for use in OS system and user
 //! configurations. For example: xrandr configuration.
+use serde::{Deserialize, Serialize};
 
-struct Monitor {
+pub struct Monitor {
   name: String,
   brightness: u32,
   resolution: (u16, u16),
@@ -16,6 +17,27 @@ impl Monitor {
       name: String::from(name),
       brightness,
       resolution: (x, y),
+    }
+  }
+}
+
+#[derive(Serialize, Deserialize, Debug, Hash)]
+pub struct DisplayConfig {
+  pub output: String,
+  pub primary: bool,
+  pub mode: String,
+  pub pos: String,
+  pub rotate: String,
+}
+
+impl Default for DisplayConfig {
+  fn default() -> Self {
+    DisplayConfig {
+      output: "".to_string(),
+      primary: true,
+      mode: "1920x1080".to_string(),
+      pos: "0x0".to_string(),
+      rotate: "normal".to_string(),
     }
   }
 }
