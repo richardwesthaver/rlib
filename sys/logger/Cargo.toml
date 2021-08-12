@@ -4,6 +4,5 @@ version = "0.1.0"
 edition = "2018"
 
 [dependencies]
-#log = { path = "../../../../contrib/lib/rust/log", features = ["std", "serde", "kv_unstable"] }
-log = "0.4"
-flexi_logger = { version = "*", path = "../../../../contrib/lib/rust/flexi_logger", features = ["async", "specfile", "compress", "colors", "atty"] }
+log = { version = "0.4.14", features = ["kv_unstable"] }
+flexi_logger = { version = "0.18.0", features = ["async", "specfile", "compress", "colors", "atty"] }

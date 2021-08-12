@@ -1,12 +1,7 @@
-use std::{
-  collections::VecDeque,
-  io,
-  os::unix::io::{AsRawFd, RawFd},
-  ptr,
-};
+use std::{os::unix::io::RawFd, ptr};
 
 pub use io_uring;
-use io_uring::{opcode, squeue, types, IoUring, SubmissionQueue};
+use io_uring::{opcode, squeue, types, SubmissionQueue};
 
 #[derive(Clone, Debug)]
 pub enum Token {

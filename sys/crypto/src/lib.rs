@@ -1,8 +1,3 @@
-extern crate ed25519;
-use ed25519::signature::Signature as _;
-use ed25519_dalek::*;
-use hash::{hex::FromHex, Sha512};
-
 pub const SECRET_KEY_LENGTH: usize = 32;
 pub const PUBLIC_KEY_LENGTH: usize = 32;
 

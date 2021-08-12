@@ -4,9 +4,9 @@ version = "0.1.0"
 edition = "2018"
 
 [dependencies]
-ed25519-dalek = { version = "1.0.1", path = "../../../../contrib/lib/rust/ed25519-dalek" }
-rand_core = { version = "*", path = "../../../../contrib/lib/rust/rand/rand_core", features=["getrandom"] }
-hash = { version = "*", path = "../hash" }
-ed25519 = { version = "*", path = "../../../../contrib/lib/rust/signatures/ed25519" }
-salsa20 = { version = "*", path = "../../../../contrib/lib/rust/stream-ciphers/salsa20", features = ["xsalsa20"] }
-x25519-dalek = { version = "*", path = "../../../../contrib/lib/rust/x25519-dalek" }
+ed25519-dalek = "1.0.1"
+rand_core = "0.6.3"
+hash = { version = "0.1.0", path = "../hash" }
+ed25519 = "1.2.0"
+salsa20 = { version = "0.8.1", features = ["xsalsa20"] }
+x25519-dalek = "1.1.1"

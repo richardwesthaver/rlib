@@ -1,5 +1,4 @@
 use std::fmt;
-use std::result::Result;
 
 use cfg::NetworkConfig;
 use db::Registry;
@@ -11,7 +10,7 @@ pub struct Client {
 }
 
 impl Client {
-  pub fn get(&self, key: String) -> Result<String, Err::Client> {
+  pub fn get(&self, key: String) -> net::Result<String> {
     Ok("heythere".to_string())
   }
 }

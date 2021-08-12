@@ -1,8 +1,7 @@
-[source]
-[source.crates-io]
-#replace-with = "crater"
-[source.crater]
-directory = "/mnt/cia1/shed/contrib/lib/rust/crater"
+#default-registry = [ "crater" ]
+
+[registry.crater]
+local = "/mnt/cia/crater_local"
 
 [unstable]
 mtime-on-use = true

@@ -4,17 +4,17 @@ version = "0.1.0"
 edition = "2018"
 
 [dependencies]
-ctx = { path = "../ctx" }
+#ctx = { path = "../ctx" }
 weather = { path = "../app/weather" }
-tokio = { path = "../../../contrib/lib/rust/tokio/tokio", default-features = false, features = ["net", "io-util"] }
-tokio-util = { path = "../../../contrib/lib/rust/tokio/tokio-util", features = ["full"] }
-tokio-stream = {path = "../../../contrib/lib/rust/tokio/tokio-stream", features = ["net"]}
-futures = {path = "../../../contrib/lib/rust/futures/futures"}
-bytes = {path = "../../../contrib/lib/rust/bytes"}
-hyper = { path = "../../../contrib/lib/rust/hyper", features = ["full"] }
-url = { path = "../../../contrib/lib/rust/url/url" }
-reqwest = { path = "../../../contrib/lib/rust/reqwest", features = ["json", "socks"] }
-serde_json = { version = "1.0.64", path = "../../../contrib/lib/rust/serde_json" }
-ssh2 = { path = "../../../contrib/lib/rust/ssh2" }
-wireguard-rs = { path = "../../../contrib/lib/rust/wireguard-rs" }
+tokio = { version = "1.9.0", default-features = false, features = ["net", "io-util"] }
+tokio-util = { features = ["full"], version = "0.6.7" }
+tokio-stream = { version = "0.1.7", features = ["net"]}
+futures = {path = "../../contrib/lib/rust/futures/futures"}
+bytes = {path = "../../contrib/lib/rust/bytes"}
+hyper = { path = "../../contrib/lib/rust/hyper", features = ["full"] }
+url = { path = "../../contrib/lib/rust/url/url" }
+reqwest = { path = "../../contrib/lib/rust/reqwest", features = ["json", "socks"] }
+serde_json = { version = "1.0.64", path = "../../contrib/lib/rust/serde_json" }
+#ssh2 = { path = "../../contrib/lib/rust/ssh2" } # conflict
+wireguard-rs = { path = "../../contrib/lib/rust/wireguard-rs" }
 logger = { path = "../sys/logger" }

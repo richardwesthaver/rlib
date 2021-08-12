@@ -3,8 +3,10 @@ name = "db"
 version = "0.1.0"
 edition = "2018"
 
-[dependencies]
-rocksdb = { path = "../../../contrib/lib/rust/rocksdb" }
+[dependencies.rocksdb]
+version = "0.17.0"
+default-features = false
+features = ["zstd"]
 
 [dev-dependencies]
-tempfile = { version = "3.2.0" }
+tempfile = "3.2.0"

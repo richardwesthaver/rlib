@@ -14,8 +14,8 @@ use std::{
 
 use git2::Repository as GitRepository;
 use hg_parser::MercurialRepository;
+use logger::log::{info, trace};
 use serde::{Deserialize, Serialize};
-use sys::logger::log::{info, trace};
 
 use crate::Result;
 #[derive(Serialize, Deserialize, Debug, Hash)]

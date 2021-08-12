@@ -1,3 +1,4 @@
+#[allow(unused)]
 macro_rules! id_u64 {
     ($($name:ident;)*) => {
         $(

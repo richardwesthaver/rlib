@@ -2,7 +2,6 @@ pub use std::hash::{Hash, Hasher};
 
 pub use blake3::{derive_key, hash, keyed_hash, Hash as B3Hash, Hasher as B3Hasher, OutputReader};
 pub use hex;
-pub use libp2p::multihash;
 use rand::Rng;
 use serde::{Deserialize, Serialize};
 pub use sha2::Sha512;
