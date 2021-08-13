@@ -6,7 +6,6 @@ pub enum Error {
   Ron(ron::error::Error),
   Io(io::Error),
   Bincode(bincode::Error),
-  Uri(iref::Error),
   Utf8(std::string::FromUtf8Error),
 }
 
@@ -29,7 +28,6 @@ impl fmt::Display for Error {
       Error::Io(ref err) => write!(f, "obj IO error: {}", err),
       Error::Ron(ref err) => write!(f, "obj Ron error: {}", err),
       Error::Bincode(ref err) => write!(f, "obj Bincode error: {}", err),
-      Error::Uri(ref err) => write!(f, "obj Uri error: {}", err),
       Error::Utf8(ref err) => write!(f, "obj Utf8 error: {}", err),
     }
   }
@@ -56,12 +54,6 @@ impl From<ron::Error> for Error {
 impl From<bincode::Error> for Error {
   fn from(e: bincode::Error) -> Self {
     Error::Bincode(e)
-  }
-}
-
-impl From<iref::Error> for Error {
-  fn from(e: iref::Error) -> Self {
-    Error::Uri(e)
   }
 }
 

@@ -7,5 +7,5 @@ edition = "2018"
 path = "lib.rs"
 
 [dependencies]
-futures = { path = "../../../contrib/lib/rust/futures/futures", features = ["async-await", "compat"] }
-tokio = { version = "1.7", default-features = false, features = ["full", "test-util"] }
+futures = { features = ["async-await", "compat"], version = "0.3.16" }
+tokio = { version = "1.10.0", default-features = false, features = ["full", "test-util"] }

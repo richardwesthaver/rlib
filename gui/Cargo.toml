@@ -1,0 +1,15 @@
+[package]
+name = "gui"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+# internal
+cfg = { path = "../cfg" }
+kala = { path = "../kala" }
+net = { path = "../net" }
+org = { path = "../app/org" }
+
+# contrib
+#chrono = { path = "../../../contrib/lib/rust/chrono", features = ["serde"] }
+druid = "0.7.0"

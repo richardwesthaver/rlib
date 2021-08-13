@@ -2,7 +2,7 @@
 use crate::RocksDB;
 
 pub struct Registry {
-  db: RocksDB,
+  pub db: RocksDB,
 }
 
 impl Registry {

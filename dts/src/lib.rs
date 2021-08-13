@@ -1,6 +1,6 @@
 #![feature(generic_associated_types)]
 //#![feature(arbitrary_enum_discriminant)]
-#![allow(incomplete_features)]
+#![allow(incomplete_features, dead_code)]
 
 pub trait Functor {
   type Unwrapped;

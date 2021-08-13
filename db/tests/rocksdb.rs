@@ -49,7 +49,7 @@ impl AsRef<Path> for &DBPath {
   }
 }
 
-fn get_byte_slice<T: AsRef<[u8]>>(source: &'_ T) -> &'_ [u8] {
+pub fn get_byte_slice<T: AsRef<[u8]>>(source: &'_ T) -> &'_ [u8] {
   source.as_ref()
 }
 

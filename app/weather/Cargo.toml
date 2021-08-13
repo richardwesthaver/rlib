@@ -5,12 +5,9 @@ authors = ["ellis"]
 edition = "2018"
 
 [dependencies]
-tokio = { version = "*", features = ["full"] }
-reqwest = { version = "*", features = ["json"] }
-serde_json = "*"
-
-serde = { version = "*", features = ["derive"] }
-ron = "*"
-
-chrono = { version = "*", features = ["serde"] }
-tracing = "*" # consider other options
+tokio = { version = "1.10.0", features = ["full"] }
+reqwest = { version = "0.11.4", features = ["json"] }
+serde_json = "1.0.66"
+serde = { version = "1.0.127", features = ["derive"] }
+ron = "0.6.4"
+chrono = { version = "0.4.19", features = ["serde"] }

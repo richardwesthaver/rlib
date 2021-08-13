@@ -1,5 +1,6 @@
 //! cfg/src/lib.rs -- Configuration Primitives for distributed systems
 #![feature(map_try_insert)]
+#![allow(dead_code)]
 
 mod config;
 mod de;

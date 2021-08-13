@@ -4,7 +4,7 @@ use crate::Result;
 
 // Given a path provided by the user, determines where generated files
 // related to that path should go.
-pub fn local_relative_path(path: &Path) -> PathBuf {
+pub fn local_relative_path(path: &Path) -> Result<PathBuf> {
   let mut rel_path = PathBuf::new();
   for component in path.components() {
     match component {
@@ -13,5 +13,6 @@ pub fn local_relative_path(path: &Path) -> PathBuf {
       Component::Normal(name) => rel_path.push(name),
     }
   }
-  rel_path
+
+  Ok(rel_path)
 }

@@ -54,10 +54,10 @@ pub async fn weather_report() {
     .user_agent(APP_USER_AGENT)
     .build()
     .unwrap();
-  let mut file =
-    PathBuf::from_str(option_env!("XDG_CONFIG_HOME").expect("XDG_CONFIG_HOME not found"))
-      .unwrap()
-      .join("user.ron");
+
+  let file = PathBuf::from_str(option_env!("XDG_CONFIG_HOME").expect("XDG_CONFIG_HOME
+    not found")).unwrap().join("user.ron");
+
   trace!("user/cfg :=: {:?}", &file);
   let user_point = File::open(file).expect("user.ron is no good!");
   let point: Point = match ron::de::from_reader(user_point) {

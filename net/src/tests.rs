@@ -1,8 +1,7 @@
 use std::net::UdpSocket;
-
 use weather::Point;
-
 use crate::client::*;
+
 #[test]
 fn udp_start() {
   let socket = UdpSocket::bind("127.0.0.1:0").expect("UdpSocket::bind failed");
@@ -10,8 +9,9 @@ fn udp_start() {
 }
 
 #[ctx::test]
-async fn ipapi() {
-  assert!(ipapi::get_ip().await.is_ok());
+async fn ip_lookup() {
+  assert!(ipapi::my_ip().await.is_ok());
+  assert!(ipapi::my_ip_verbose().await.is_ok());
 }
 
 #[ctx::test]

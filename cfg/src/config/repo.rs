@@ -9,11 +9,10 @@ use std::{
   io::{LineWriter, Read, Write},
   net::SocketAddr,
   path::{Path, PathBuf},
-  sync::{Arc, Mutex},
 };
 
-use git2::Repository as GitRepository;
-use hg_parser::MercurialRepository;
+pub use git2::Repository as GitRepository;
+pub use hg_parser::MercurialRepository;
 use logger::log::{info, trace};
 use serde::{Deserialize, Serialize};
 
@@ -81,20 +80,16 @@ impl HgSubFile {
     Ok(self)
   }
 
+  /// TODO [2021-08-13 Fri]
   /// insert a subrepo into this HgSubFile. does not clone the source
   /// or ensure that path exists. Takes an optional argument of 'hg'
   /// or 'git' to indicate the subrepo-type. None represents a
   /// local-only repo.
-  pub fn insert(&self, name: &str, vcs: Option<&str>) -> Result<()> {
-    let root = &self.path;
-
-    let subrepo = (name, vcs);
-
+  pub fn insert(&self, _name: &str, _vcs: Option<&str>) -> Result<()> {
     Ok(())
   }
 
-  // Sort the full contents of a .hgsub file alphabetically.
-  // This makes things slightly easier to find in mono-repos.
+  /// Sort the full contents of a .hgsub file alphabetically.
   pub fn sort(self) -> Result<Self> {
     let mut fd = File::open(&self.path)?;
     let len = fd.metadata().unwrap().len() as usize;
@@ -160,7 +155,7 @@ impl HgWebConfig {
     }
   }
 
-  pub fn from_path(path: &Path) -> Self {
+  pub fn from_path(_path: &Path) -> Self {
     HgWebConfig::new()
   }
 

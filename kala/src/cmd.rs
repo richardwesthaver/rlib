@@ -1,23 +1,23 @@
 //! kalash::cmd
-use core::fmt;
 use std::env;
 use std::io::BufRead;
 use std::io::BufReader;
-use std::time::Instant;
 
 use cfg::repo::HgWebConfig;
 use cfg::DisplayConfig;
-use cmd_lib::{run_cmd, spawn_with_output, use_builtin_cmd, CmdResult, FunResult};
+use cmd_lib::{run_cmd, spawn_with_output, use_builtin_cmd, CmdResult};
 use logger::log::{error, info, trace};
 use xrandr::XHandle;
 
 use crate::Result;
-pub fn hgweb(cfg: HgWebConfig) -> CmdResult {
-  use_builtin_cmd!(echo, info);
 
+pub fn hgweb(cfg: HgWebConfig) -> CmdResult {
+  println!("found hgweb_config: {:?}", cfg);
+  use_builtin_cmd!(echo, info);
   // Continuously process child process' outputs
   spawn_with_output!(hgweb)?.wait_with_pipe(&mut |pipe| {
     let cfg = option_env!("SHED_CFG").expect("$SHED_CFG undefined");
+    info!("found config {}", cfg);
     BufReader::new(pipe)
       .lines()
       .filter_map(|line| line.ok())
@@ -30,7 +30,7 @@ pub fn hgweb(cfg: HgWebConfig) -> CmdResult {
 pub fn startx() -> CmdResult {
   // check to see if DISPLAY is set, else start the X server
   if let Ok(val) = env::var("DISPLAY") {
-    error!("DISPLAY is already set! skipping call to startx.");
+    error!("{} is already set! skipping call to startx.", val);
   } else {
     info!("DISPLAY unset, starting X server.");
     run_cmd!( sh -c "startx" )?;

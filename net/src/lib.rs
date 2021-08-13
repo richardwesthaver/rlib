@@ -1,6 +1,5 @@
 mod api;
 mod err;
-mod transport;
 pub use crate::{
   api::{
     client::{self, Client},

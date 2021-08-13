@@ -1,20 +1,23 @@
 [package]
+edition = "2018"
 name = "net"
 version = "0.1.0"
-edition = "2018"
 
 [dependencies]
-#ctx = { path = "../ctx" }
+futures = "*"
+bytes = "*"
 weather = { path = "../app/weather" }
-tokio = { version = "1.9.0", default-features = false, features = ["net", "io-util"] }
-tokio-util = { features = ["full"], version = "0.6.7" }
-tokio-stream = { version = "0.1.7", features = ["net"]}
-futures = {path = "../../contrib/lib/rust/futures/futures"}
-bytes = {path = "../../contrib/lib/rust/bytes"}
-hyper = { path = "../../contrib/lib/rust/hyper", features = ["full"] }
-url = { path = "../../contrib/lib/rust/url/url" }
-reqwest = { path = "../../contrib/lib/rust/reqwest", features = ["json", "socks"] }
-serde_json = { version = "1.0.64", path = "../../contrib/lib/rust/serde_json" }
-#ssh2 = { path = "../../contrib/lib/rust/ssh2" } # conflict
-wireguard-rs = { path = "../../contrib/lib/rust/wireguard-rs" }
-logger = { path = "../sys/logger" }
+logger = { path = "../logger" }
+url = "*"
+hyper = { version = "*", features = ["full"] }
+reqwest = { version = "0.11.4", features = ["json", "socks"] }
+serde_json = "1.0.66"
+tokio = { version = "1.10.0", default-features = false, features = ["net", "io-util"] }
+tokio-stream = { version = "0.1.7", features = ["net"] }
+tokio-util = { version = "0.6.7", features = ["full"] }
+
+[dependencies.wireguard-rs]
+path = "../../contrib/lib/rust/wireguard-rs"
+
+[dev-dependencies]
+ctx = { path = "../ctx" }

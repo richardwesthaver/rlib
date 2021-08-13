@@ -1,0 +1,20 @@
+[package]
+edition = "2018"
+name = "hash"
+version = "0.1.0"
+[dependencies]
+blake3 = "*"
+hex = "0.4.3"
+
+[dependencies.hashbrown]
+version = "0.11.2"
+
+[dependencies.rand]
+version = "*"
+
+[dependencies.serde]
+features = ["derive"]
+version = "*"
+
+[dependencies.sha2]
+version = "*"

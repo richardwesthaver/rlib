@@ -1,0 +1,11 @@
+[package]
+name = "eve"
+version = "0.1.0"
+edition = "2018"
+
+[target.'cfg(unix)'.dependencies]
+io-uring = "0.5.1"
+
+[dev-dependencies]
+libc = "0.2.99"
+slab = "0.4.4"

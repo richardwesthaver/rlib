@@ -6,17 +6,23 @@ edition = "2018"
 [dependencies]
 cfg = { path = "../cfg" }
 net = { path = "../net" }
-chrono = { version = "0.4", path = "../../contrib/lib/rust/chrono", features = ["serde"] }
+chrono = { version = "0.4.19", features = ["serde"] }
 ctx = { path = "../ctx" }
-rusb = { version = "0.8.1", path = "../../contrib/lib/rust/rusb" }
+rusb = { version = "0.8.1" }
 weather = { path = "../app/weather" }
 org = { path = "../app/org" }
-hash = { path = "../sys/hash" }
-flate = { path = "../sys/flate" }
-logger = { path = "../sys/logger" }
-cmd_lib = {path = "../../contrib/lib/rust/cmd_lib"}
-ron = {path = "../../contrib/lib/rust/ron"}
-rustyline = {path = "../../contrib/lib/rust/rustyline"}
-rpassword = {path = "../../contrib/lib/rust/rpassword"}
-xrandr = {path = "../../contrib/lib/rust/xrandr"}
-tmux_interface = { version = "^0.1.0", path = "../../contrib/lib/rust/tmux_interface", features = ["tmux_X_X"] }
+hash = { path = "../hash" }
+flate = { path = "../flate" }
+logger = { path = "../logger" }
+cmd_lib = "1.1.0"
+ron = "0.6.4"
+rustyline = "8.2.0"
+rpassword = "5.0.1"
+xrandr = "0.1.0"
+tmux_interface = { version = "0.2.1", features = ["tmux_X_X"] }
+blake3 = "1.0.0"
+serde = "1.0.127"
+hex = "0.4.3"
+hashbrown = "0.11.2"
+rand = "0.8.4"
+sha2 = "0.9.5"

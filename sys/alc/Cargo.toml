@@ -1,7 +1,0 @@
-[package]
-name = "alc"
-version = "0.1.0"
-edition = "2018"
-
-[dependencies]
-bumpalo = { version = "3.7.0", path = "../../../contrib/lib/rust/bumpalo" }

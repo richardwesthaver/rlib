@@ -1,25 +1,23 @@
 /// obj/src/object.rs --++--
 /// Different types of external, concrete objects. All type
 /// definitions conform to the Serde spec.
-use std::convert::TryInto;
 use std::io;
 
 use chrono::{DateTime, Utc};
-use iref::{Iri, IriRefBuf};
+use hash::Id;
 pub(crate) use serde::{de::DeserializeOwned, Deserialize, Serialize};
-use sys::hash::Id;
 
 pub(crate) use crate::Result;
 mod color;
 mod doc;
-mod human;
+mod person;
 mod location;
 mod media;
 
 pub use self::{
   color::Color,
-  doc::{Doc, Org},
-  human::Person,
+  doc::Doc,
+  person::Person,
   location::{City, Point},
   media::Media,
 };
@@ -65,7 +63,7 @@ pub trait Objective {
     Ok(ron::ser::to_writer_pretty(
       writer,
       &self,
-      ron::ser::PrettyConfig::new().indentor("  ".to_owned()),
+      ron::ser::PrettyConfig::new().with_indentor("  ".to_owned()),
     )?)
   }
 
@@ -75,7 +73,7 @@ pub trait Objective {
   {
     Ok(ron::ser::to_string_pretty(
       &self,
-      ron::ser::PrettyConfig::new().indentor("  ".to_owned()),
+      ron::ser::PrettyConfig::new().with_indentor("  ".to_owned()),
     )?)
   }
 
@@ -85,7 +83,7 @@ pub trait Objective {
     Self: DeserializeOwned,
   {
     let mut bytes = Vec::new();
-    rdr.read_to_end(&mut bytes);
+    rdr.read_to_end(&mut bytes)?;
     Ok(ron::de::from_bytes(&bytes)?)
   }
 
@@ -97,7 +95,7 @@ pub trait Objective {
   }
 }
 
-#[derive(Serialize, Deserialize, Debug, Hash, Default)]
+#[derive(Serialize, Deserialize, Debug, Hash)]
 pub struct Meta {
   id: u64,
   tags: String,
@@ -106,25 +104,25 @@ pub struct Meta {
   updated: DateTime<Utc>,
 }
 
-#[derive(Serialize, Deserialize, Debug, Hash, Default)]
+#[derive(Serialize, Deserialize, Debug, Hash)]
 pub struct Properties {
   key: String,
   val: String,
 }
 
-#[derive(Serialize, Deserialize, Debug, Hash, Default)]
+#[derive(Serialize, Deserialize, Debug, Hash)]
 pub struct Summary {
   meta: Meta,
   summary: String,
 }
 
-#[derive(Serialize, Deserialize, Debug, Hash, Default)]
+#[derive(Serialize, Deserialize, Debug, Hash)]
 pub struct Note {
   meta: Meta,
   content: String,
 }
 
-pub trait ObjectId: Sized + Objective {
+pub trait Identity: Sized + Objective {
   fn id(&self) -> Id;
   fn update(&self) -> Self;
 }

@@ -10,7 +10,6 @@ mod repl;
 pub mod tmux;
 use crate::err::Error;
 pub type Result<T> = std::result::Result<T, Error>;
-pub use rpassword::{prompt_password, read_password, read_password_from_bufread};
 
 pub use crate::repl::repl;
 

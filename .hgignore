@@ -1,4 +1,4 @@
-syntax: glob
-target/
-Cargo.lock
-.#*
+^target/
+glob:Cargo.lock
+glob:.#*
+glob:*.*~

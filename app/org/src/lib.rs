@@ -2,7 +2,6 @@ use std::{fs, io::Result};
 
 use orgize::Org;
 use ron::{
-  extensions::Extensions,
   ser::{to_string_pretty, PrettyConfig},
 };
 
@@ -26,8 +25,6 @@ pub fn print_ron(file: &str) -> Result<()> {
     to_string_pretty(
       &Org::parse(&contents),
       PrettyConfig::new()
-        .indentor("  ".to_owned())
-        .extensions(Extensions::all()) // only used implicit some :(
     )
     .unwrap()
   );

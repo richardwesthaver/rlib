@@ -2,8 +2,6 @@
 //!
 //! Naive package configuration format for file-based package management.
 
-use std::path::PathBuf;
-
 use serde::{Deserialize, Serialize};
 
 use super::library::LibraryConfig;

@@ -1,10 +1,10 @@
 //use tempfile::NamedTempFile;
 use crate::config::repo::RepoType;
-use crate::{NetworkConfig, PackageConfig, Result};
+use crate::{NetworkConfig, PackageConfig};
 
 #[test]
 fn pkg_cfg() {
-  let pkg: PackageConfig = ron::from_str(
+  let _pkg: PackageConfig = ron::from_str(
     r#"(name: "emacs",
         path: "contrib/bin/emacs",
         ops: [
@@ -14,12 +14,12 @@ fn pkg_cfg() {
   )
   .unwrap();
 
-  let package = PackageConfig::default();
+  PackageConfig::default();
 }
 
 #[test]
 fn net_cfg() {
-  let net: NetworkConfig = ron::from_str(
+  let _net: NetworkConfig = ron::from_str(
     r#"(socket: "127.0.0.1:0",
         transport: "udp-server",
         tunnel: Some("wireguard"),
@@ -28,8 +28,8 @@ fn net_cfg() {
      )"#,
   )
   .unwrap();
-
-  let network = NetworkConfig::default();
+  
+  NetworkConfig::default();
 }
 
 #[test]

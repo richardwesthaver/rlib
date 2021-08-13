@@ -4,5 +4,5 @@ version = "0.1.0"
 edition = "2018"
 
 [dependencies]
-orgize = { path = "../../../contrib/lib/rust/orgize", features = [ "ser" ] }
-ron = { path = "../../../contrib/lib/rust/ron" }
+orgize = { path = "../../../contrib/lib/rust/orgize", features = ["ser"] }
+ron = "0.6.4"

@@ -1,0 +1,17 @@
+[package]
+edition = "2018"
+name = "crypto"
+version = "0.1.0"
+[dependencies]
+ed25519 = "*"
+ed25519-dalek = "1.0.1"
+hex = "*"
+rand_core = "0.6.3"
+
+[dependencies.hash]
+path = "../hash"
+version = "0.1.0"
+
+[dependencies.salsa20]
+features = ["xsalsa20"]
+version = "0.8.1"
