@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::{fs::File, path::PathBuf, str::FromStr};
 
 pub use flate::pack;
-use logger::log::{error, info, trace};
+use logger::log::{error, info, debug};
 use net::client::{
   ipapi::my_ip,
   nws::{get_forecast, get_point},
@@ -14,10 +14,10 @@ use crate::Result;
 
 pub fn usb_devices(usbmap: HashMap<(u16, u16), String>) -> Result<()> {
   // basic local info, useful for debugging
-  trace!("has capability? {}", rusb::has_capability());
-  trace!("has hotplug? {}", rusb::has_hotplug());
-  trace!("has HID access? {}", rusb::has_hid_access());
-  trace!(
+  debug!("has capability? {}", rusb::has_capability());
+  debug!("has hotplug? {}", rusb::has_hotplug());
+  debug!("has HID access? {}", rusb::has_hid_access());
+  debug!(
     "supports detach kernel driver? {}",
     rusb::supports_detach_kernel_driver()
   );
@@ -33,13 +33,13 @@ pub fn usb_devices(usbmap: HashMap<(u16, u16), String>) -> Result<()> {
     );
 
     match usbmap.get(&(device_desc.vendor_id(), device_desc.product_id())) {
-      Some(m) => println!(
+      Some(m) => info!(
         "found device {} at bus:{:03} dev:{:03}",
         m,
         device.bus_number(),
         device.address()
       ),
-      None => trace!(
+      None => info!(
         "bus:{:03} dev:{:03} unknown",
         device.bus_number(),
         device.address()
@@ -58,7 +58,7 @@ pub async fn weather_report() {
   let file = PathBuf::from_str(option_env!("XDG_CONFIG_HOME").expect("XDG_CONFIG_HOME
     not found")).unwrap().join("user.ron");
 
-  trace!("user/cfg :=: {:?}", &file);
+  debug!("user/cfg :=: {:?}", &file);
   let user_point = File::open(file).expect("user.ron is no good!");
   let point: Point = match ron::de::from_reader(user_point) {
     Ok(x) => x,
