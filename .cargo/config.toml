@@ -1,11 +1,12 @@
-#default-registry = [ "crater" ]
+[source]
+[source.crater]
+registry = "https://github.com/richardwesthaver/crater-index"
+#local-registry = "/mnt/cia/crater-rlib"
 
-[registry.crater]
-local = "/mnt/cia/crater_local"
+[source.crates-io]
+replace-with = "crater"
 
 [unstable]
-mtime-on-use = true
-timings = ["info"]
 multitarget = true
 
 [doc.extern-map.registries]

@@ -55,8 +55,7 @@ pub async fn weather_report() {
     .build()
     .unwrap();
 
-  let file = PathBuf::from_str(option_env!("XDG_CONFIG_HOME").expect("XDG_CONFIG_HOME
-    not found")).unwrap().join("user.ron");
+  let file = PathBuf::from_str(option_env!("XDG_CONFIG_HOME").unwrap()).unwrap().join("user.ron");
 
   debug!("user/cfg :=: {:?}", &file);
   let user_point = File::open(file).expect("user.ron is no good!");
