@@ -5,6 +5,7 @@
 //! configurations. For example: xrandr configuration.
 use serde::{Deserialize, Serialize};
 
+/// Monitor configuration
 pub struct Monitor {
   name: String,
   brightness: u32,
@@ -21,6 +22,7 @@ impl Monitor {
   }
 }
 
+/// Display configuration
 #[derive(Serialize, Deserialize, Debug, Hash)]
 pub struct DisplayConfig {
   pub output: String,

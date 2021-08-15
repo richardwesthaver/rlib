@@ -18,7 +18,7 @@ cmd_lib = "1.1.0"
 ron = "0.6.4"
 rustyline = "8.2.0"
 rpassword = "5.0.1"
-xrandr = "0.1.0"
+xrandr = { version = "0.1.0", optional = true } # x11 doesn't compile on musl :(
 tmux_interface = { version = "0.2.1", features = ["tmux_X_X"] }
 blake3 = "1.0.0"
 serde = "1.0.127"

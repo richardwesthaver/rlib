@@ -3,8 +3,8 @@
 registry = "https://github.com/richardwesthaver/crater-index"
 #local-registry = "/mnt/cia/crater-rlib"
 
-[source.crates-io]
-replace-with = "crater"
+#[source.crates-io]
+#replace-with = "crater"
 
 [unstable]
 multitarget = true
