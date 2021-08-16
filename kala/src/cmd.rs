@@ -8,6 +8,8 @@ use cfg::DisplayConfig;
 use cmd_lib::log::debug;
 use cmd_lib::{run_cmd, spawn_with_output, use_builtin_cmd, CmdResult};
 use logger::log::{info, trace};
+
+#[cfg(all(target_os="linux", target_env="gnu"))]
 use xrandr::XHandle;
 
 use crate::Result;
@@ -28,9 +30,11 @@ pub fn hgweb(cfg: HgWebConfig) -> CmdResult {
   Ok(())
 }
 
-/// start X11 server after ensuring DISPLAY is unset, then put the thread to sleep for a short duration while waiting for init.
+/// start X11 server after ensuring DISPLAY is unset, then put the
+/// thread to sleep for a short duration while waiting for init.
 ///
 /// TODO: [2021-08-13 22:39] - spawn this in background thread, remove cmd_lib
+#[cfg(target_os = "linux")]
 pub fn startx() -> CmdResult {
   // check to see if DISPLAY is set, else start the X server
   if let Ok(val) = env::var("DISPLAY") {
@@ -45,12 +49,14 @@ pub fn startx() -> CmdResult {
 
 
 /// List available monitors via X11
+#[cfg(all(target_os = "linux", target_env="gnu"))]
 pub fn xrandr_list() {
   let monitors = XHandle::open().unwrap().monitors().unwrap();
   info!("{:#?}", monitors);
 }
 
 /// Configure a Display with xrandr
+#[cfg(all(target_os = "linux", target_env="gnu"))]
 pub fn xrandr(cfg: DisplayConfig) -> Result<std::process::Output> {
   trace!("{:#?}", cfg);
   let mut args = vec![
@@ -77,6 +83,7 @@ pub fn xrandr(cfg: DisplayConfig) -> Result<std::process::Output> {
 }
 
 /// start the mpd daemon in background
+#[cfg(unix)]
 pub fn mpd() -> CmdResult {
   Ok(run_cmd!(mpd)?)
 }
@@ -87,6 +94,7 @@ pub fn fehbg(img_path: &str) -> CmdResult {
 }
 
 /// start conky service in background
+#[cfg(unix)]
 pub fn conky(cfg: &str) -> CmdResult {
   Ok(run_cmd!(conky  -qbdc "$cfg" '&')?)
 }

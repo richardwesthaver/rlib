@@ -6,6 +6,9 @@ registry = "https://github.com/richardwesthaver/crater-index"
 #[source.crates-io]
 #replace-with = "crater"
 
+[target.x86_64-unknown-linux-musl]
+linker = "x86_64-linux-musl-gcc"
+
 [unstable]
 multitarget = true
 
