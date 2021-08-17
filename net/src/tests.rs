@@ -22,6 +22,6 @@ async fn nwsapi() {
     .build()
     .unwrap();
   let res = nws::get_point(&pnt, &client).await.unwrap();
-  let resf = nws::get_forecast(&res, &client).await;
-  assert!(resf.is_ok());
+  nws::get_forecast(&res, &client).await.unwrap();
+  nws::get_forecast_hourly(&res, &client).await.unwrap();
 }

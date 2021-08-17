@@ -1,15 +1,17 @@
-/// obj/src/object.rs --++--
-/// Different types of external, concrete objects. All type
-/// definitions conform to the Serde spec.
+//! obj::object
+//!
+//! Concrete object types and traits. All type definitions conform to
+//! the Serde spec.
 use std::io;
 
 use chrono::{DateTime, Utc};
 use hash::Id;
-pub(crate) use serde::{de::DeserializeOwned, Deserialize, Serialize};
+use serde::de::DeserializeOwned;
+pub(crate) use serde::{Deserialize, Serialize};
 
-pub(crate) use crate::Result;
+use crate::Result;
 mod color;
-mod doc;
+pub mod doc;
 mod person;
 mod location;
 mod media;
@@ -17,13 +19,14 @@ mod media;
 pub use self::{
   color::Color,
   doc::Doc,
-  person::Person,
   location::{City, Point},
   media::Media,
+  person::Person,
 };
 
-/// The Objective trait definition.
-/// Used on types that derive (Serialize, Deserialize)
+/// Objective trait
+///
+/// Defines Object behaviors, implemented by Objects
 pub trait Objective {
   fn encode(&self) -> Result<Vec<u8>>
   where
@@ -95,34 +98,71 @@ pub trait Objective {
   }
 }
 
+/// Identity trait
+///
+/// Defines Id-related behaviors, implemented by Objects
+pub trait Identity: Sized + Objective {
+  fn id(&self) -> Id;
+  fn update(&self) -> Self;
+}
+
+/// Meta object
+///
+/// This struct is built into other Objects, providing basic data for
+/// static analysis.
 #[derive(Serialize, Deserialize, Debug, Hash)]
 pub struct Meta {
   id: u64,
-  tags: String,
-  properties: Properties,
+  tags: Option<String>,
+  properties: Option<Vec<Property>>,
   created: DateTime<Utc>,
   updated: DateTime<Utc>,
 }
 
+impl Meta {
+  pub fn new() -> Self {
+    Meta {
+      id: 0x00,
+      tags: None,
+      properties: None,
+      created: Utc::now(),
+      updated: Utc::now(),
+    }
+  }
+}
+impl Default for Meta {
+  fn default() -> Self {
+      Meta::new()
+  }
+}
+/// Property object
+///
+/// An isolated property consisting of a (key,val) pair.
+///
+/// TODO <2021-08-17 Tue 01:28> - this should be a trait. make
+/// metadata module for this.
 #[derive(Serialize, Deserialize, Debug, Hash)]
-pub struct Properties {
+pub struct Property {
   key: String,
   val: String,
 }
 
+/// Summary object
+///
+/// A summary of an object.
+///
+/// TODO <2021-08-17 Tue 01:30> make this a trait too.
 #[derive(Serialize, Deserialize, Debug, Hash)]
 pub struct Summary {
   meta: Meta,
   summary: String,
 }
 
+/// Note object
+///
+/// A note pertaining to one or many objects.
 #[derive(Serialize, Deserialize, Debug, Hash)]
 pub struct Note {
   meta: Meta,
   content: String,
-}
-
-pub trait Identity: Sized + Objective {
-  fn id(&self) -> Id;
-  fn update(&self) -> Self;
 }

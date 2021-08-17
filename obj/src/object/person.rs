@@ -1,7 +1,14 @@
+//! obj::person
+//!
+//! Object types for people
+
 use chrono::{DateTime, Utc};
 
 use super::{Deserialize, Objective, Serialize};
 
+/// Person object type
+///
+/// Contains information about a specific person.
 #[derive(Serialize, Deserialize, Debug, Hash)]
 pub struct Person {
   name: String,

@@ -1,69 +1,80 @@
-use std::fs;
-use std::path::{Path, PathBuf};
+//! obj::doc::org
+//!
+//! Org document object types
 
-use orgize::{
-  export::{DefaultHtmlHandler, HtmlHandler},
-  Element, Org as Organ, ParseConfig,
-};
+use std::fs;
+use std::path::PathBuf;
+
+//use orgize::{
+//  Element, Org as Organ, ParseConfig,
+//};
 use ron::{
   extensions::Extensions,
   ser::{to_string_pretty, PrettyConfig},
 };
-use logger::log::{error, info};
+use logger::log::info;
 
-use super::{Deserialize, Meta, Note, Objective, Result, Serialize};
-use crate::err::Error;
+use crate::Result;
+use crate::object::{Deserialize, Meta, Note, Objective, Serialize, Property};
 
+/// Org object type
 #[derive(Serialize, Deserialize, Debug, Hash)]
 pub struct Org {
   meta: Meta,
-  pub content: String,
+  properties: Option<Vec<Property>>,
+  contents: String,
   notes: Option<Vec<Note>>,
 }
 
 impl Org {
+  /// Create a new Org object
   pub fn new() -> Self {
     Org {
       meta: Meta::default(),
-      content: "".to_string(),
+      properties: None,
+      contents: "".to_string(),
       notes: None,
     }
   }
-
-  pub fn from_file(&self, path: &str) -> Result<Self> {
+  /// Create a new Org object from an Org-mode file
+  pub fn from_file(path: &str) -> Result<Self> {
     let contents =
       String::from_utf8(fs::read(PathBuf::from(path))?).expect("failed to read utf8 string");
     let mut org = Org::new();
-    org.content = contents;
+    org.contents = contents;
     info!("parsed org-file: {:?}", &path);
     info!(
       "{}",
       to_string_pretty(
         &org.meta,
         PrettyConfig::new()
-          .indentor("  ".to_owned())
-          .extensions(Extensions::all()) // only used implicit some :(
+          .with_indentor("  ".to_owned())
+          .with_extensions(Extensions::all())
       )
       .unwrap()
     );
     Ok(org)
   }
 
+  /// Append structured data to this Org document
   pub fn append(self, input: &str) -> Result<Self> {
     let mut doc = self;
-    doc.content += input;
+    doc.contents += input;
 
     Ok(doc)
   }
 
+  /// Return document metadata
   pub fn meta(&self) -> &Meta {
     &self.meta
   }
 
+  /// Return document content
   pub fn content(&self) -> &str {
-    &self.content
+    &self.contents
   }
 
+  /// Return notes linked to this object
   pub fn notes(&self) -> Option<&Vec<Note>> {
     if self.notes.is_none() {
       None
@@ -75,40 +86,30 @@ impl Org {
 
 impl Objective for Org {}
 
-pub struct OrgHtmlHandler(DefaultHtmlHandler);
-
+/// Test Org parser functionality
 #[test]
 fn org_docs() {
   use crate::{Objective, Org};
   let org = Org::new();
-  assert_eq!(org.content, "");
+  assert_eq!(org.contents, "");
 
-  let org_file = org.from_file("doc.org");
+  let org_file = Org::from_file("doc.org");
   assert!(org_file.is_ok());
 
-  let ron_org = r#"(
-  meta: (
-    id: 0,
-    tags: "",
-    properties: (
-      key: "",
-      val: "",
-    ),
-    created: "1970-01-01T00:00:00Z",
-    updated: "1970-01-01T00:00:00Z",
-  ),
-  content: "",
-  notes: None,
-)"#;
-  assert_eq!(org.to_ron_string().unwrap(), ron_org);
+  // let ron_org = r#"(
+  // meta: (
+  //   id: 0,
+  //   tags: None,
+  //   properties: None,
+  //   ),
+  //   created: "1970-01-01T00:00:00Z",
+  //   updated: "1970-01-01T00:00:00Z",
+  // ),
+  // content: "",
+  // notes: None,
+  // )"#;
 
   assert!(org.encode().is_ok());
-  let org_bytes = vec![
-    0, 0, 0, 0, 20, 49, 57, 55, 48, 45, 48, 49, 45, 48, 49, 84, 48, 48, 58, 48, 48, 58, 48, 48, 90,
-    20, 49, 57, 55, 48, 45, 48, 49, 45, 48, 49, 84, 48, 48, 58, 48, 48, 58, 48, 48, 90, 0, 0,
-  ];
-  assert_eq!(org.encode().unwrap(), org_bytes);
-
   let org = org.append("hello world").unwrap();
   assert_eq!("hello world", org.content());
 }

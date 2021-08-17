@@ -1,9 +1,13 @@
+//! obj::paths
+//!
+//! Helper functions for working with paths on filesystem
+
 use std::path::{Component, Path, PathBuf};
 
 use crate::Result;
 
-// Given a path provided by the user, determines where generated files
-// related to that path should go.
+/// Given a path provided by the user, determines where generated files
+/// related to that path should go.
 pub fn local_relative_path(path: &Path) -> Result<PathBuf> {
   let mut rel_path = PathBuf::new();
   for component in path.components() {

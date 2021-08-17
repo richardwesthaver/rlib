@@ -2,6 +2,7 @@ use std::{fmt, io};
 
 use serde::{de, ser};
 
+/// cfg Error type
 pub enum Error {
   Io(io::Error),
   Ron(ron::error::Error),

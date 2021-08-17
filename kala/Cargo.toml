@@ -2,18 +2,21 @@
 name = "kala"
 version = "0.1.0"
 edition = "2018"
+description = "Shell commands, wrappers and utilities"
 
 [dependencies]
+# internal
 cfg = { path = "../cfg" }
 net = { path = "../net" }
-chrono = { version = "0.4.19", features = ["serde"] }
 ctx = { path = "../ctx" }
-rusb = { version = "0.8.1" }
+obj = { path = "../obj" }
 weather = { path = "../app/weather" }
-org = { path = "../app/org" }
 hash = { path = "../hash" }
 flate = { path = "../flate" }
 logger = { path = "../logger" }
+# contrib
+rusb = { version = "0.8.1" }
+chrono = { version = "0.4.19", features = ["serde"] }
 cmd_lib = "1.1.0"
 ron = "0.6.4"
 rustyline = "8.2.0"
@@ -27,4 +30,4 @@ rand = "0.8.4"
 sha2 = "0.9.5"
 
 [target.'cfg(all(target_os="linux", target_env="gnu"))'.dependencies]
-xrandr = { version = "0.1.0" } # x11 doesn't compile on musl :(
+xrandr = { version = "0.1.0" } # x11 doesn't compile on musl as of 20210817

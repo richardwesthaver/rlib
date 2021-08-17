@@ -1,7 +1,9 @@
+//! cfg::tests
 //use tempfile::NamedTempFile;
 use crate::config::repo::RepoType;
 use crate::{NetworkConfig, PackageConfig};
 
+/// test PackageConfig
 #[test]
 fn pkg_cfg() {
   let _pkg: PackageConfig = ron::from_str(
@@ -17,6 +19,7 @@ fn pkg_cfg() {
   PackageConfig::default();
 }
 
+/// test NetworkConfig
 #[test]
 fn net_cfg() {
   let _net: NetworkConfig = ron::from_str(
@@ -32,6 +35,7 @@ fn net_cfg() {
   NetworkConfig::default();
 }
 
+/// test RepoType keywords
 #[test]
 fn repo_type() {
   assert_eq!(RepoType::GitRepository.to_string(), "git");

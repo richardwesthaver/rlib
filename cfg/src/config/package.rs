@@ -1,7 +1,6 @@
-//! config/package --++-- Package configuration
+//! cfg::config::package
 //!
-//! Naive package configuration format for file-based package management.
-
+//! Package configuration primitives
 use serde::{Deserialize, Serialize};
 
 use super::library::LibraryConfig;
@@ -11,6 +10,7 @@ use super::repo::RepoConfig;
 /// A single package configuration.
 #[derive(Serialize, Deserialize, Hash, Debug)]
 pub struct PackageConfig {
+  /// Name of this package
   name: String,
   repo: Option<RepoConfig>,
   program: Option<ProgramConfig>,
@@ -18,6 +18,7 @@ pub struct PackageConfig {
 }
 
 impl PackageConfig {
+  /// Create a new PackageConfig with a given name
   pub fn new(name: &str) -> Self {
     PackageConfig {
       name: name.to_string(),

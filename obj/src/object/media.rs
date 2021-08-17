@@ -1,3 +1,7 @@
+//! obj::media
+//!
+//! Media object types
+
 use super::{Deserialize, Objective, Serialize};
 
 /// External Media types.

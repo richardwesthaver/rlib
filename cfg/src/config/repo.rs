@@ -1,6 +1,6 @@
-//! config/repo --++-- Repository configuration
+//! cfg::config::repo
 //!
-//! Config structs for both Mercurial (primary) and Git.
+//! Repo configuration primitives
 
 use std::{
   collections::HashMap,
@@ -15,8 +15,11 @@ pub use git2::Repository as GitRepository;
 pub use hg_parser::MercurialRepository;
 use logger::log::{info, trace};
 use serde::{Deserialize, Serialize};
-
 use crate::Result;
+
+/// Generic repo configuration type
+///
+/// Wraps Mercurial and/or Git repos
 #[derive(Serialize, Deserialize, Debug, Hash)]
 pub struct RepoConfig {
   vcs: String,
@@ -25,6 +28,7 @@ pub struct RepoConfig {
 }
 
 impl RepoConfig {
+  /// Create a new RepoConfig
   pub fn new() -> Self {
     RepoConfig::default()
   }
@@ -40,6 +44,7 @@ impl Default for RepoConfig {
   }
 }
 
+/// The type of Repo (Mercurial or Git)
 pub enum RepoType {
   MercurialRepository,
   GitRepository,
@@ -54,18 +59,25 @@ impl fmt::Display for RepoType {
   }
 }
 
+/// Subrepo type
+///
+/// Note that Mercurial subrepos are a 'feature of last resort'
+/// according to official docs. They are needed in very niche
+/// scenarios and shouldn't be used most of the time.
 pub struct SubRepo {
-  vcs: String,
-  origin: String,
-  path: String,
+  pub vcs: String,
+  pub origin: String,
+  pub path: String,
 }
 
+/// Mercurial '.hgsub' file handle, which is just a list of PATH=SOURCE pairs.
 pub struct HgSubFile {
-  path: PathBuf,
-  subrepos: Vec<SubRepo>,
+  pub path: PathBuf,
+  pub subrepos: Vec<SubRepo>,
 }
 
 impl HgSubFile {
+  /// Create a new '.hgsub' file in current directory
   pub fn new() -> Self {
     HgSubFile {
       path: PathBuf::from(".hgsub"),
@@ -129,21 +141,26 @@ impl Default for HgSubFile {
   }
 }
 
-/// We don't remember the file path in this case because all HgWebConfig values
-/// are relative to $PWD
+/// Hgweb configuration type
+///
+/// Based on the configuration file for 'hgweb' scripts.
+///
+/// We don't remember the file path in this case because all
+/// HgwebConfig values are relative to $PWD.
 #[derive(Serialize, Deserialize, Debug)]
-pub struct HgWebConfig {
-  name: String,
-  contact: String,
-  description: String,
-  extensions: Vec<String>,
-  sock: SocketAddr,
-  paths: HashMap<PathBuf, PathBuf>,
+pub struct HgwebConfig {
+  pub name: String,
+  pub contact: String,
+  pub description: String,
+  pub extensions: Vec<String>,
+  pub sock: SocketAddr,
+  pub paths: HashMap<PathBuf, PathBuf>,
 }
 
-impl HgWebConfig {
+impl HgwebConfig {
+  /// Create a new HgwebConfig
   pub fn new() -> Self {
-    Self {
+    HgwebConfig {
       name: "".to_string(),
       contact: "".to_string(),
       description: "".to_string(),
@@ -154,25 +171,27 @@ impl HgWebConfig {
       paths: HashMap::new(),
     }
   }
-
+  /// Return HgwebConfig from hgweb configuration file
   pub fn from_path(_path: &Path) -> Self {
-    HgWebConfig::new()
+    HgwebConfig::new()
   }
 
+  /// Write a HgwebConfig to file
   pub fn write() -> Result<()> {
     Ok(())
   }
 }
 
-impl Default for HgWebConfig {
+impl Default for HgwebConfig {
   fn default() -> Self {
-    HgWebConfig::new()
+    HgwebConfig::new()
   }
 }
 
+/// ensure ability to insert new entries to HgwebConfig
 #[test]
 fn hgweb_test() {
-  let mut web_conf = HgWebConfig::default();
+  let mut web_conf = HgwebConfig::default();
 
   web_conf
     .paths

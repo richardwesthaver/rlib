@@ -1,16 +1,22 @@
-//! config/network --++-- Network configuration.
+//! cfg::config::network
 //!
-//! These structs are deserialized at runtime for any network-enabled component.
-use std::net::SocketAddr;
+//! Network configuration primitives
 
+use std::net::SocketAddr;
 use serde::{Deserialize, Serialize};
-/// Userspace Network Configuration.
+
+/// Network configuration
 #[derive(Serialize, Deserialize, Hash, Debug)]
 pub struct NetworkConfig {
+  /// a socket to bind
   socket: SocketAddr,
+  /// transport to use (TCP/UDP/UNIX)
   transport: String,
+  /// tunnel to use
   tunnel: Option<String>,
+  /// network engine to attach
   engine: Option<String>,
+  /// peers to register for O-RTT comms
   peers: Option<Vec<(String, String)>>,
 }
 

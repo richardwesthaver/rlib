@@ -1,5 +1,6 @@
 use std::{fmt, io};
 
+/// obj Error type
 #[derive(Debug)]
 pub enum Error {
   Message(String),

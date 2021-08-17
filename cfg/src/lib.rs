@@ -1,31 +1,29 @@
-//! cfg/src/lib.rs -- Configuration Primitives for distributed systems
+//! cfg
+//!
+//! Configuration Primitives
 #![feature(map_try_insert)]
-#![allow(dead_code)]
 
 mod config;
-mod de;
 mod err;
-mod ser;
 
-/// Re-exports
 pub use ron;
 
 pub use crate::{
   config::{
     database::DatabaseConfig,
-    display::DisplayConfig,
+    display::{DisplayConfig, MonitorConfig},
     library::LibraryConfig,
     network::NetworkConfig,
     package::PackageConfig,
     program::ProgramConfig,
     registry::RegistryConfig,
-    repo,
-    system::{SysConfig, SystemConfig, VmConfig, VmmConfig},
     user::UserConfig,
+    repo,
   },
   err::Error,
 };
 
+/// cfg Result wrapper
 pub type Result<T> = std::result::Result<T, Error>;
 
 #[cfg(test)]

@@ -1,20 +1,22 @@
-//! config/display.rs --++-- $DISPLAY config
+//! cfg::config::display
 //!
-//! The structs in this module pertain to PHYSICAL Display configurations. They
-//! immplement functionality intended for use in OS system and user
-//! configurations. For example: xrandr configuration.
+//! The structs in this module pertain to PHYSICAL Display
+//! configurations. They immplement functionality intended for use in
+//! OS system and user configurations. For example: xrandr
+//! configuration.
 use serde::{Deserialize, Serialize};
 
-/// Monitor configuration
-pub struct Monitor {
-  name: String,
-  brightness: u32,
-  resolution: (u16, u16),
+/// Monitor configuration type
+pub struct MonitorConfig {
+  pub name: String,
+  pub brightness: u32,
+  pub resolution: (u16, u16),
 }
 
-impl Monitor {
-  fn new(name: &str, brightness: u32, x: u16, y: u16) -> Self {
-    Monitor {
+impl MonitorConfig {
+  /// Create a new Monitor configuration
+  pub fn new(name: &str, brightness: u32, x: u16, y: u16) -> Self {
+    MonitorConfig {
       name: String::from(name),
       brightness,
       resolution: (x, y),

@@ -2,6 +2,9 @@ use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
+/// City object
+///
+/// Used to parse City metadata from datasets acquired on the internet
 #[derive(Deserialize, Serialize, Debug)]
 pub struct City {
   pub city: String,
@@ -11,6 +14,10 @@ pub struct City {
 }
 
 impl City {
+  /// Convert a City to Point.
+  ///
+  /// Returns Ok(Point) on success. Note that only f32 values are
+  /// accepted (0. 1. -- not 0 1).
   pub fn into_point(&self) -> Result<Point, std::io::Error> {
     Ok(Point {
       lat: self.lat,
@@ -19,6 +26,9 @@ impl City {
   }
 }
 
+/// Point object
+///
+/// A pair of coordinates used as an input to NWS API
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Point {
   pub lat: f32,
@@ -26,20 +36,20 @@ pub struct Point {
 }
 
 impl Point {
-  // create a new 'Point' from (f32, f32)
+  /// create a new 'Point' from (f32, f32)
   pub fn new(lat: f32, lng: f32) -> Self {
     Point { lat, lng }
   }
 }
 
-// result of a point query
+/// Result of a GET /point request
 #[derive(Serialize, Deserialize, Debug)]
 pub struct PointInfo {
   id: String,
   pub properties: PointProps,
 }
 
-// inner properties object of PointInfo
+/// Inner properties object of PointInfo
 #[derive(Serialize, Deserialize, Debug)]
 pub struct PointProps {
   #[serde(rename(deserialize = "forecastOffice"))]
@@ -64,14 +74,14 @@ pub struct PointProps {
   pub radar_station: String,
 }
 
-// inner relative_location object of PointProps
+/// inner relative_location object of PointProps
 #[derive(Debug, Serialize, Deserialize)]
 pub struct RelativeLocation {
   pub geometry: Value,
   pub properties: RelativeProps,
 }
 
-// inner properties object of RelativeLocation
+/// inner properties object of RelativeLocation
 #[derive(Debug, Serialize, Deserialize)]
 pub struct RelativeProps {
   pub city: String,
@@ -80,13 +90,13 @@ pub struct RelativeProps {
   pub bearing: Value,
 }
 
-/// Result of Forecast query
+/// Result of GET /forecast
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Forecast {
   pub properties: ForecastProps,
 }
 
-// Inner properties object of Forecast
+/// Inner properties object of Forecast
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ForecastProps {
   pub updated: DateTime<Utc>,
@@ -133,7 +143,9 @@ pub struct ForecastBundle {
   pub short_forecast: String,
 }
 
-/// Weather output representation
+/// WeatherForecast output representation tied to a specific City.
+///
+/// This struct is passed directly into an embedded Database
 #[derive(Debug, Serialize, Deserialize)]
 pub struct WeatherBundle {
   pub location: City,
@@ -142,6 +154,7 @@ pub struct WeatherBundle {
 }
 
 impl WeatherBundle {
+  /// Create a new WeatherBundle from a City and Forecast
   pub fn new(loc: City, fcb: Forecast) -> Self {
     let mut vec = Vec::new();
     for i in fcb.properties.periods.iter() {

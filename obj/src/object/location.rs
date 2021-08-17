@@ -1,3 +1,7 @@
+//! obj::location
+//!
+//! Location object types
+
 use chrono::{DateTime, Utc};
 
 use super::{Deserialize, Objective, Serialize};
@@ -17,6 +21,9 @@ pub struct City {
 
 impl Objective for City {}
 
+/// Point object type
+///
+/// Use in 2D applications.
 #[derive(Serialize, Deserialize, Debug, Default, PartialEq)]
 pub struct Point {
   x: f32,
@@ -24,7 +31,7 @@ pub struct Point {
 }
 
 impl Point {
-  // create a new 'Point' from (f32, f32)
+  /// Create a new Point from (f32, f32)
   pub fn new(x: f32, y: f32) -> Self {
     Point { x, y }
   }

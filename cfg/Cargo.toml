@@ -2,6 +2,7 @@
 name = "cfg"
 version = "0.1.0"
 edition = "2018"
+description = "User configuration types and helpers"
 
 [dependencies]
 ron = { version = "0.6.4" }

@@ -2,8 +2,7 @@
 use std::env;
 use std::io::BufRead;
 use std::io::BufReader;
-
-use cfg::repo::HgWebConfig;
+use cfg::repo::HgwebConfig;
 use cfg::DisplayConfig;
 use cmd_lib::log::debug;
 use cmd_lib::{run_cmd, spawn_with_output, use_builtin_cmd, CmdResult};
@@ -14,7 +13,7 @@ use xrandr::XHandle;
 
 use crate::Result;
 
-pub fn hgweb(cfg: HgWebConfig) -> CmdResult {
+pub fn hgweb(cfg: HgwebConfig) -> CmdResult {
   println!("found hgweb_config: {:?}", cfg);
   use_builtin_cmd!(echo, info);
   // Continuously process child outputs

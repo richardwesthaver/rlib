@@ -1,5 +1,10 @@
 use super::{Deserialize, Objective, Serialize};
-/// Color types, repr in RGBA8,16,32 layout later on
+
+/// Color object
+///
+/// Generic color definition structured as RGBA8
+///
+/// TODO <2021-08-16 Mon 21:45> - repr in RGBA8,16,32
 #[derive(Serialize, Deserialize, Debug, Hash, Default)]
 pub struct Color {
   red: u8,

@@ -8,6 +8,8 @@ use net::client::{
   nws::{get_forecast, get_point},
   Client, APP_USER_AGENT,
 };
+use obj::Org;
+use obj::Objective;
 use weather::Point;
 
 use crate::Result;
@@ -82,7 +84,8 @@ pub async fn weather_report() {
 }
 
 pub fn print_org(path: &str) {
-  org::print_ron(path).expect("could not print org-file!");
+  let doc = Org::from_file(path).unwrap();
+  doc.to_ron_string().unwrap();
 }
 
 pub async fn get_ip() {
