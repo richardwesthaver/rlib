@@ -8,7 +8,6 @@ edition = "2018"
 cfg = { path = "../cfg" }
 kala = { path = "../kala" }
 net = { path = "../net" }
-org = { path = "../app/org" }
 
 # contrib
 #chrono = { path = "../../../contrib/lib/rust/chrono", features = ["serde"] }

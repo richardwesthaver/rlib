@@ -10,11 +10,11 @@ hex = "0.4.3"
 version = "0.11.2"
 
 [dependencies.rand]
-version = "*"
+version = "0.8.4"
 
 [dependencies.serde]
 features = ["derive"]
-version = "*"
+version = "1.0.126"
 
 [dependencies.sha2]
-version = "*"
+version = "0.9.5"

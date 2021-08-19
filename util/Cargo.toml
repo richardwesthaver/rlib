@@ -3,12 +3,10 @@ name = "util"
 version = "0.1.0"
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [features]
 time = ["chrono"]
 
 [dependencies]
 clap = { version = "3.0.0-beta.2" }
 chrono = { version = "0.4.19", features = ["serde"] , optional=true}
-anyhow = { version = "1.0.42", path = "../../contrib/lib/rust/anyhow", optional = true }
+anyhow = { version = "1.0.42", optional = true }

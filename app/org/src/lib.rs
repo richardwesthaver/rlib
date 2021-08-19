@@ -10,7 +10,7 @@ use ron::{
   ser::{to_string_pretty, PrettyConfig},
 };
 
-/// iterate over the contents of a file, 'printing' the contents of
+/// iterate over the contents of a file, print the contents of
 /// each org-element individually as a Ron value.
 pub fn iter_file(file: &str) -> Result<()> {
   let contents = String::from_utf8(fs::read(file)?).unwrap();

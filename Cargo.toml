@@ -1,7 +1,7 @@
 [workspace]
 members = [
   "app/email",
-  "app/org",
+#  "app/org",
   "app/weather",
   "gui",
   "dmc",

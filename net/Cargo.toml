@@ -10,14 +10,15 @@ weather = { path = "../app/weather" }
 logger = { path = "../logger" }
 url = "2.2.2"
 hyper = { version = "0.14.11" }
-reqwest = { version = "0.11.4", features = ["json", "socks"] }
+reqwest = { version = "0.11.4", features = ["json", "socks", "rustls-tls"] }
 serde_json = "1.0.66"
 tokio = { version = "1.10.0", default-features = false, features = ["net", "io-util"] }
 tokio-stream = { version = "0.1.7", features = ["net"] }
 tokio-util = { version = "0.6.7", features = ["full"] }
 
 [dependencies.wireguard-rs]
-path = "../../contrib/lib/rust/wireguard-rs" # this is not published on crates.io
+version = "0.1.4"
+path = "../../contrib/rust/wireguard-rs" # this is not published on crates.io
 
 [dev-dependencies]
 ctx = { path = "../ctx" } # use [ctx::test] for free integration testing
