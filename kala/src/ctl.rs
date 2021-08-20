@@ -1,17 +1,9 @@
 use std::collections::HashMap;
-use std::{fs::File, path::PathBuf, str::FromStr};
 
 pub use flate::pack;
-use logger::log::{error, info, debug};
-use net::client::{
-  ipapi::my_ip,
-  nws::{get_forecast, get_point},
-  Client, APP_USER_AGENT,
-};
+use logger::log::{info, debug};
 use obj::Org;
 use obj::Objective;
-use weather::Point;
-
 use crate::Result;
 
 pub fn usb_devices(usbmap: HashMap<(u16, u16), String>) -> Result<()> {
@@ -51,44 +43,7 @@ pub fn usb_devices(usbmap: HashMap<(u16, u16), String>) -> Result<()> {
   Ok(())
 }
 
-pub async fn weather_report() {
-  let client = Client::builder()
-    .user_agent(APP_USER_AGENT)
-    .build()
-    .unwrap();
-
-  let file = PathBuf::from_str(option_env!("XDG_CONFIG_HOME").unwrap()).unwrap().join("user.ron");
-
-  debug!("user/cfg :=: {:?}", &file);
-  let user_point = File::open(file).expect("user.ron is no good!");
-  let point: Point = match ron::de::from_reader(user_point) {
-    Ok(x) => x,
-    Err(e) => {
-      error!("Failed to load config: {}", e);
-
-      std::process::exit(1);
-    }
-  };
-
-  let res = get_point(&point, &client)
-    .await
-    .expect("could not get point!");
-  let resf = get_forecast(&res, &client)
-    .await
-    .expect("could not get forecast");
-
-  for i in resf.properties.periods.iter() {
-    println!("------------");
-    println!("{:#?} -:- {:#?}", &i.name, &i.detailed_forecast);
-  }
-}
-
 pub fn print_org(path: &str) {
   let doc = Org::from_file(path).unwrap();
   doc.to_ron_string().unwrap();
-}
-
-pub async fn get_ip() {
-  let ip = my_ip().await.expect("should return IP");
-  println!("--++-- PUBLIC_IP === {:#?} --++--", ip);
 }

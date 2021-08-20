@@ -10,7 +10,6 @@ cfg = { path = "../cfg" }
 net = { path = "../net" }
 ctx = { path = "../ctx" }
 obj = { path = "../obj" }
-weather = { path = "../app/weather" }
 hash = { path = "../hash" }
 flate = { path = "../flate" }
 logger = { path = "../logger" }
@@ -29,6 +28,7 @@ hex = "0.4.3"
 hashbrown = "0.11.2"
 rand = "0.8.4"
 sha2 = "0.9.5"
+midir = "0.7.0"
 
 [target.'cfg(all(target_os="linux", target_env="gnu"))'.dependencies]
 xrandr = { version = "0.1.0" } # x11 doesn't compile on musl as of 20210817

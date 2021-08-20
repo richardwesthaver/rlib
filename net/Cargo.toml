@@ -6,7 +6,6 @@ version = "0.1.0"
 [dependencies]
 futures = "0.3.16"
 bytes = "1.0.1"
-weather = { path = "../app/weather" }
 logger = { path = "../logger" }
 url = "2.2.2"
 hyper = { version = "0.14.11" }

@@ -5,9 +5,9 @@ edition = "2018"
 description = "User configuration types and helpers"
 
 [dependencies]
+logger = { version = "0.1.0", path = "../logger" }
 ron = { version = "0.6.4" }
 serde = { version = "1.0.126", features = ["derive"] }
-logger = { version = "0.1.0", path = "../logger" }
 hg-parser = "0.6.0"
 git2 = { version = "0.13.20", default-features = false }
 regex = "1.5.4"

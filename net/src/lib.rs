@@ -1,10 +1,6 @@
-mod api;
 mod err;
+//pub mod codec;
 pub use crate::{
-  api::{
-    client::{self, Client},
-    server::Server,
-  },
   err::Error,
 };
 
