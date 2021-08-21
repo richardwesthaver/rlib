@@ -1,5 +1,9 @@
 mod err;
 //pub mod codec;
+
+#[cfg(feature="client")]
+pub mod client;
+
 pub use crate::{
   err::Error,
 };

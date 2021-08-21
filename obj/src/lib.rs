@@ -8,7 +8,7 @@ pub mod object;
 pub mod paths;
 pub use crate::{
   err::Error,
-  object::{Doc, Meta, Note, Identity, Objective, Property, doc::Org},
+  object::{Doc, Meta, Note, Identity, Objective, Property, doc::Org, location::{Point, City}},
 };
 
 /// obj Result wrapper

@@ -13,7 +13,7 @@ use crate::Result;
 mod color;
 pub mod doc;
 mod person;
-mod location;
+pub mod location;
 mod media;
 
 pub use self::{

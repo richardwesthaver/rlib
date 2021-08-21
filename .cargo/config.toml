@@ -1,10 +1,9 @@
-[source]
-[source.crater]
-#registry = "https://github.com/richardwesthaver/crater-index"
-local-registry = "/mnt/cia/src/crater-local"
+[registry]
+default = "crater"
 
-[source.crates-io]
-replace-with = "crater"
+[registries.crater]
+index = "https://github.com/richardwesthaver/crater-index.git"
+local-registry = "/mnt/cia/src/crater-local"
 
 [target.x86_64-unknown-linux-musl]
 linker = "x86_64-linux-musl-gcc"

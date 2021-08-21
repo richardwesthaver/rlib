@@ -26,14 +26,14 @@ impl Objective for City {}
 /// Use in 2D applications.
 #[derive(Serialize, Deserialize, Debug, Default, PartialEq)]
 pub struct Point {
-  x: f32,
-  y: f32,
+  pub lat: f32,
+  pub lng: f32,
 }
 
 impl Point {
   /// Create a new Point from (f32, f32)
-  pub fn new(x: f32, y: f32) -> Self {
-    Point { x, y }
+  pub fn new(lat: f32, lng: f32) -> Self {
+    Point { lat, lng }
   }
 }
 
