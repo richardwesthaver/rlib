@@ -31,7 +31,7 @@ fn net_cfg() {
      )"#,
   )
   .unwrap();
-  
+
   NetworkConfig::default();
 }
 

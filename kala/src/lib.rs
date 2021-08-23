@@ -4,10 +4,8 @@
 //! crate.
 
 pub mod cmd;
-pub mod ctl;
 mod err;
 mod repl;
-pub mod tmux;
 use crate::err::Error;
 pub type Result<T> = std::result::Result<T, Error>;
 

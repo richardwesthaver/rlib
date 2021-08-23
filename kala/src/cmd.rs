@@ -1,17 +1,17 @@
 //! kalash::cmd
+//!
+//! collection of wrapper commands for various functions.
+pub mod midi;
+pub mod shell;
+pub mod tmux;
+pub mod usb;
+pub mod x;
+
 use cfg::repo::HgwebConfig;
-use cfg::DisplayConfig;
-use cmd_lib::log::debug;
 use cmd_lib::{run_cmd, spawn_with_output, use_builtin_cmd, CmdResult};
-use logger::log::{info, trace};
-use std::env;
+use logger::log::info;
 use std::io::BufRead;
 use std::io::BufReader;
-
-#[cfg(all(target_os = "linux", target_env = "gnu"))]
-use xrandr::XHandle;
-
-use crate::Result;
 
 pub fn hgweb(cfg: HgwebConfig) -> CmdResult {
   println!("found hgweb_config: {:?}", cfg);
@@ -27,59 +27,6 @@ pub fn hgweb(cfg: HgwebConfig) -> CmdResult {
       .for_each(|line| info!("{}", line));
   });
   Ok(())
-}
-
-/// start X11 server after ensuring DISPLAY is unset, then put the
-/// thread to sleep for a short duration while waiting for init.
-///
-/// TODO: [2021-08-13 22:39] - spawn this in background thread, remove cmd_lib
-#[cfg(target_os = "linux")]
-pub fn startx() -> CmdResult {
-  // check to see if DISPLAY is set, else start the X server
-  if let Ok(val) = env::var("DISPLAY") {
-    debug!("display {} is already set. skipping call to startx.", val);
-  } else {
-    info!("DISPLAY unset, starting X server.");
-    run_cmd!( sh -c "startx" )?;
-    std::thread::sleep(std::time::Duration::from_secs(4));
-  }
-  Ok(())
-}
-
-/// List available monitors via X11 with verbose output
-///
-/// Use this for debugging only.
-#[cfg(all(target_os = "linux", target_env = "gnu"))]
-pub fn xrandr_list() {
-  let monitors = XHandle::open().unwrap().monitors().unwrap();
-  println!("{:#?}", monitors);
-}
-
-/// Configure a Display with xrandr
-#[cfg(all(target_os = "linux", target_env = "gnu"))]
-pub fn xrandr(cfg: DisplayConfig) -> Result<std::process::Output> {
-  trace!("{:#?}", cfg);
-  let mut args = vec![
-    "--output",
-    &cfg.output,
-    "--mode",
-    &cfg.mode,
-    "--pos",
-    &cfg.pos,
-    "--rotate",
-    &cfg.rotate,
-  ];
-
-  if cfg.primary == true {
-    args.push("--primary");
-  }
-
-  Ok(
-    std::process::Command::new("xrandr")
-      .args(args)
-      .spawn()?
-      .wait_with_output()?,
-  )
 }
 
 /// start the mpd daemon in background

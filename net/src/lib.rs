@@ -1,12 +1,10 @@
 mod err;
 //pub mod codec;
 
-#[cfg(feature="client")]
+#[cfg(feature = "client")]
 pub mod client;
 
-pub use crate::{
-  err::Error,
-};
+pub use crate::err::Error;
 
 pub type Result<T> = std::result::Result<T, Error>;
 

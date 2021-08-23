@@ -1,7 +1,6 @@
+use crate::Result;
 use std::collections::HashMap;
 use std::process::{Command, Output, Stdio};
-
-use crate::Result;
 
 pub fn make(target: &str) {
   let make = Command::new("make")

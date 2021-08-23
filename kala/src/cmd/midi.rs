@@ -1,37 +1,21 @@
-use midir::{MidiInput, Ignore, MidiOutput};
-use std::io::{stdin, stdout, Write};
 use crate::Result;
+use midir::{Ignore, MidiInput, MidiOutput};
 
 /// detect available midi devices and print a summary
-fn list_midi_ports(wait: bool) -> Result<()> {
-    let mut midi_in = MidiInput::new("midir test input")?;
-    midi_in.ignore(Ignore::None);
-    let midi_out = MidiOutput::new("midir test output")?;
+pub fn list_midi_ports() -> Result<()> {
+  let mut midi_in = MidiInput::new("midir test input")?;
+  midi_in.ignore(Ignore::None);
+  let midi_out = MidiOutput::new("midir test output")?;
 
-    let mut input = String::new();
+  println!("Available input ports:");
+  for (i, p) in midi_in.ports().iter().enumerate() {
+    println!("{}: {}", i, midi_in.port_name(p)?);
+  }
 
-    loop {
-        println!("Available input ports:");
-        for (i, p) in midi_in.ports().iter().enumerate() {
-            println!("{}: {}", i, midi_in.port_name(p)?);
-        }
-        
-        println!("\nAvailable output ports:");
-        for (i, p) in midi_out.ports().iter().enumerate() {
-            println!("{}: {}", i, midi_out.port_name(p)?);
-        }
+  println!("\nAvailable output ports:");
+  for (i, p) in midi_out.ports().iter().enumerate() {
+    println!("{}: {}", i, midi_out.port_name(p)?);
+  }
 
-        // run in endless loop if "--loop" parameter is specified
-        match wait {
-            true => {}
-            false => break
-        }
-        print!("\nPress <enter> to retry ...");
-        stdout().flush()?;
-        input.clear();
-        stdin().read_line(&mut input)?;
-        println!("\n");
-    }
-    
-    Ok(())
+  Ok(())
 }

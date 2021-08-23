@@ -11,11 +11,11 @@ use std::{
   path::{Path, PathBuf},
 };
 
+use crate::Result;
 pub use git2::Repository as GitRepository;
 pub use hg_parser::MercurialRepository;
 use logger::log::{info, trace};
 use serde::{Deserialize, Serialize};
-use crate::Result;
 
 /// Generic repo configuration type
 ///

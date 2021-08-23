@@ -1,10 +1,7 @@
-use std::collections::HashMap;
-
 use crate::Result;
 pub use flate::pack;
 use logger::log::debug;
-use obj::Objective;
-use obj::Org;
+use std::collections::HashMap;
 
 pub fn usb_devices(usbmap: HashMap<(u16, u16), String>) -> Result<()> {
   // basic local info, useful for debugging
@@ -41,9 +38,4 @@ pub fn usb_devices(usbmap: HashMap<(u16, u16), String>) -> Result<()> {
     }
   }
   Ok(())
-}
-
-pub fn print_org(path: &str) {
-  let doc = Org::from_file(path).unwrap();
-  doc.to_ron_string().unwrap();
 }

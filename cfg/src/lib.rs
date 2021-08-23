@@ -17,8 +17,8 @@ pub use crate::{
     package::PackageConfig,
     program::ProgramConfig,
     registry::RegistryConfig,
-    user::UserConfig,
     repo,
+    user::UserConfig,
   },
   err::Error,
 };
