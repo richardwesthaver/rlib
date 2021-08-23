@@ -1,12 +1,14 @@
 //! kalash::cmd::x
 //!
-//! X11 Window Server commands
+//! X11 commands
+//! This module will only compile on GNU Linux
 use crate::Result;
 use cfg::DisplayConfig;
 use cmd_lib::{run_cmd, CmdResult};
 use logger::log::{debug, info, trace};
 use std::env;
 
+// this import depends on x11 crate. the x11-sys build script fails on non-gnu linux targets
 use xrandr::XHandle;
 
 /// start X11 server after ensuring DISPLAY is unset, then put the

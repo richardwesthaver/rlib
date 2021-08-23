@@ -31,4 +31,4 @@ sha2 = "0.9.5"
 midir = "0.7.0"
 
 [target.'cfg(all(target_os="linux", target_env="gnu"))'.dependencies]
-xrandr = { version = "0.1.0" } # x11 doesn't compile on musl as of 20210817
+xrandr = { version = "0.1.0" } # x11 doesn't compile on musl or darwin as of 20210817
