@@ -6,7 +6,7 @@ pub mod pass;
 pub mod shell;
 pub mod tmux;
 pub mod usb;
-#[cfg(all(target_os="linux", target_env="gnu"))]
+#[cfg(all(target_os = "linux", target_env = "gnu"))]
 pub mod x;
 
 use cfg::repo::HgwebConfig;
