@@ -9,7 +9,7 @@ pub const KEY_LEN: usize = 32;
 pub const OUT_LEN: usize = 32;
 pub const OUT_LEN_HEX: usize = OUT_LEN * 2;
 pub mod id;
-pub mod map;
+pub mod tree;
 // a simple Id abstraction with help functions. I'm finding this easier than
 // state machines and traits for the time-being.
 #[derive(Clone, Eq, PartialEq, Ord, PartialOrd, Debug, Serialize, Deserialize, Hash)]

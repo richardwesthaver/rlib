@@ -1,4 +1,11 @@
 [package]
 name = "dts"
 version = "0.1.0"
+authors = ["ellis"]
 edition = "2018"
+documentation = "https://docs.rwest.io/dts"
+repository = "https://hg.rwest.io/rlib"
+readme = "../META"
+license-file = "../COPYING"
+description = "this crate is meant to provide complex data structures"
+publish = ["crater"]

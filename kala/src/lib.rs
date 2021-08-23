@@ -5,11 +5,9 @@
 
 pub mod cmd;
 mod err;
-mod repl;
-use crate::err::Error;
+pub mod repl;
+pub use crate::err::Error;
 pub type Result<T> = std::result::Result<T, Error>;
-
-pub use crate::repl::repl;
 
 #[cfg(test)]
 mod tests;

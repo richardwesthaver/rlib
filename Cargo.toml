@@ -1,5 +1,16 @@
 # rlib
+[package]
+name = "rlib"
+version = "0.1.0"
+authors = ["ellis"]
+edition = "2018"
+resolver = "2"
+
+[lib]
+path = "lib.rs"
+
 [workspace]
+default-members = ["dts"]
 members = [
   "gui",
   "dmc",
@@ -16,10 +27,8 @@ members = [
   "hash",
   "flate",
   "eve",
-  "audio", # alsa-sys build scripts are a nightmare for VMs, fyi
+  "audio",
   "alch",
   "logger",
   "util",
 ]
-
-resolver = "2"

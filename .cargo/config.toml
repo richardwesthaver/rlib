@@ -1,5 +1,5 @@
 [registry]
-default = "crater"
+default = "crates.io"
 
 [registries.crater]
 index = "https://github.com/richardwesthaver/crater-index.git"

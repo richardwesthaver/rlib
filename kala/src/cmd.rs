@@ -2,6 +2,7 @@
 //!
 //! collection of wrapper commands for various functions.
 pub mod midi;
+pub mod pass;
 pub mod shell;
 pub mod tmux;
 pub mod usb;
