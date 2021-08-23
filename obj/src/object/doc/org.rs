@@ -8,14 +8,14 @@ use std::path::PathBuf;
 //use orgize::{
 //  Element, Org as Organ, ParseConfig,
 //};
+use logger::log::info;
 use ron::{
   extensions::Extensions,
   ser::{to_string_pretty, PrettyConfig},
 };
-use logger::log::info;
 
+use crate::object::{Deserialize, Meta, Note, Objective, Property, Serialize};
 use crate::Result;
-use crate::object::{Deserialize, Meta, Note, Objective, Serialize, Property};
 
 /// Org object type
 #[derive(Serialize, Deserialize, Debug, Hash)]

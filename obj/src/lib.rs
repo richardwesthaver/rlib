@@ -1,14 +1,17 @@
 //! obj
 //!
 //! Object-oriented type system
-
 mod err;
 
 pub mod object;
 pub mod paths;
 pub use crate::{
   err::Error,
-  object::{Doc, Meta, Note, Identity, Objective, Property, doc::Org, location::{Point, City}},
+  object::{
+    doc::Org,
+    location::{City, Point},
+    Doc, Identity, Meta, Note, Objective, Property,
+  },
 };
 
 /// obj Result wrapper
@@ -16,4 +19,3 @@ pub type Result<T> = std::result::Result<T, Error>;
 
 #[cfg(test)]
 mod tests;
-

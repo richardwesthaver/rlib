@@ -1,14 +1,14 @@
 //! kalash::cmd
-use std::env;
-use std::io::BufRead;
-use std::io::BufReader;
 use cfg::repo::HgwebConfig;
 use cfg::DisplayConfig;
 use cmd_lib::log::debug;
 use cmd_lib::{run_cmd, spawn_with_output, use_builtin_cmd, CmdResult};
 use logger::log::{info, trace};
+use std::env;
+use std::io::BufRead;
+use std::io::BufReader;
 
-#[cfg(all(target_os="linux", target_env="gnu"))]
+#[cfg(all(target_os = "linux", target_env = "gnu"))]
 use xrandr::XHandle;
 
 use crate::Result;
@@ -46,16 +46,17 @@ pub fn startx() -> CmdResult {
   Ok(())
 }
 
-
-/// List available monitors via X11
-#[cfg(all(target_os = "linux", target_env="gnu"))]
+/// List available monitors via X11 with verbose output
+///
+/// Use this for debugging only.
+#[cfg(all(target_os = "linux", target_env = "gnu"))]
 pub fn xrandr_list() {
   let monitors = XHandle::open().unwrap().monitors().unwrap();
-  info!("{:#?}", monitors);
+  println!("{:#?}", monitors);
 }
 
 /// Configure a Display with xrandr
-#[cfg(all(target_os = "linux", target_env="gnu"))]
+#[cfg(all(target_os = "linux", target_env = "gnu"))]
 pub fn xrandr(cfg: DisplayConfig) -> Result<std::process::Output> {
   trace!("{:#?}", cfg);
   let mut args = vec![

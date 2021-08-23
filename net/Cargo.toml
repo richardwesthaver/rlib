@@ -21,9 +21,5 @@ tokio = { version = "1.10.0", default-features = false, features = ["net", "io-u
 tokio-stream = { version = "0.1.7", features = ["net"] }
 tokio-util = { version = "0.6.7", features = ["full"] }
 
-[dependencies.wireguard-rs]
-version = "0.1.4"
-path = "../../contrib/rust/wireguard-rs" # this is not published on crates.io
-
 [dev-dependencies]
 ctx = { path = "../ctx" } # use [ctx::test] for free integration testing

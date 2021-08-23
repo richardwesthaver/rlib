@@ -1,4 +1,3 @@
-extern crate cpal;
 use std::{
   fs::File,
   io::BufWriter,

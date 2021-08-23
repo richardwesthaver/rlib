@@ -4,9 +4,11 @@ version = "0.1.0"
 edition = "2018"
 
 [features]
+default = []
+full = ["time", "cli"]
 time = ["chrono"]
-
+cli = ["clap", "anyhow"]
 [dependencies]
-clap = { version = "3.0.0-beta.2" }
-chrono = { version = "0.4.19", features = ["serde"] , optional=true}
+clap = { version = "3.0.0-beta.2", optional = true }
+chrono = { version = "0.4.19", features = ["serde"] , optional = true}
 anyhow = { version = "1.0.42", optional = true }

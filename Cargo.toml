@@ -1,6 +1,7 @@
+# rlib
 [workspace]
 members = [
-  "gui",
+#  "gui",
   "dmc",
   "web",
   "cfg",
@@ -15,7 +16,7 @@ members = [
   "hash",
   "flate",
   "eve",
-  "audio",
+#  "audio", # alsa-sys build scripts are a nightmare
   "alch",
   "logger",
   "util",

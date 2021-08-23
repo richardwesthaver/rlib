@@ -12,9 +12,9 @@ pub(crate) use serde::{Deserialize, Serialize};
 use crate::Result;
 mod color;
 pub mod doc;
-mod person;
 pub mod location;
 mod media;
+mod person;
 
 pub use self::{
   color::Color,
@@ -132,7 +132,7 @@ impl Meta {
 }
 impl Default for Meta {
   fn default() -> Self {
-      Meta::new()
+    Meta::new()
   }
 }
 /// Property object

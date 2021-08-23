@@ -1,10 +1,10 @@
 use std::collections::HashMap;
 
-pub use flate::pack;
-use logger::log::{info, debug};
-use obj::Org;
-use obj::Objective;
 use crate::Result;
+pub use flate::pack;
+use logger::log::debug;
+use obj::Objective;
+use obj::Org;
 
 pub fn usb_devices(usbmap: HashMap<(u16, u16), String>) -> Result<()> {
   // basic local info, useful for debugging
@@ -18,7 +18,7 @@ pub fn usb_devices(usbmap: HashMap<(u16, u16), String>) -> Result<()> {
 
   for device in rusb::devices().unwrap().iter() {
     let device_desc = device.device_descriptor().unwrap();
-    info!(
+    println!(
       "Bus {:03} Device {:03} ID {:04x}:{:04x}",
       device.bus_number(),
       device.address(),
@@ -27,13 +27,13 @@ pub fn usb_devices(usbmap: HashMap<(u16, u16), String>) -> Result<()> {
     );
 
     match usbmap.get(&(device_desc.vendor_id(), device_desc.product_id())) {
-      Some(m) => info!(
+      Some(m) => println!(
         "found device {} at bus:{:03} dev:{:03}",
         m,
         device.bus_number(),
         device.address()
       ),
-      None => info!(
+      None => debug!(
         "bus:{:03} dev:{:03} unknown",
         device.bus_number(),
         device.address()
