@@ -1,5 +1,5 @@
 [package]
-name = "gui"
+name = "ui"
 version = "0.1.0"
 edition = "2018"
 
@@ -9,5 +9,4 @@ cfg = { path = "../cfg" }
 kala = { path = "../kala" }
 net = { path = "../net" }
 # contrib
-#chrono = { path = "../../../contrib/lib/rust/chrono", features = ["serde"] }
 druid = "0.7.0"

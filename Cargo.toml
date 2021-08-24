@@ -12,9 +12,8 @@ path = "lib.rs"
 [workspace]
 default-members = ["dts"]
 members = [
-  "gui",
+  "ui",
   "dmc",
-  "web",
   "cfg",
   "kala",
   "ctx",
