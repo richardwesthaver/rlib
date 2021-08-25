@@ -1,9 +1,12 @@
+//! Mercurial command module
 use cfg::repo::HgwebConfig;
 use cmd_lib::{spawn_with_output, use_builtin_cmd, CmdResult};
 use logger::log::info;
 use std::io::BufRead;
 use std::io::BufReader;
 
+/// Given a `HgwebConfig` struct, start the hgweb server and log to
+/// stdout.
 pub fn hgweb(cfg: HgwebConfig) -> CmdResult {
   println!("found hgweb_config: {:?}", cfg);
   use_builtin_cmd!(echo, info);

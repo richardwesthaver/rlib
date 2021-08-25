@@ -1,3 +1,4 @@
+//! Midi command module
 use crate::Result;
 use midir::{Ignore, MidiInput, MidiOutput};
 

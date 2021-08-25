@@ -1,8 +1,10 @@
+//! Shell command module
 use crate::Result;
 use cmd_lib::{run_cmd, CmdResult};
 use std::collections::HashMap;
 use std::process::{Command, Output, Stdio};
 
+/// GNU Makefile command
 pub fn make(target: &str) {
   let make = Command::new("make")
     .arg(target)
@@ -13,6 +15,7 @@ pub fn make(target: &str) {
   println!("make finished with {}", make);
 }
 
+/// GNU Emacs command
 pub fn emacs(args: Vec<&str>, envs: HashMap<&str, &str>) -> Result<Output> {
   Ok(
     Command::new("emacs")
@@ -24,6 +27,7 @@ pub fn emacs(args: Vec<&str>, envs: HashMap<&str, &str>) -> Result<Output> {
   )
 }
 
+/// ffmpeg command
 pub fn ffmpeg(args: Vec<&str>, envs: HashMap<&str, &str>) -> Result<Output> {
   Ok(
     Command::new("ffmpeg")

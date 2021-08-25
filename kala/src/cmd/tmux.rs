@@ -1,8 +1,10 @@
+//! tmux command module
 use logger::log::error;
 use tmux_interface::{HasSession, TmuxCommand};
 
 use crate::Result;
 
+/// TODO [2021-08-25 Wed 06:27] - Build a tmux session from a TmuxSessionConfig struct
 pub fn tmux_build_session(session_name: &str) -> Result<()> {
   if HasSession::new()
     .target_session(session_name)
