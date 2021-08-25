@@ -1,6 +1,6 @@
 //! cfg::tests
 //use tempfile::NamedTempFile;
-use crate::config::repo::{RepoType, RepoConfig};
+use crate::config::repo::{RepoConfig, RepoType};
 use crate::{NetworkConfig, PackageConfig};
 
 /// PackageConfig
@@ -11,7 +11,8 @@ fn pkg_cfg() {
         repo: None,
         program: None,
         library: None)"#,
-  ).unwrap();
+  )
+  .unwrap();
   assert_eq!(pkg, PackageConfig::new("test-pack-cfg"));
   pkg.repo = Some(RepoConfig::new());
   assert_eq!(RepoConfig::new(), pkg.repo.unwrap());
@@ -25,7 +26,9 @@ fn net_cfg() {
         transport: "udp-client",
         tunnel: None,
         engine: None,
-        peers:  None)"#).unwrap();
+        peers:  None)"#,
+  )
+  .unwrap();
   assert_eq!(net, NetworkConfig::default());
   net.socket = "0.0.0.0:0".parse().unwrap();
   assert_eq!(net.socket, "0.0.0.0:0".parse().unwrap());

@@ -4,8 +4,8 @@
 //! configurations. They immplement functionality intended for use in
 //! OS system and user configurations. For example: xrandr
 //! configuration.
-use serde::{Deserialize, Serialize};
 use super::Configure;
+use serde::{Deserialize, Serialize};
 /// Monitor configuration type
 pub struct MonitorConfig {
   pub name: String,

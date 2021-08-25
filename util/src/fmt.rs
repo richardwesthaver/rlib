@@ -1,1 +1,3 @@
-pub use text_trees::{StringTreeNode, FormatCharacters as TreeFormatCharacters, TreeFormatting, TreeNode};
+pub use text_trees::{
+  FormatCharacters as TreeFormatCharacters, StringTreeNode, TreeFormatting, TreeNode,
+};

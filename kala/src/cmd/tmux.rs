@@ -43,7 +43,11 @@ pub fn tmux_build_session(session_name: &str) -> Result<()> {
       .output()
       .unwrap();
 
-    tmux.attach_session().target_session(session_name).output().unwrap();
+    tmux
+      .attach_session()
+      .target_session(session_name)
+      .output()
+      .unwrap();
   }
 
   Ok(())

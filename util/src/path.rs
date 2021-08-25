@@ -1,8 +1,8 @@
 //! util::path
 //!
 //! Helper functions for working with paths on filesystem
-use std::path::{Component, Path, PathBuf};
 use std::io::Error;
+use std::path::{Component, Path, PathBuf};
 /// Given a path provided by the user, determines where generated files
 /// related to that path should go.
 pub fn local_relative_path(path: &Path) -> Result<PathBuf, Error> {

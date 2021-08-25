@@ -6,7 +6,7 @@ fn related_paths() {
   local_relative_path(Path::new(".")).unwrap();
 }
 
-#[cfg(feature="fmt")]
+#[cfg(feature = "fmt")]
 #[test]
 fn text_tree() {
   use crate::fmt::StringTreeNode;

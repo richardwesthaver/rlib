@@ -5,9 +5,9 @@
 //! A Registry is just a list of key=val pairs wrapped in an API. The
 //! RegistryConfig is used to bootstrap the Registry service, at which
 //! point the client can submit commands to the service socket.
-use serde::{Deserialize, Serialize};
-use super::Configure;
 use super::network::NetworkConfig;
+use super::Configure;
+use serde::{Deserialize, Serialize};
 /// Registry configuration type
 #[derive(Serialize, Deserialize, Debug, Hash, PartialEq)]
 pub struct RegistryConfig {

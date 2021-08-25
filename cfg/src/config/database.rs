@@ -2,8 +2,8 @@
 //!
 //! Database configuration primitives
 
-use serde::{Deserialize, Serialize};
 use super::Configure;
+use serde::{Deserialize, Serialize};
 #[derive(Serialize, Deserialize, Debug, Hash)]
 pub struct DatabaseConfig {}
 

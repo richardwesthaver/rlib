@@ -2,8 +2,8 @@
 //!
 //! Program configuration primitives
 
-use serde::{Deserialize, Serialize};
 use super::Configure;
+use serde::{Deserialize, Serialize};
 /// Program configuration type
 #[derive(Serialize, Deserialize, Debug, Hash, Default, PartialEq)]
 pub struct ProgramConfig {}

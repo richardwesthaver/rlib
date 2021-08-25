@@ -2,9 +2,9 @@
 //!
 //! Network configuration primitives
 
+use super::Configure;
 use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;
-use super::Configure;
 
 /// Network configuration
 #[derive(Serialize, Deserialize, Hash, Debug, PartialEq)]

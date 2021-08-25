@@ -13,9 +13,9 @@ pub mod repo;
 pub mod user;
 
 use crate::Result;
-use std::io;
-use serde::{Deserialize, Serialize};
 use serde::de::DeserializeOwned;
+use serde::{Deserialize, Serialize};
+use std::io;
 
 /// common trait for all config modules. This trait provides functions
 /// for de/serializing to/from RON, updating fields, and formatting.

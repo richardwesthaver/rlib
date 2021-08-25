@@ -11,8 +11,10 @@ pub fn usb_devices(devices: Option<HashMap<(u16, u16), String>>) -> Result<()> {
   debug!("has capability? {}", rusb::has_capability());
   debug!("has hotplug? {}", rusb::has_hotplug());
   debug!("has HID access? {}", rusb::has_hid_access());
-  debug!("supports detach kernel driver? {}",
-         rusb::supports_detach_kernel_driver());
+  debug!(
+    "supports detach kernel driver? {}",
+    rusb::supports_detach_kernel_driver()
+  );
 
   for device in rusb::devices().unwrap().iter() {
     let device_desc = device.device_descriptor().unwrap();
@@ -39,6 +41,6 @@ pub fn usb_devices(devices: Option<HashMap<(u16, u16), String>>) -> Result<()> {
         ),
       }
     };
-  };
+  }
   Ok(())
 }
