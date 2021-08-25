@@ -1,12 +1,15 @@
+//! kalash error type
 use std::{fmt, io};
 
 pub enum Error {
   Io(io::Error),
   Cfg(cfg::Error),
   Logger(logger::Error),
-  Repl(rustyline::error::ReadlineError),
+  #[cfg(feature = "midi")]
   MidiInit(midir::InitError),
+  #[cfg(feature = "midi")]
   MidiConnect(midir::ConnectError<midir::ConnectErrorKind>),
+  #[cfg(feature = "midi")]
   MidiPortInfo(midir::PortInfoError),
 }
 
@@ -16,9 +19,11 @@ impl fmt::Display for Error {
       Error::Io(ref err) => write!(f, "rlib::kala IO error: {}", err),
       Error::Cfg(ref err) => write!(f, "rlib::kala Cfg error: {}", err),
       Error::Logger(ref err) => write!(f, "rlib::kala Logger error: {}", err),
-      Error::Repl(ref err) => write!(f, "rlib::kala REPL error: {}", err),
+      #[cfg(feature = "midi")]
       Error::MidiInit(ref err) => write!(f, "rlib::kala Midi Initialization error: {}", err),
+      #[cfg(feature = "midi")]
       Error::MidiConnect(ref err) => write!(f, "rlib::kala Midi Connection error: {}", err),
+      #[cfg(feature = "midi")]
       Error::MidiPortInfo(ref err) => write!(f, "rlib::kala Midi PortInfo error: {}", err),
     }
   }
@@ -30,9 +35,11 @@ impl fmt::Debug for Error {
       Error::Io(ref err) => write!(f, "rlib::kala IO error: {}", err),
       Error::Cfg(ref err) => write!(f, "rlib::kala Cfg error: {}", err),
       Error::Logger(ref err) => write!(f, "rlib::kala Logger error: {}", err),
-      Error::Repl(ref err) => write!(f, "rlib::kala REPL error: {}", err),
+      #[cfg(feature = "midi")]
       Error::MidiInit(ref err) => write!(f, "rlib::kala Midi Initialization error: {}", err),
+      #[cfg(feature = "midi")]
       Error::MidiConnect(ref err) => write!(f, "rlib::kala Midi Connection error: {}", err),
+      #[cfg(feature = "midi")]
       Error::MidiPortInfo(ref err) => write!(f, "rlib::kala Midi PortInfo error: {}", err),
     }
   }
@@ -56,24 +63,21 @@ impl From<cfg::Error> for Error {
   }
 }
 
-impl From<rustyline::error::ReadlineError> for Error {
-  fn from(e: rustyline::error::ReadlineError) -> Self {
-    Error::Repl(e)
-  }
-}
-
+#[cfg(feature = "midi")]
 impl From<midir::InitError> for Error {
   fn from(e: midir::InitError) -> Self {
     Error::MidiInit(e)
   }
 }
 
+#[cfg(feature = "midi")]
 impl From<midir::ConnectError<midir::ConnectErrorKind>> for Error {
   fn from(e: midir::ConnectError<midir::ConnectErrorKind>) -> Self {
     Error::MidiConnect(e)
   }
 }
 
+#[cfg(feature = "midi")]
 impl From<midir::PortInfoError> for Error {
   fn from(e: midir::PortInfoError) -> Self {
     Error::MidiPortInfo(e)

@@ -6,15 +6,16 @@ use serde::{Deserialize, Serialize};
 use super::library::LibraryConfig;
 use super::program::ProgramConfig;
 use super::repo::RepoConfig;
+use super::Configure;
 
 /// A single package configuration.
-#[derive(Serialize, Deserialize, Hash, Debug)]
+#[derive(Serialize, Deserialize, Hash, Debug, PartialEq)]
 pub struct PackageConfig {
   /// Name of this package
-  name: String,
-  repo: Option<RepoConfig>,
-  program: Option<ProgramConfig>,
-  library: Option<LibraryConfig>,
+  pub name: String,
+  pub repo: Option<RepoConfig>,
+  pub bin: Option<ProgramConfig>,
+  pub lib: Option<LibraryConfig>,
 }
 
 impl PackageConfig {
@@ -23,8 +24,8 @@ impl PackageConfig {
     PackageConfig {
       name: name.to_string(),
       repo: None,
-      program: None,
-      library: None,
+      bin: None,
+      lib: None,
     }
   }
 }
@@ -33,8 +34,10 @@ impl Default for PackageConfig {
     PackageConfig {
       name: "".to_string(),
       repo: Some(RepoConfig::default()),
-      program: Some(ProgramConfig::default()),
-      library: Some(LibraryConfig::default()),
+      bin: Some(ProgramConfig::default()),
+      lib: Some(LibraryConfig::default()),
     }
   }
 }
+
+impl Configure for PackageConfig {}

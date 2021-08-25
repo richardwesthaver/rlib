@@ -79,7 +79,7 @@ impl<M: Monad> MonadTrans for IdentityT<M> {
   }
 }
 
-struct Unlimited;
+pub struct Unlimited;
 
 trait Limit {
   fn within_limit(self, n: usize) -> bool;

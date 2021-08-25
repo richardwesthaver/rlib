@@ -1,7 +1,6 @@
 //! cfg::config::repo
 //!
 //! Repo configuration primitives
-
 use std::{
   collections::HashMap,
   fmt,
@@ -20,11 +19,11 @@ use serde::{Deserialize, Serialize};
 /// Generic repo configuration type
 ///
 /// Wraps Mercurial and/or Git repos
-#[derive(Serialize, Deserialize, Debug, Hash)]
+#[derive(Serialize, Deserialize, Debug, Hash, PartialEq)]
 pub struct RepoConfig {
-  vcs: String,
-  origin: String,
-  path: PathBuf,
+  pub vcs: String,
+  pub origin: String,
+  pub path: PathBuf,
 }
 
 impl RepoConfig {

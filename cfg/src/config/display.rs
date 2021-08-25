@@ -5,7 +5,7 @@
 //! OS system and user configurations. For example: xrandr
 //! configuration.
 use serde::{Deserialize, Serialize};
-
+use super::Configure;
 /// Monitor configuration type
 pub struct MonitorConfig {
   pub name: String,
@@ -23,6 +23,8 @@ impl MonitorConfig {
     }
   }
 }
+
+impl Configure for MonitorConfig {}
 
 /// Display configuration
 #[derive(Serialize, Deserialize, Debug, Hash)]
@@ -45,3 +47,5 @@ impl Default for DisplayConfig {
     }
   }
 }
+
+impl Configure for DisplayConfig {}

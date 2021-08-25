@@ -1,34 +1,34 @@
 [package]
 name = "kala"
 version = "0.1.0"
+authors = ["ellis"]
 edition = "2018"
-description = "Shell commands, wrappers and utilities"
+description = "Rlib Shell Command Modules"
+documentation = "https://docs.rwest.io/kala"
+repository = "https://hg.rwest.io/rlib"
+publish = ["crater"]
+
+[features]
+default = []
+full = ["input", "tmux", "sys", "x11", "midi"]
+input = ["rpassword", "rustyline"]
+midi = ["midir"]
+sys = ["rusb", "whoami"]
+x11 = ["xrandr"]
+tmux = ["tmux_interface"]
 
 [dependencies]
-# internal
+# rlib
 cfg = { path = "../cfg" }
-net = { path = "../net" }
-ctx = { path = "../ctx" }
-obj = { path = "../obj" }
-hash = { path = "../hash" }
 flate = { path = "../flate" }
 logger = { path = "../logger" }
 # contrib
-whoami = { version = "1.1.3" }
-rusb = { version = "0.8.1" }
-chrono = { version = "0.4.19", features = ["serde"] }
 cmd_lib = "1.1.0"
-ron = "0.6.4"
-rustyline = "8.2.0"
-rpassword = "5.0.1"
-tmux_interface = { version = "0.2.1", features = ["tmux_X_X"] }
-blake3 = "1.0.0"
-serde = "1.0.127"
-hex = "0.4.3"
-hashbrown = "0.11.2"
-rand = "0.8.4"
-sha2 = "0.9.5"
-midir = "0.7.0"
-
+whoami = { version = "1.1.3", optional = true }
+rusb = { version = "0.8.1", optional = true }
+midir = { version = "0.7.0", optional = true }
+rpassword = { version = "5.0.1", optional = true }
+rustyline = { version = "9.0.0", optional = true }
 [target.'cfg(all(target_os="linux", target_env="gnu"))'.dependencies]
-xrandr = { version = "0.1.0" } # x11 doesn't compile on musl or darwin as of 20210817
+xrandr = { version = "0.1.0", optional = true } # x11 doesn't compile on musl or darwin as of 20210817
+tmux_interface = { version = "0.2.1", features = ["tmux_X_X"], optional = true } # uses tmux master branch. Only supports Linux

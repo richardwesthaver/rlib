@@ -5,9 +5,10 @@ use serde::{de, ser};
 /// cfg Error type
 pub enum Error {
   Io(io::Error),
-  Ron(ron::error::Error),
+  Ron(ron::Error),
   Serde(String),
   Hg(hg_parser::ErrorKind),
+  // TODO: Git()
 }
 
 impl ser::Error for Error {
@@ -19,6 +20,12 @@ impl ser::Error for Error {
 impl de::Error for Error {
   fn custom<T: fmt::Display>(msg: T) -> Self {
     Error::Serde(msg.to_string())
+  }
+}
+
+impl From<ron::Error> for Error {
+  fn from(e: ron::Error) -> Self {
+    Error::Ron(e)
   }
 }
 

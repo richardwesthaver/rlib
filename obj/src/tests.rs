@@ -14,11 +14,3 @@ fn file_metadata() {
   let attr = fs::metadata("Cargo.toml").unwrap();
   println!("{:?}", attr);
 }
-
-/// test related_paths
-#[test]
-fn related_paths() {
-  use crate::paths::local_relative_path;
-  use std::path::Path;
-  local_relative_path(Path::new(".")).unwrap();
-}

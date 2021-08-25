@@ -1,7 +1,6 @@
 //! cfg::config::user
 //!
 //! User configuration primitives
-
 use serde::{Deserialize, Serialize};
 
 /// User configuration type

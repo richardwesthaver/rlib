@@ -4,20 +4,21 @@
 
 use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;
+use super::Configure;
 
 /// Network configuration
-#[derive(Serialize, Deserialize, Hash, Debug)]
+#[derive(Serialize, Deserialize, Hash, Debug, PartialEq)]
 pub struct NetworkConfig {
   /// a socket to bind
-  socket: SocketAddr,
+  pub socket: SocketAddr,
   /// transport to use (TCP/UDP/UNIX)
-  transport: String,
+  pub transport: String,
   /// tunnel to use
-  tunnel: Option<String>,
+  pub tunnel: Option<String>,
   /// network engine to attach
-  engine: Option<String>,
+  pub engine: Option<String>,
   /// peers to register for O-RTT comms
-  peers: Option<Vec<(String, String)>>,
+  pub peers: Option<Vec<(String, String)>>,
 }
 
 impl Default for NetworkConfig {
@@ -31,3 +32,5 @@ impl Default for NetworkConfig {
     }
   }
 }
+
+impl Configure for NetworkConfig {}

@@ -4,7 +4,6 @@
 mod err;
 
 pub mod object;
-pub mod paths;
 pub use crate::{
   err::Error,
   object::{
