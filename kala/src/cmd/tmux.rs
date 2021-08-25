@@ -1,7 +1,8 @@
 use logger::log::error;
-pub use tmux_interface::{HasSession, TmuxCommand};
+use tmux_interface::{HasSession, TmuxCommand};
 
 use crate::Result;
+
 pub fn tmux_build_session(session_name: &str) -> Result<()> {
   if HasSession::new()
     .target_session(session_name)
@@ -35,28 +36,14 @@ pub fn tmux_build_session(session_name: &str) -> Result<()> {
       .shell_command("journalctl -xef")
       .output()
       .unwrap();
-
     tmux
       .new_window()
-      .window_name("finder")
-      .shell_command("mc")
+      .window_name("emacs")
+      .shell_command("emacs -nw -l ~/.emacs.d/lisp/init-home-tmux.el")
       .output()
       .unwrap();
 
-    // this requires the emacs daemon to be running
-    tmux
-      .new_window()
-      .window_name("notes")
-      .shell_command("emacsclient -t")
-      .output()
-      .unwrap();
-
-    tmux
-      .new_window()
-      .window_name("vmm")
-      .shell_command("systemd-nspawn -b -D ~/lab/machines/archlinux")
-      .output()
-      .unwrap();
+    tmux.attach_session().target_session(session_name).output().unwrap();
   }
 
   Ok(())
