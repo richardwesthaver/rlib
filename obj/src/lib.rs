@@ -7,10 +7,10 @@ pub mod object;
 pub use crate::{
   err::Error,
   object::{
+    Objective, Identity,
+    Color, Doc, City, Point, Media, Person,
     doc::Org,
-    location::{City, Point},
-    Doc, Identity, Meta, Note, Objective, Property,
-  },
+  }
 };
 
 /// obj Result wrapper

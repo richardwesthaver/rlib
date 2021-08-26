@@ -1,5 +1,5 @@
+//! configuration errors
 use std::{fmt, io};
-
 use serde::{de, ser};
 
 /// cfg Error type
@@ -8,7 +8,7 @@ pub enum Error {
   Ron(ron::Error),
   Serde(String),
   Hg(hg_parser::ErrorKind),
-  // TODO: Git()
+  // TODO [2021-08-25 Wed 21:58] : Git()
 }
 
 impl ser::Error for Error {

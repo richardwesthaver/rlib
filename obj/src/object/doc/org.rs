@@ -1,13 +1,18 @@
 //! obj::doc::org
 //!
 //! Org document object types
-
+//!
+//! The Org-mode format is particularly difficult to parse, but can be
+//! done. The best resources for learning how to create a parser for
+//! Org is available in the Org-Element API docs.
+//!
+//! Resources:
+//! - http://ergoemacs.org/emacs/elisp_parse_org_mode.html
+//! - https://orgmode.org/manual/Using-the-Mapping-API.html
+//! - https://orgmode.org/manual/Using-the-Property-API.html
+//! - https://orgmode.org/worg/dev/org-element-api.html
 use std::fs;
 use std::path::PathBuf;
-
-//use orgize::{
-//  Element, Org as Organ, ParseConfig,
-//};
 use logger::log::info;
 use ron::{
   extensions::Extensions,
@@ -20,10 +25,10 @@ use crate::Result;
 /// Org object type
 #[derive(Serialize, Deserialize, Debug, Hash)]
 pub struct Org {
-  meta: Meta,
-  properties: Option<Vec<Property>>,
-  contents: String,
-  notes: Option<Vec<Note>>,
+  pub meta: Meta,
+  pub properties: Option<Vec<Property>>,
+  pub contents: String,
+  pub notes: Option<Vec<Note>>,
 }
 
 impl Org {
@@ -85,31 +90,3 @@ impl Org {
 }
 
 impl Objective for Org {}
-
-/// Test Org parser functionality
-#[test]
-fn org_docs() {
-  use crate::{Objective, Org};
-  let org = Org::new();
-  assert_eq!(org.contents, "");
-
-  let org_file = Org::from_file("doc.org");
-  assert!(org_file.is_ok());
-
-  // let ron_org = r#"(
-  // meta: (
-  //   id: 0,
-  //   tags: None,
-  //   properties: None,
-  //   ),
-  //   created: "1970-01-01T00:00:00Z",
-  //   updated: "1970-01-01T00:00:00Z",
-  // ),
-  // content: "",
-  // notes: None,
-  // )"#;
-
-  assert!(org.encode().is_ok());
-  let org = org.append("hello world").unwrap();
-  assert_eq!("hello world", org.content());
-}
