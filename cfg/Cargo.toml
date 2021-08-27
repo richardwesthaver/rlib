@@ -1,8 +1,12 @@
 [package]
 name = "cfg"
 version = "0.1.0"
+authors = ["ellis"]
 edition = "2018"
-description = "User configuration types and helpers"
+description = "Configuration types and helpers"
+documentation = "https://docs.rwest.io/cfg"
+repository = "https://hg.rwest.io/rlib"
+publish = ["crater"]
 
 [dependencies]
 logger = { version = "0.1.0", path = "../logger" }

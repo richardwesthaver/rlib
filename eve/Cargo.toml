@@ -1,7 +1,12 @@
 [package]
 name = "eve"
 version = "0.1.0"
+authors = ["ellis"]
 edition = "2018"
+description = "Event Queue Modules"
+documentation = "https://docs.rwest.io/eve"
+repository = "https://hg.rwest.io/rlib"
+publish = ["crater"]
 
 [target.'cfg(unix)'.dependencies]
 io-uring = "0.5.1"

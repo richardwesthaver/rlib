@@ -1,3 +1,4 @@
+//! util library
 #[cfg(feature = "anyhow")]
 pub use anyhow::Result;
 #[cfg(feature = "cli")]

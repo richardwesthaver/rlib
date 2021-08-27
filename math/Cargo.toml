@@ -1,6 +1,11 @@
 [package]
 name = "math"
 version = "0.1.0"
+authors = ["ellis"]
 edition = "2018"
+description = "Math Modules"
+documentation = "https://docs.rwest.io/math"
+repository = "https://hg.rwest.io/rlib"
+publish = ["crater"]
 
 [dependencies]

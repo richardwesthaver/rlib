@@ -1,3 +1,4 @@
+//! builder for dm protocol prefab
 use tokio_util::codec::{Decoder, Encoder, Framed, FramedRead, FramedWrite};
 use super::{DecodeState, DmCodec};
 

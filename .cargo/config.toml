@@ -1,9 +1,10 @@
 [registry]
-default = "crates.io"
-
+default = "crates-io"
 [registries.crater]
 index = "https://github.com/richardwesthaver/crater-index.git"
 local-registry = "/mnt/cia/src/crater/crates"
+[registries.crates-io]
+index = "https://github.com/rust-lang/crates.io-index.git"
 
 [target.x86_64-unknown-linux-musl]
 linker = "x86_64-linux-musl-gcc"

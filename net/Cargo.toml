@@ -1,7 +1,12 @@
 [package]
-edition = "2018"
 name = "net"
 version = "0.1.0"
+authors = ["ellis"]
+edition = "2018"
+description = "Network Client/Server Modules"
+documentation = "https://docs.rwest.io/kala"
+repository = "https://hg.rwest.io/rlib"
+publish = ["crater"]
 
 [features]
 default = []

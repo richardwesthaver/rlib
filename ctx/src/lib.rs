@@ -1,18 +1,17 @@
 //! ctx --++-- Rust Runtime Contexts
 
 mod err;
-use std::fmt::{self, Debug};
 
+pub use err::{Error, Result};
 pub use init_tokio;
 pub use macros::{main, test};
-use quickcheck::{Arbitrary, Gen};
 pub use rayon;
 pub use tokio;
 
+use std::fmt::{self, Debug};
+use quickcheck::{Arbitrary, Gen};
 #[cfg(test)]
 mod tests;
-
-pub type Result<T> = std::result::Result<T, err::Error>;
 
 #[derive(Copy, Clone)]
 pub struct CtxInit {

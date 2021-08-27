@@ -1,4 +1,4 @@
-//! obj::doc::org
+//! # org
 //!
 //! Org document object types
 //!
@@ -6,11 +6,20 @@
 //! done. The best resources for learning how to create a parser for
 //! Org is available in the Org-Element API docs.
 //!
-//! Resources:
-//! - http://ergoemacs.org/emacs/elisp_parse_org_mode.html
-//! - https://orgmode.org/manual/Using-the-Mapping-API.html
-//! - https://orgmode.org/manual/Using-the-Property-API.html
-//! - https://orgmode.org/worg/dev/org-element-api.html
+//! ## Commentary
+//! The `Org` type is the main type used for accessing Org Docs. This
+//! object includes builder functions for the `OrgParser` type, which
+//! handles parsing of the Org-mode format.
+//!
+//! This module does not intend to fully support the Org-mode format,
+//! and is not a replacement for existing org files.
+//!
+//! ## Resources
+//! - [parse org-mode in elisp](http://ergoemacs.org/emacs/elisp_parse_org_mode.html)
+//! - [Using the Mapping API](https://orgmode.org/manual/Using-the-Mapping-API.html)
+//! - [Using the Property API](https://orgmode.org/manual/Using-the-Property-API.html)
+//! - [Org-element API](https://orgmode.org/worg/dev/org-element-api.html)
+//! - [Orgnode.py](http://members.optusnet.com.au/~charles57/GTD/Orgnode.py)
 use std::fs;
 use std::path::PathBuf;
 use logger::log::info;

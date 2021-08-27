@@ -1,8 +1,12 @@
 [package]
 name = "ctx"
 version = "0.1.0"
+authors = ["ellis"]
 edition = "2018"
-
+description = "Async Runtime Modules"
+documentation = "https://docs.rwest.io/ctx"
+repository = "https://hg.rwest.io/rlib"
+publish = ["crater"]
 
 [lib]
 test = false

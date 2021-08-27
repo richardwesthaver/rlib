@@ -1,3 +1,4 @@
+//! math library
 #[cfg(test)]
 mod tests {
   #[test]

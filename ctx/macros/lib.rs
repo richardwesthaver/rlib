@@ -1,3 +1,4 @@
+//! tokio `main` and `test` macros
 #![allow(elided_lifetimes_in_paths)]
 
 #[allow(unused_extern_crates)]

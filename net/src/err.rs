@@ -1,5 +1,10 @@
+//! net errors
 use std::{fmt, io};
 
+/// net Result type
+pub type Result<T> = std::result::Result<T, Error>;
+
+/// net Error type
 pub enum Error {
   Io(io::Error),
   #[cfg(feature = "client")]

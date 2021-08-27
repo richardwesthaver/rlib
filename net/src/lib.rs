@@ -1,12 +1,12 @@
+//! net client/server library
+//!
+//! net is used for building client/server programs on any platform.
 mod err;
-//pub mod codec;
-
+//mod codec;
 #[cfg(feature = "client")]
 pub mod client;
 
-pub use crate::err::Error;
-
-pub type Result<T> = std::result::Result<T, Error>;
+pub use crate::err::{Error, Result};
 
 #[cfg(test)]
 mod tests;

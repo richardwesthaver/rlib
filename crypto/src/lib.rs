@@ -1,3 +1,4 @@
+//! crypto modules
 pub const SECRET_KEY_LENGTH: usize = 32;
 pub const PUBLIC_KEY_LENGTH: usize = 32;
 

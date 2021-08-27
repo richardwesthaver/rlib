@@ -1,6 +1,6 @@
-/// test related_paths
+//! tests
 #[test]
-fn related_paths() {
+fn test_related_paths() {
   use crate::path::local_relative_path;
   use std::path::Path;
   local_relative_path(Path::new(".")).unwrap();
@@ -8,7 +8,7 @@ fn related_paths() {
 
 #[cfg(feature = "fmt")]
 #[test]
-fn text_tree() {
+fn test_text_tree() {
   use crate::fmt::StringTreeNode;
   let tt = StringTreeNode::with_child_nodes(
     "Home".to_string(),

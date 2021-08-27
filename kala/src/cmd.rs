@@ -1,6 +1,6 @@
 //! kalash::cmd
 //!
-//! collection of wrapper commands for various functions.
+//! collection of wrapper wrapper functions for system features
 //!
 //! TODO [2021-08-23 Mon 21:56] - check all modules for
 //! target-specific dependencies and add flags.

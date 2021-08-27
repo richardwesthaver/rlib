@@ -1,5 +1,4 @@
 //! this crate is used by the ctx/macros crate to implement ctx::init macros.
-
 use futures::Future;
 
 pub fn tokio_test<F>(f: F) -> <F as Future>::Output

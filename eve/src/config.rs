@@ -1,3 +1,4 @@
+//! config types for io_uring
 use std::io;
 use std::sync::Arc;
 /// Configuration for the underlying `io_uring` system.

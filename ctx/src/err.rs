@@ -1,5 +1,10 @@
+//! ctx errors
 use std::{fmt, io};
 
+/// ctx Result type
+pub type Result<T> = std::result::Result<T, Error>;
+
+/// ctx Error type
 pub enum Error {
   Io(io::Error),
 }

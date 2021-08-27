@@ -1,3 +1,4 @@
+//! dmc
 //#[macro_use]
 //extern crate lalrpop_util;
 

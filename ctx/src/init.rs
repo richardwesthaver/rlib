@@ -1,3 +1,4 @@
+//! tokio `main` and `test` entrypoints
 use futures::Future;
 
 pub fn tokio_test<F>(f: F) -> <F as Future>::Output

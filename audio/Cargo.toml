@@ -1,7 +1,12 @@
 [package]
 name = "audio"
 version = "0.1.0"
+authors = ["ellis"]
 edition = "2018"
+description = "Audio and DSP Modules"
+documentation = "https://docs.rwest.io/audio"
+repository = "https://hg.rwest.io/rlib"
+publish = ["crater"]
 
 [dependencies]
 cpal = { version = "0.13.3" }

@@ -1,3 +1,4 @@
+//! logger tests
 use crate::log::{debug, info, trace, warn};
 use crate::simple;
 #[test]

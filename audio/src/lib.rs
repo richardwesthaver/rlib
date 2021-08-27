@@ -1,3 +1,4 @@
+//! audio modules
 use std::{
   fs::File,
   io::BufWriter,
@@ -7,6 +8,7 @@ use std::{
 use cpal::traits::{DeviceTrait, StreamTrait};
 pub use hound::{Sample, SampleFormat, WavReader, WavSpec};
 
+/// convert between `cpal::SampleFormat` and `hound::SampleFormat`
 pub fn sample_format(format: cpal::SampleFormat) -> hound::SampleFormat {
   match format {
     cpal::SampleFormat::U16 => hound::SampleFormat::Int,
@@ -15,6 +17,7 @@ pub fn sample_format(format: cpal::SampleFormat) -> hound::SampleFormat {
   }
 }
 
+/// Return `hound::WavSpec` from `cpal::SupportedStreamconfig`
 pub fn wav_spec_from_config(config: &cpal::SupportedStreamConfig) -> hound::WavSpec {
   hound::WavSpec {
     channels: config.channels() as _,
@@ -24,8 +27,10 @@ pub fn wav_spec_from_config(config: &cpal::SupportedStreamConfig) -> hound::WavS
   }
 }
 
+/// A thread-safe handle to the WavWriter file
 type WavWriterHandle = Arc<Mutex<Option<hound::WavWriter<BufWriter<File>>>>>;
 
+/// Write incoming data to an owned `WavWriterHandle`
 pub fn write_input_data<T, U>(input: &[T], writer: &WavWriterHandle)
 where
   T: cpal::Sample,
@@ -55,6 +60,7 @@ where
   (sqr_sum / reader.len() as f64).sqrt()
 }
 
+/// Run a max volume sinusoid through the default audio output device
 pub fn run<T: cpal::Sample>(
   device: &cpal::Device,
   config: &cpal::StreamConfig,
@@ -83,6 +89,7 @@ pub fn run<T: cpal::Sample>(
   Ok(())
 }
 
+/// write a stream of data
 fn write_data<T>(output: &mut [T], channels: usize, next_sample: &mut dyn FnMut() -> f32)
 where
   T: cpal::Sample,

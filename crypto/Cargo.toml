@@ -1,7 +1,12 @@
 [package]
-edition = "2018"
 name = "crypto"
 version = "0.1.0"
+authors = ["ellis"]
+edition = "2018"
+description = "Cryptographic Utility Modules"
+documentation = "https://docs.rwest.io/crypto"
+repository = "https://hg.rwest.io/rlib"
+publish = ["crater"]
 
 [dependencies]
 

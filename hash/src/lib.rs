@@ -1,3 +1,4 @@
+//! hash - wrapper for hash algorithms and types
 pub use std::hash::{Hash, Hasher};
 
 pub use blake3::{derive_key, hash, keyed_hash, Hash as B3Hash, Hasher as B3Hasher, OutputReader};
@@ -10,8 +11,8 @@ pub const OUT_LEN: usize = 32;
 pub const OUT_LEN_HEX: usize = OUT_LEN * 2;
 pub mod id;
 pub mod tree;
-// a simple Id abstraction with help functions. I'm finding this easier than
-// state machines and traits for the time-being.
+/// a simple Id abstraction with help functions. I'm finding this easier than
+/// state machines and traits for the time-being.
 #[derive(Clone, Eq, PartialEq, Ord, PartialOrd, Debug, Serialize, Deserialize, Hash)]
 pub struct Id(pub Vec<u8>);
 

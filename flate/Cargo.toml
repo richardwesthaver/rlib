@@ -1,10 +1,16 @@
 [package]
 name = "flate"
 version = "0.1.0"
+authors = ["ellis"]
 edition = "2018"
+description = "Archive and Compression Modules"
+documentation = "https://docs.rwest.io/flate"
+repository = "https://hg.rwest.io/rlib"
+publish = ["crater"]
 
 [dependencies]
 tar = "0.4.36"
-zstd = { version = "0.9.0" }
-
+zstd = { version = "0.9.0", default-features = false }
+zstd-safe = { version = "4.1.1", default-features = false, optional = true }
+ctx = { version = "0.1.0", path = "../ctx", optional = true }
 #async-compression = { version = "0.3.8", features = ["zstd", "tokio"] }

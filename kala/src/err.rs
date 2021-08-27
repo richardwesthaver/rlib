@@ -1,6 +1,10 @@
-//! kalash error type
+//! kala errors
 use std::{fmt, io};
 
+/// kala Result type
+pub type Result<T> = std::result::Result<T, Error>;
+
+/// kala Error type
 pub enum Error {
   Io(io::Error),
   Cfg(cfg::Error),

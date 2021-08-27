@@ -6,7 +6,6 @@ edition = "2018"
 description = "Rlib Utilities"
 documentation = "https://docs.rwest.io/util"
 repository = "https://hg.rwest.io/rlib"
-readme = "META"
 publish = ["crater"]
 
 [features]

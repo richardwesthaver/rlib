@@ -1,17 +1,22 @@
-use std::path::PathBuf;
-use std::sync::Arc;
+//! db modules
+//!
+//! This library provides types and builder functions for working with
+//! databases. Currently the only backend supported is RocksDB.
+mod err;
+mod registry;
+
+pub use registry::Registry;
+pub use err::{Error, Result};
 
 pub use rocksdb::{ColumnFamilyDescriptor, Options, DB};
 
-mod err;
-pub mod registry;
-pub use crate::{err::Error, registry::Registry};
+use std::path::PathBuf;
+use std::sync::Arc;
 
 #[cfg(test)]
 mod tests;
 
-pub type Result<T> = std::result::Result<T, Error>;
-
+/// RocksDB handle
 pub struct RocksDB {
   pub path: PathBuf,
   pub db: Arc<DB>,

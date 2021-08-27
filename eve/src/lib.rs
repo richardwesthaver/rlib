@@ -1,3 +1,4 @@
+//! eve - event engines
 use std::{os::unix::io::RawFd, ptr};
 
 pub use io_uring;

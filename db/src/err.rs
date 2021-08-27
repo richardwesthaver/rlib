@@ -1,5 +1,10 @@
+//! db errors
 use std::{fmt, io};
 
+/// db Result type
+pub type Result<T> = std::result::Result<T, Error>;
+
+/// db Error type
 pub enum Error {
   Io(io::Error),
 }

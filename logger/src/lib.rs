@@ -1,3 +1,4 @@
+//! logger library
 use flexi_logger::Logger;
 use flexi_logger::{AdaptiveFormat, Age, Cleanup, Criterion, FileSpec, Naming};
 pub use log;
@@ -5,15 +6,15 @@ use log::{Level, LevelFilter, Metadata, Record};
 
 mod err;
 
-pub use crate::err::Error;
+pub use err::{Error, Result};
 
-pub type Result<T> = std::result::Result<T, Error>;
-
+/// initialize a simple logger
 pub fn simple() -> Result<()> {
   log::set_logger(&SimpleLogger).map(|()| log::set_max_level(LevelFilter::Trace))?;
   Ok(())
 }
 
+/// a simple logger
 struct SimpleLogger;
 
 impl log::Log for SimpleLogger {
@@ -30,6 +31,7 @@ impl log::Log for SimpleLogger {
   fn flush(&self) {}
 }
 
+/// Initialize a `Logger` with a specified logging level
 pub fn flexi(level: &str) -> Result<()> {
   Logger::try_with_env_or_str(level)?
     .format(flexi_logger::colored_default_format)
@@ -41,6 +43,7 @@ pub fn flexi(level: &str) -> Result<()> {
   Ok(())
 }
 
+/// Initialize `Logger` and log to a file instead of stdout
 pub fn file() -> Result<()> {
   Logger::try_with_str("trace")? // Write all error, warn, and info messages
     // use a simple filename without a timestamp

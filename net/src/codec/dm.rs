@@ -1,4 +1,4 @@
-//! A simple messaging protocol
+//! A state-less messaging protocol
 use tokio_util::codec::{Encoder, Decoder};
 use bytes::{BytesMut, Buf};
 

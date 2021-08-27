@@ -1,8 +1,12 @@
 [package]
 name = "obj"
 version = "0.1.0"
+authors = ["ellis"]
 edition = "2018"
 description = "Object-oriented type system"
+documentation = "https://docs.rwest.io/obj"
+repository = "https://hg.rwest.io/rlib"
+publish = ["crater"]
 
 [dependencies]
 # rlib

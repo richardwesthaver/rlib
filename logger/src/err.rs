@@ -1,7 +1,12 @@
+//! logger errors
 use std::{fmt, io};
 
 use flexi_logger::FlexiLoggerError;
 
+/// logger Result type
+pub type Result<T> = std::result::Result<T, Error>;
+
+/// logger Error type
 pub enum Error {
   Io(io::Error),
   Flexi(FlexiLoggerError),

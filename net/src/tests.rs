@@ -1,3 +1,4 @@
+//! net tests
 use std::net::UdpSocket;
 #[test]
 fn udp_start() {

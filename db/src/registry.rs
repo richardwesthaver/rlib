@@ -1,6 +1,7 @@
-//! db::registry
+//! registry module
 use crate::RocksDB;
 
+/// Registry handle
 pub struct Registry {
   pub db: RocksDB,
 }

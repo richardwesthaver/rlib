@@ -1,4 +1,4 @@
-//! util::path
+//! path module
 //!
 //! Helper functions for working with paths on filesystem
 use std::io::Error;
