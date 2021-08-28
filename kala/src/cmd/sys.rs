@@ -8,38 +8,17 @@ use std::collections::HashMap;
 
 /// Print information about the current host using `whoami` crate
 pub fn describe_host() {
-    println!(
-      "User's Name:            {}",
-      whoami::realname()
-    );
-    println!(
-      "User's Username:        {}",
-      whoami::username()
-    );
-    println!(
-      "User's Language:        {:?}",
-      whoami::lang().collect::<Vec<String>>()
-    );
-    println!(
-      "Device's Pretty Name:   {}",
-      whoami::devicename()
-    );
-    println!(
-      "Device's Hostname:      {}",
-      whoami::hostname()
-    );
-    println!(
-      "Device's Platform:      {}",
-      whoami::platform()
-    );
-    println!(
-      "Device's OS Distro:     {}",
-      whoami::distro()
-    );
-    println!(
-      "Device's Desktop Env:   {}",
-      whoami::desktop_env()
-    );
+  println!("User's Name:            {}", whoami::realname());
+  println!("User's Username:        {}", whoami::username());
+  println!(
+    "User's Language:        {:?}",
+    whoami::lang().collect::<Vec<String>>()
+  );
+  println!("Device's Pretty Name:   {}", whoami::devicename());
+  println!("Device's Hostname:      {}", whoami::hostname());
+  println!("Device's Platform:      {}", whoami::platform());
+  println!("Device's OS Distro:     {}", whoami::distro());
+  println!("Device's Desktop Env:   {}", whoami::desktop_env());
 }
 
 /// Print info about the USB devices found on host. If Some(`devices`)

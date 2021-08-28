@@ -21,9 +21,7 @@ pub struct City {
 
 impl Objective for City {}
 
-/// Point object type
-///
-/// Use in 2D applications.
+/// Geo-coordinate Point object type
 #[derive(Serialize, Deserialize, Debug, Default, PartialEq)]
 pub struct Point {
   pub lat: f32,

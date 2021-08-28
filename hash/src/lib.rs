@@ -1,11 +1,10 @@
 //! hash - wrapper for hash algorithms and types
-pub use std::hash::{Hash, Hasher};
-
 pub use blake3::{derive_key, hash, keyed_hash, Hash as B3Hash, Hasher as B3Hasher, OutputReader};
 pub use hex;
 use rand::Rng;
 use serde::{Deserialize, Serialize};
 pub use sha2::Sha512;
+pub use std::hash::{Hash, Hasher};
 pub const KEY_LEN: usize = 32;
 pub const OUT_LEN: usize = 32;
 pub const OUT_LEN_HEX: usize = OUT_LEN * 2;
@@ -49,7 +48,7 @@ impl PeerId {
     Self::default()
   }
 
-  pub fn random() -> Self {
+  pub fn rand() -> Self {
     let pd = rand::thread_rng().gen::<[u8; 32]>();
     Self { id: pd }
   }

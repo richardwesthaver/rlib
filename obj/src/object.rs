@@ -2,27 +2,29 @@
 //!
 //! Concrete object types and traits. All type definitions conform to
 //! the Serde spec.
+mod color;
+mod doc;
+mod location;
+mod media;
+mod meta;
+mod person;
+
+pub use self::{
+  color::Color,
+  doc::{Doc, DocExtension, Org},
+  location::{City, Point},
+  media::{Media, MediaExtension},
+  meta::{Meta, Note, Property, Summary},
+  person::Person,
+};
+
 use std::io;
 
-use chrono::{DateTime, Utc};
 use hash::Id;
 use serde::de::DeserializeOwned;
 pub(crate) use serde::{Deserialize, Serialize};
 
 use crate::Result;
-mod color;
-pub mod doc;
-pub mod location;
-mod media;
-mod person;
-
-pub use self::{
-  color::Color,
-  doc::Doc,
-  location::{City, Point},
-  media::Media,
-  person::Person,
-};
 
 /// Objective trait
 ///
@@ -100,69 +102,14 @@ pub trait Objective {
 
 /// Identity trait
 ///
-/// Defines Id-related behaviors, implemented by Objects
+/// Defines Identity-related behaviors, implemented by Objects
 pub trait Identity: Sized + Objective {
+  /// return the hashed bytes of an ObjectId
   fn id(&self) -> Id;
-  fn update(&self) -> Self;
-}
-
-/// Meta object
-///
-/// This struct is built into other Objects, providing basic data for
-/// static analysis.
-#[derive(Serialize, Deserialize, Debug, Hash)]
-pub struct Meta {
-  id: u64,
-  tags: Option<String>,
-  properties: Option<Vec<Property>>,
-  created: DateTime<Utc>,
-  updated: DateTime<Utc>,
-}
-
-impl Meta {
-  pub fn new() -> Self {
-    Meta {
-      id: 0x00,
-      tags: None,
-      properties: None,
-      created: Utc::now(),
-      updated: Utc::now(),
-    }
-  }
-}
-impl Default for Meta {
-  fn default() -> Self {
-    Meta::new()
-  }
-}
-/// Property object
-///
-/// An isolated property consisting of a (key,val) pair.
-///
-/// TODO <2021-08-17 Tue 01:28> - this should be a trait. make
-/// metadata module for this.
-#[derive(Serialize, Deserialize, Debug, Hash)]
-pub struct Property {
-  key: String,
-  val: String,
-}
-
-/// Summary object
-///
-/// A summary of an object.
-///
-/// TODO <2021-08-17 Tue 01:30> make this a trait too.
-#[derive(Serialize, Deserialize, Debug, Hash)]
-pub struct Summary {
-  meta: Meta,
-  summary: String,
-}
-
-/// Note object
-///
-/// A note pertaining to one or many objects.
-#[derive(Serialize, Deserialize, Debug, Hash)]
-pub struct Note {
-  meta: Meta,
-  content: String,
+  /// return the hexcode string of an ObjectId
+  fn hex_id(&self) -> String;
+  /// return the human-readable string of an ObjectId
+  fn string_id(&self) -> String;
+  /// return the namespace of an ObjectId
+  fn namespace_id(&self) -> String;
 }

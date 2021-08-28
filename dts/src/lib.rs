@@ -2,7 +2,6 @@
 //!
 //! Abstract and Category-inspired types (experimental)
 #![feature(generic_associated_types)]
-//#![feature(arbitrary_enum_discriminant)]
 #![allow(incomplete_features, dead_code)]
 
 pub trait Functor {

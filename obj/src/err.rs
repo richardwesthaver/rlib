@@ -1,4 +1,8 @@
+//! obj errors
 use std::{fmt, io};
+
+/// obj Result wrapper
+pub type Result<T> = std::result::Result<T, Error>;
 
 /// obj Error type
 #[derive(Debug)]

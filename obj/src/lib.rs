@@ -2,19 +2,12 @@
 //!
 //! Object-oriented type system
 mod err;
-
-pub mod object;
-pub use crate::{
-  err::Error,
-  object::{
-    Objective, Identity,
-    Color, Doc, City, Point, Media, Person,
-    doc::Org,
-  }
-};
-
-/// obj Result wrapper
-pub type Result<T> = std::result::Result<T, Error>;
-
+mod object;
 #[cfg(test)]
 mod tests;
+
+pub use err::{Error, Result};
+pub use object::{
+  City, Color, Doc, DocExtension, Identity, Media, MediaExtension, Meta, Note, Objective, Org,
+  Person, Point, Property, Summary,
+};

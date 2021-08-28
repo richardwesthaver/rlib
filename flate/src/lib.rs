@@ -30,7 +30,8 @@ pub fn unpack(src: &Path, dst: &Path) {
   ar.unpack(dst).unwrap();
 }
 
-/// unpack a tar.zst compressed archive, removing the source file before returning
+/// unpack a tar.zst compressed archive, removing the source file before
+/// returning
 pub fn unpack_replace(src: &Path, dst: &Path) {
   unpack(src, dst);
   fs::remove_file(src).expect("could not remove source package");

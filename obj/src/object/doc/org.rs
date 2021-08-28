@@ -20,13 +20,13 @@
 //! - [Using the Property API](https://orgmode.org/manual/Using-the-Property-API.html)
 //! - [Org-element API](https://orgmode.org/worg/dev/org-element-api.html)
 //! - [Orgnode.py](http://members.optusnet.com.au/~charles57/GTD/Orgnode.py)
-use std::fs;
-use std::path::PathBuf;
 use logger::log::info;
 use ron::{
   extensions::Extensions,
   ser::{to_string_pretty, PrettyConfig},
 };
+use std::fs;
+use std::path::PathBuf;
 
 use crate::object::{Deserialize, Meta, Note, Objective, Property, Serialize};
 use crate::Result;

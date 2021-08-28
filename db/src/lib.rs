@@ -5,8 +5,8 @@
 mod err;
 mod registry;
 
-pub use registry::Registry;
 pub use err::{Error, Result};
+pub use registry::Registry;
 
 pub use rocksdb::{ColumnFamilyDescriptor, Options, DB};
 

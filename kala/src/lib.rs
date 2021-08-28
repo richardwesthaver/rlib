@@ -1,12 +1,14 @@
 //! kala desktop command library
 //!
-//! This module provides collections of system functions available via feature flags.
+//! This module provides collections of system functions available via feature
+//! flags.
 //!
 //! notes regarding platform support:
 //! - the default target (all features supported) is GNU Linux
-//! - features that do not include external dependencies run on all
-//!   platforms (with stdlib support)
-//! - some features *only* support unix, others *only* support GNU Linux specifically
+//! - features that do not include external dependencies run on all platforms
+//!   (with stdlib support)
+//! - some features *only* support unix, others *only* support GNU Linux
+//!   specifically
 pub mod cmd;
 mod err;
 pub use err::{Error, Result};

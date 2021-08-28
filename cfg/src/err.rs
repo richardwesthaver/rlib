@@ -1,6 +1,6 @@
 //! configuration errors
-use std::{fmt, io};
 use serde::{de, ser};
+use std::{fmt, io};
 
 /// cfg Error type
 pub enum Error {

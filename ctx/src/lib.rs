@@ -8,8 +8,8 @@ pub use macros::{main, test};
 pub use rayon;
 pub use tokio;
 
-use std::fmt::{self, Debug};
 use quickcheck::{Arbitrary, Gen};
+use std::fmt::{self, Debug};
 #[cfg(test)]
 mod tests;
 
