@@ -186,20 +186,3 @@ impl Default for HgwebConfig {
     HgwebConfig::new()
   }
 }
-
-/// ensure ability to insert new entries to HgwebConfig
-#[test]
-fn hgweb_test() {
-  let mut web_conf = HgwebConfig::default();
-
-  web_conf
-    .paths
-    .insert(PathBuf::from("foo"), PathBuf::from("bar"));
-
-  let wc2 = web_conf.paths.try_insert(
-    PathBuf::from("contrib/lib/rust/tempdir"),
-    PathBuf::from("contrib/lib/rust/tempdir"),
-  );
-
-  assert!(wc2.is_ok());
-}

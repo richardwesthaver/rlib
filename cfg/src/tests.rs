@@ -1,11 +1,10 @@
 //! cfg::tests
 //use tempfile::NamedTempFile;
 use crate::config::repo::{RepoConfig, RepoType};
-use crate::{NetworkConfig, PackageConfig};
-
-/// PackageConfig
+use crate::{HgwebConfig, NetworkConfig, PackageConfig};
+use std::path::PathBuf;
 #[test]
-fn pkg_cfg() {
+fn test_package_cfg() {
   let mut pkg: PackageConfig = ron::from_str(
     r#"(name: "test-pack-cfg",
         repo: None,
@@ -18,9 +17,8 @@ fn pkg_cfg() {
   assert_eq!(RepoConfig::new(), pkg.repo.unwrap());
 }
 
-/// test NetworkConfig
 #[test]
-fn net_cfg() {
+fn test_network_cfg() {
   let mut net: NetworkConfig = ron::from_str(
     r#"(socket: "127.0.0.1:0",
         transport: "udp-client",
@@ -35,15 +33,29 @@ fn net_cfg() {
   assert_ne!(net, NetworkConfig::default());
 }
 
-/// RepoType keywords
 #[test]
-fn repo_type() {
+fn test_repo_type() {
   assert_eq!(RepoType::GitRepository.to_string(), "git");
   assert_eq!(RepoType::MercurialRepository.to_string(), "hg");
 }
 
-/// RepoConfig
 #[test]
-fn repo_config() {
+fn test_repo_config() {
   assert_eq!(RepoConfig::default().vcs, "hg");
+}
+
+#[test]
+fn test_hgweb_insert() {
+  let mut web_conf = HgwebConfig::default();
+
+  web_conf
+    .paths
+    .insert(PathBuf::from("foo"), PathBuf::from("bar"));
+
+  let wc2 = web_conf.paths.try_insert(
+    PathBuf::from("contrib/lib/rust/tempdir"),
+    PathBuf::from("contrib/lib/rust/tempdir"),
+  );
+
+  assert!(wc2.is_ok());
 }

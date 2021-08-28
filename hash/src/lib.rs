@@ -96,8 +96,8 @@ mod tests {
   fn random_demon_id_is_valid() {
     use crate::PeerId;
     for _ in 0..5000 {
-      let did = PeerId::random();
-      let did2 = PeerId::random();
+      let did = PeerId::rand();
+      let did2 = PeerId::rand();
       assert_eq!(did, did);
       assert_ne!(did, did2);
     }

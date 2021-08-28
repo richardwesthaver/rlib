@@ -17,7 +17,7 @@ pub use crate::{
     package::PackageConfig,
     program::ProgramConfig,
     registry::RegistryConfig,
-    repo,
+    repo::{HgSubFile, HgwebConfig, RepoConfig, RepoType, SubRepo},
     user::UserConfig,
   },
   err::Error,

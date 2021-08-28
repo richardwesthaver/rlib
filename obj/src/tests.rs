@@ -8,8 +8,11 @@ use std::str::FromStr;
 #[test]
 fn test_location_points() {
   let pnt = Point::new(1.0, 2.0);
-  assert!(String::from_str("(\n  lat: 1,\n  lng: 2,\n)").unwrap() == pnt.to_ron_string().unwrap());
-  assert!(Point::from_ron_str("(lat: 1.0, lng: 2.0)").unwrap() == pnt);
+  assert_eq!(
+    String::from_str("(\n  lat: 1,\n  lng: 2,\n)").unwrap(),
+    pnt.to_ron_string().unwrap()
+  );
+  assert_eq!(Point::from_ron_str("(lat: 1.0, lng: 2.0)").unwrap(), pnt);
 }
 
 /// test file metadata
@@ -22,14 +25,14 @@ fn test_basic_file_metadata() {
 #[test]
 fn test_docs() {
   let doc = Doc::default();
-  assert!(doc == Doc::new("org"));
-  assert!(doc.extension == DocExtension::from_str("org").unwrap());
+  assert_eq!(doc, Doc::new("org"));
+  assert_eq!(doc.extension, DocExtension::from_str("org").unwrap());
 }
 
 #[test]
 fn test_media() {
   let media = Media::new("wav");
-  assert!(media.extension == MediaExtension::from_str("wav").unwrap());
+  assert_eq!(media.extension, MediaExtension::from_str("wav").unwrap());
 }
 /// Test Org parser functionality
 #[test]
