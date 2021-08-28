@@ -22,3 +22,4 @@ chrono = { version = "0.4.19", features = ["serde"] , optional = true}
 anyhow = { version = "1.0.42", optional = true }
 text_trees = { version = "0.1.2", optional = true }
 platforms = "1.1.0"
+# serde = { version = "1.0.128", features = ["derive"], optional = true }
