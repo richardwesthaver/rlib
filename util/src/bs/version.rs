@@ -25,12 +25,12 @@ pub fn generate_cargo_keys() {
   };
 
   println!(
-    "cargo:rustc-env=DEMON_IMPL_VERSION={}",
-    get_version(&commit)
+    "cargo:rustc-env=DEMON_VERSION={}",
+    get_version_short(&commit)
   )
 }
 
-fn get_platform() -> String {
+pub fn get_platform() -> String {
   let env_dash = if TARGET_ENV.is_some() { "-" } else { "" };
 
   format!(
@@ -42,7 +42,7 @@ fn get_platform() -> String {
   )
 }
 
-fn get_version(impl_commit: &str) -> String {
+pub fn get_version(impl_commit: &str) -> String {
   let commit_dash = if impl_commit.is_empty() { "" } else { "-" };
 
   format!(
@@ -51,5 +51,17 @@ fn get_version(impl_commit: &str) -> String {
     commit_dash,
     impl_commit,
     get_platform(),
+  )
+}
+
+// TODO [2021-09-01 Wed 02:39] - reimpl this function via flag in `get_version`
+fn get_version_short(impl_commit: &str) -> String {
+  let commit_dash = if impl_commit.is_empty() { "" } else { "-" };
+
+  format!(
+    "{}{}{}",
+    std::env::var("CARGO_PKG_VERSION").unwrap_or_default(),
+    commit_dash,
+    impl_commit,
   )
 }
