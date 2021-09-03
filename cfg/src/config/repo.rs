@@ -13,7 +13,7 @@ use std::{
 use crate::Result;
 pub use git2::Repository as GitRepository;
 pub use hg_parser::MercurialRepository;
-use logger::log::{info, trace};
+use logger::log::{error, info, trace};
 use serde::{Deserialize, Serialize};
 
 /// Generic repo configuration type
@@ -71,32 +71,68 @@ pub struct SubRepo {
 
 /// Mercurial '.hgsub' file handle, which is just a list of PATH=SOURCE pairs.
 pub struct HgSubFile {
-  pub path: PathBuf,
-  pub subrepos: Vec<SubRepo>,
+  pub path: PathBuf,          // path to the .hgsub file
+  pub subrepos: Vec<SubRepo>, // Vec containing `SubRepo` handles
 }
 
 impl HgSubFile {
-  /// Create a new '.hgsub' file in current directory
+  /// Create a new '.hgsub' file handle
   pub fn new() -> Self {
     HgSubFile {
       path: PathBuf::from(".hgsub"),
       subrepos: vec![],
     }
   }
-
-  /// should perform validation to ensure that the path is a hg repo,
-  /// and does in fact exist, but the .hgsub file doesn't need to.
-  pub fn parent(mut self, path: impl AsRef<Path>) -> Result<Self> {
-    self.path = path.as_ref().to_path_buf().join(".hgsub").canonicalize()?;
-    Ok(self)
+  /// should perform validation to ensure that the path is in a hg repo.
+  fn parent_is_hg(&self) -> bool {
+    if self.path.parent().unwrap().join(".hg").exists() {
+      true
+    } else {
+      false
+    }
   }
-
-  /// TODO [2021-08-13 Fri]
   /// insert a subrepo into this HgSubFile. does not clone the source
   /// or ensure that path exists. Takes an optional argument of 'hg'
-  /// or 'git' to indicate the subrepo-type. None represents a
-  /// local-only repo.
-  pub fn insert(&self, _name: &str, _vcs: Option<&str>) -> Result<()> {
+  /// or 'git' to indicate the subrepo-type. Value can be ommitted to
+  pub fn insert(&mut self, path: &str, source: &str, vcs: Option<&str>) -> Result<()> {
+    let mut prefix = "";
+    // set prefix based on vcs (repo type)
+    if let Some(i) = vcs {
+      match i {
+        "hg" => prefix = "hg",
+        "git" => prefix = "git",
+        _ => {
+          error!("failed to recognize repo type")
+        }
+      }
+    }
+
+    let source = format!("{}:{}", prefix, source);
+
+    let subrepo = SubRepo {
+      vcs: vcs.unwrap().to_string(),
+      origin: source.to_string(),
+      path: path.to_string(),
+    };
+
+    self.subrepos.push(subrepo);
+    Ok(())
+  }
+
+  /// Save subs to `.hgsub` file specified in the `path` field of
+  /// this struct. This will overwrite any existing file at that path.
+  pub fn save(self) -> Result<()> {
+    match self.parent_is_hg() {
+      true => {
+        let mut file = File::open(self.path).unwrap();
+        for i in self.subrepos.iter() {
+          write!(file, "{} = {}", i.path, i.origin)?;
+        }
+      }
+      false => {
+        error!("Parent is not a Mercurial repo!")
+      }
+    }
     Ok(())
   }
 
@@ -134,7 +170,7 @@ impl HgSubFile {
 impl Default for HgSubFile {
   fn default() -> Self {
     HgSubFile {
-      path: PathBuf::from(""),
+      path: PathBuf::from(".hgsub"),
       subrepos: vec![],
     }
   }
