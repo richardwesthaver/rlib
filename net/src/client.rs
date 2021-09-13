@@ -1,2 +1,8 @@
 //! network client primitives
-pub use reqwest::{Client, StatusCode};
+pub use reqwest;
+
+use cfg::NetworkConfig;
+
+pub struct Client {
+  pub cfg: NetworkConfig,
+}

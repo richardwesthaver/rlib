@@ -1,25 +1,24 @@
 //! A state-less messaging protocol
 use tokio_util::codec::{Encoder, Decoder};
 use bytes::{BytesMut, Buf};
-
 mod build;
 use build::Builder;
 
+pub const MAX: usize = usize::MAX;
 #[derive(Debug)]
 pub struct DmCodec {
     builder: Builder,
     state: DecodeState,
-};
+}
 
 #[derive(Debug, Clone, Copy)]
-enum DecodeState {
+pub enum DecodeState {
     Head,
     Data(usize),
 }
 
 impl Encoder<String> for DmCodec {
     type Error = std::io::Error;
-
     fn encode(&mut self, item: String, dst: &mut BytesMut) -> Result<(), Self::Error> {
         // Don't send a string if it is longer than the other end will
         // accept.

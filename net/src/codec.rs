@@ -1,2 +1,2 @@
-//! small multi-function communication protocols for embedded messengers
+//! small binary pubsub for IPC
 pub mod dm;

@@ -7,7 +7,7 @@ use std::io::BufReader;
 
 /// Given a `HgwebConfig` struct, start the hgweb server and log to
 /// stdout.
-pub fn hgweb(cfg: HgwebConfig) -> CmdResult {
+pub fn hgweb(cfg: &HgwebConfig) -> CmdResult {
   println!("found hgweb_config: {:?}", cfg);
   use_builtin_cmd!(echo, info);
   // Continuously process child outputs

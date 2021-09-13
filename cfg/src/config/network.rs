@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;
 
 /// Network configuration
-#[derive(Serialize, Deserialize, Hash, Debug, PartialEq)]
+#[derive(Serialize, Deserialize, Hash, Debug, PartialEq, Clone)]
 pub struct NetworkConfig {
   /// a socket to bind
   pub socket: SocketAddr,
@@ -17,7 +17,7 @@ pub struct NetworkConfig {
   pub tunnel: Option<String>,
   /// network engine to attach
   pub engine: Option<String>,
-  /// peers to register for O-RTT comms
+  /// peers to register AOT
   pub peers: Option<Vec<(String, String)>>,
 }
 
@@ -25,7 +25,7 @@ impl Default for NetworkConfig {
   fn default() -> Self {
     NetworkConfig {
       socket: "127.0.0.1:0".parse().unwrap(),
-      transport: "udp-client".to_string(),
+      transport: "udp".to_string(),
       tunnel: None,
       engine: None,
       peers: None,

@@ -16,14 +16,12 @@ pub fn make(target: &str) {
 }
 
 /// GNU Emacs command
-pub fn emacs(args: Vec<&str>, envs: HashMap<&str, &str>) -> Result<Output> {
+pub fn emacs(args: Vec<&str>) -> Result<Output> {
   Ok(
     Command::new("emacs")
-      .env_clear()
-      .envs(envs)
       .args(args)
       .spawn()?
-      .wait_with_output()?,
+      .wait_with_output()?
   )
 }
 
@@ -55,4 +53,28 @@ pub fn fehbg(img_path: &str) -> CmdResult {
 #[cfg(unix)]
 pub fn conky(cfg: &str) -> CmdResult {
   Ok(run_cmd!(conky  -qbdc "$cfg" '&')?)
+}
+
+pub fn wg_keygen(peers: Vec<&str>) -> Result<()> {
+  println!("writing keypairs to {:?}", std::env::current_dir().unwrap());
+  for i in peers.iter() {
+    let key_file = std::fs::File::create(format!("{}{}", i, ".key")).unwrap();
+    let pub_file = std::fs::File::create(format!("{}{}", i, ".pub")).unwrap();
+    Command::new("wg")
+      .arg("genkey")
+      .stdout(key_file)
+      .output()
+      .expect("could not create private key");
+
+    Command::new("wg")
+      .arg("pubkey")
+      .stdin(std::fs::File::open(format!("{}{}", i, ".key")).unwrap())
+      .stdout(pub_file)
+      .output()
+      .expect("could not create public key");
+
+    println!("{} -- done", i);
+  }
+
+  Ok(())
 }

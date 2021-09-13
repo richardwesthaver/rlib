@@ -3,7 +3,7 @@
 //! Configuration Primitives
 #![feature(map_try_insert)]
 
-mod config;
+pub mod config;
 mod err;
 
 pub use ron;

@@ -7,12 +7,12 @@ use std::{
   fs::File,
   io::{LineWriter, Read, Write},
   net::SocketAddr,
-  path::{Path, PathBuf},
+  path::PathBuf,
 };
 
 use crate::Result;
-pub use git2::Repository as GitRepository;
-pub use hg_parser::MercurialRepository;
+pub use git2::Repository as GitRepo;
+pub use hg_parser::MercurialRepository as HgRepo;
 use logger::log::{error, info, trace};
 use serde::{Deserialize, Serialize};
 
@@ -180,9 +180,9 @@ impl Default for HgSubFile {
 ///
 /// Based on the configuration file for 'hgweb' scripts.
 ///
-/// We don't remember the file path in this case because all
-/// HgwebConfig values are relative to $PWD.
-#[derive(Serialize, Deserialize, Debug)]
+/// We don't store the file path in a field because all HgwebConfig
+/// values are relative to $PWD.
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct HgwebConfig {
   pub name: String,
   pub contact: String,
@@ -192,9 +192,8 @@ pub struct HgwebConfig {
   pub paths: HashMap<PathBuf, PathBuf>,
 }
 
-impl HgwebConfig {
-  /// Create a new HgwebConfig
-  pub fn new() -> Self {
+impl Default for HgwebConfig {
+  fn default() -> Self {
     HgwebConfig {
       name: "".to_string(),
       contact: "".to_string(),
@@ -205,20 +204,5 @@ impl HgwebConfig {
         .expect("could not parse hgweb socketaddr"),
       paths: HashMap::new(),
     }
-  }
-  /// Return HgwebConfig from hgweb configuration file
-  pub fn from_path(_path: &Path) -> Self {
-    HgwebConfig::new()
-  }
-
-  /// Write a HgwebConfig to file
-  pub fn write() -> Result<()> {
-    Ok(())
-  }
-}
-
-impl Default for HgwebConfig {
-  fn default() -> Self {
-    HgwebConfig::new()
   }
 }

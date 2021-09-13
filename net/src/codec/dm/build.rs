@@ -1,10 +1,11 @@
 //! builder for dm protocol prefab
-use tokio_util::codec::{Decoder, Encoder, Framed, FramedRead, FramedWrite};
+use tokio_util::codec::{Framed, FramedRead, FramedWrite};
 use super::{DecodeState, DmCodec};
+use std::cmp;
 
 use tokio::io::{AsyncRead, AsyncWrite};
 
-use bytes::{Buf, BufMut, Bytes, BytesMut};
+// use bytes::{Buf, BufMut, Bytes, BytesMut};
 
 #[derive(Debug, Clone, Copy)]
 pub struct Builder {
@@ -50,7 +51,7 @@ impl Builder {
         if cfg!(target_endian = "big") {
             self.big_endian()
         } else {
-            self.little_endian()
+            self.native_endian()
         }
     }    
 

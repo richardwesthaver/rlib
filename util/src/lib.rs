@@ -7,7 +7,7 @@ pub mod cli;
 pub mod fmt;
 #[cfg(feature = "time")]
 pub mod time;
-
+#[cfg(feature = "bs")]
 pub mod bs;
 pub mod path;
 #[cfg(test)]
