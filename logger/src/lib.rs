@@ -45,13 +45,12 @@ pub fn flexi(level: &str) -> Result<()> {
 
 /// Initialize `Logger` and log to a file instead of stdout
 pub fn file() -> Result<()> {
-  Logger::try_with_str("trace")? // Write all error, warn, and info messages
+  Logger::try_with_env_or_str("trace")? // Write all error, warn, and info messages
     // use a simple filename without a timestamp
     .log_to_file(FileSpec::default())
     .rotate(Criterion::Age(Age::Day), Naming::Timestamps, Cleanup::Never)
     .append()
     .start()?;
-
   Ok(())
 }
 

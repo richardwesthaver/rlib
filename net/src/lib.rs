@@ -5,7 +5,7 @@ mod err;
 // pub mod codec;
 pub mod engine;
 #[cfg(feature = "client")]
-mod client;
+pub mod client;
 #[cfg(feature = "server")]
 pub mod server;
 #[cfg(feature = "client")]

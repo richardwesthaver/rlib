@@ -12,7 +12,7 @@ publish = ["crater"]
 default = []
 full = ["time", "cli", "fmt", "bs"]
 time = ["chrono"]
-cli = ["clap", "anyhow"]
+cli = ["clap", "anyhow", "terminal-clipboard", "indicatif"]
 fmt = ["text_trees"]
 bs = ["platforms"]
 [dependencies]
@@ -23,4 +23,6 @@ anyhow = { version = "1.0.42", optional = true }
 text_trees = { version = "0.1.2", optional = true }
 platforms = { version = "1.1.0", optional = true }
 tempfile = { version = "3.2.0", optional = true }
+terminal-clipboard = { version = "0.2.1", optional = true }
+indicatif = { version = "0.16.2", optional = true }
 # serde = { version = "1.0.128", features = ["derive"], optional = true }
