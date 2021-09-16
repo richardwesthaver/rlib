@@ -11,3 +11,6 @@ pub use object::{
   City, Color, Doc, DocExtension, Identity, Media, MediaExtension, Meta, Note, Objective, Org,
   Person, Point, Property, Summary,
 };
+
+// re-exports
+pub use ron;
