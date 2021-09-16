@@ -4,12 +4,16 @@
 mod err;
 // pub mod codec;
 pub mod engine;
+
 #[cfg(feature = "client")]
-pub mod client;
-#[cfg(feature = "server")]
-pub mod server;
+mod client;
 #[cfg(feature = "client")]
 pub use client::Client;
+#[cfg(feature = "client")]
+pub use reqwest;
+
+#[cfg(feature = "server")]
+mod server;
 #[cfg(feature = "server")]
 pub use server::Server;
 

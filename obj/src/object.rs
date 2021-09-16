@@ -7,22 +7,22 @@ mod doc;
 mod location;
 mod media;
 mod meta;
-mod person;
-
+mod contact;
+mod temperature;
 pub use self::{
   color::Color,
   doc::{Doc, DocExtension, Org},
   location::{City, Point},
   media::{Media, MediaExtension},
   meta::{Meta, Note, Property, Summary},
-  person::Person,
+  contact::Contact,
 };
 
 use std::io;
-
+use std::collections::BTreeMap;
 use hash::Id;
 use serde::de::DeserializeOwned;
-pub(crate) use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Serialize};
 
 use crate::Result;
 
@@ -103,7 +103,7 @@ pub trait Objective {
 /// Identity trait
 ///
 /// Defines Identity-related behaviors, implemented by Objects
-pub trait Identity: Sized + Objective {
+pub trait Identity: Sized {
   /// return the hashed bytes of an ObjectId
   fn id(&self) -> Id;
   /// return the hexcode string of an ObjectId
@@ -113,3 +113,9 @@ pub trait Identity: Sized + Objective {
   /// return the namespace of an ObjectId
   fn namespace_id(&self) -> String;
 }
+
+
+/// Collection container trait for single-typed sets
+pub struct Coll<T: Objective>(Vec<T>);
+
+pub struct Collection<K: Identity, V: Objective>(BTreeMap<K, V>);

@@ -9,7 +9,7 @@
 //! more flexibility in platform support.
 use std::{
   fs, io,
-  path::{Path, PathBuf},
+  path::Path,
 };
 
 /// Level of compression data should be compressed with.
@@ -40,16 +40,16 @@ impl Level {
   }
 }
 /// Pack a SRC directory, and return a SRC.tar.zst compressed archive at DST.
-pub fn pack(src: &Path, dst: &Path, level: Option<Level>) {
+pub fn pack<P: AsRef<Path>, Q: AsRef<Path>>(src: P, dst: Q, level: Option<Level>) {
   let mut tar = tar::Builder::new(Vec::new());
-  tar.append_dir_all(PathBuf::from(src), src).unwrap();
+  tar.append_dir_all(&src, &src).unwrap();
   let tar = tar.into_inner().unwrap();
-  let file = fs::File::create(dst.join(src.with_extension("tar.zst"))).unwrap();
+  let file = fs::File::create(dst.as_ref().join(src.as_ref().with_extension("tar.zst"))).unwrap();
   zstd::stream::copy_encode(&tar[..], file, level.unwrap_or(Level::Best).into_zstd()).unwrap(); // ultramaximum
 }
 
 /// unpack a tar.zst compressed archive
-pub fn unpack(src: &Path, dst: &Path) {
+pub fn unpack<P: AsRef<Path>, Q: AsRef<Path>>(src: P, dst: Q) {
   let input = fs::File::open(src).unwrap();
   let mut buff = Vec::new();
   zstd::stream::copy_decode(input, &mut buff).unwrap();
@@ -59,15 +59,15 @@ pub fn unpack(src: &Path, dst: &Path) {
 
 /// unpack a tar.zst compressed archive, removing the source file before
 /// returning
-pub fn unpack_replace(src: &Path, dst: &Path) {
-  unpack(src, dst);
+pub fn unpack_replace<P: AsRef<Path>, Q: AsRef<Path>>(src: P, dst: Q) {
+  unpack(&src, dst);
   fs::remove_file(src).expect("could not remove source package");
 }
 /// compress a file with zstd
-pub fn compress(source: &Path) -> io::Result<()> {
-  let mut file = fs::File::open(source)?;
+pub fn compress<P: AsRef<Path>>(source: P) -> io::Result<()> {
+  let mut file = fs::File::open(&source)?;
   let mut encoder = {
-    let target = fs::File::create(source.with_extension("zst"))?;
+    let target = fs::File::create(source.as_ref().with_extension("zst"))?;
     zstd::Encoder::new(target, 22)?
   };
   io::copy(&mut file, &mut encoder)?;
@@ -76,12 +76,12 @@ pub fn compress(source: &Path) -> io::Result<()> {
 }
 
 /// decompress a zst file
-pub fn decompress(source: &Path) -> io::Result<()> {
+pub fn decompress<P: AsRef<Path>>(source: P) -> io::Result<()> {
   let mut decoder = {
-    let file = fs::File::open(source)?;
+    let file = fs::File::open(&source)?;
     zstd::Decoder::new(file)?
   };
-  let mut target = fs::File::create(source.to_str().unwrap().trim_end_matches(".zst"))?;
+  let mut target = fs::File::create(source.as_ref().to_str().unwrap().trim_end_matches(".zst"))?;
   io::copy(&mut decoder, &mut target)?;
   decoder.finish();
   Ok(())

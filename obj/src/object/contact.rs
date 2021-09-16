@@ -10,7 +10,7 @@ use super::{Deserialize, Objective, Serialize};
 ///
 /// Contains information about a specific person.
 #[derive(Serialize, Deserialize, Debug, Hash)]
-pub struct Person {
+pub struct Contact {
   name: String,
   email: String,
   phone: u64,
@@ -19,4 +19,4 @@ pub struct Person {
   born: DateTime<Utc>,
 }
 
-impl Objective for Person {}
+impl Objective for Contact {}

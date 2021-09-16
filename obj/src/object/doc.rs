@@ -11,13 +11,11 @@ use std::str::FromStr;
 /// Document object
 #[derive(Serialize, Deserialize, Debug, Hash, PartialEq)]
 pub struct Doc {
-  pub extension: DocExtension,
 }
 
 impl Doc {
-  pub fn new(ext: &str) -> Self {
+  pub fn new(_ext: &str) -> Self {
     Doc {
-      extension: DocExtension::from_str(ext).unwrap(),
     }
   }
 }
@@ -30,7 +28,7 @@ impl Default for Doc {
 
 impl Objective for Doc {}
 
-/// Doc enum for document extensions. Use in filenames and IO matching in some
+/// Document extensions. Use in filenames and IO matching in some
 /// cases
 #[derive(Serialize, Deserialize, Debug, Hash, PartialEq)]
 pub enum DocExtension {

@@ -5,7 +5,7 @@
 use super::{Deserialize, Objective, Serialize};
 use std::fmt;
 use std::str::FromStr;
-
+pub use mime::Mime;
 /// External Media types.
 #[derive(Serialize, Deserialize, Debug, Hash, PartialEq)]
 pub struct Media {

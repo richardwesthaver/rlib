@@ -10,11 +10,23 @@ publish = ["crater"]
 resolver = "2"
 
 [lib]
-path = "lib.rs"
+crate-type = ["lib"]
+
+[dependencies]
+obj = { version = "0.1.0", path = "obj", optional = true }
+cfg = { version = "0.1.0", path = "cfg", optional = true }
+kala = { version = "0.1.0", path = "kala", optional = true }
+ctx = { version = "0.1.0", path = "ctx", optional = true }
+net = { version = "0.1.0", path = "net", optional = true }
+db = { version = "0.1.0", path = "db", optional = true }
+flate = { version = "0.1.0", path = "flate", optional = true }
+hash = { version = "0.1.0", path = "hash", optional = true }
+logger = { version = "0.1.0", path = "logger", optional = true }
+util = { version = "0.1.0", path = "util", optional = true }
 
 [workspace]
-default-members = ["dts"]
 members = [
+  "dts",
   "ui",
   "dmc",
   "cfg",
