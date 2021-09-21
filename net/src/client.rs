@@ -1,7 +1,7 @@
 //! network client primitives
 pub use reqwest;
 
-use cfg::NetworkConfig;
+use obj::config::network::NetworkConfig;
 
 pub struct Client {
   pub cfg: NetworkConfig,

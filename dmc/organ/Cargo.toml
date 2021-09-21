@@ -1,9 +1,9 @@
 [package]
-name = "dmc"
+name = "organ"
 version = "0.1.0"
 authors = ["ellis"]
 edition = "2018"
-description = "DSL Builder Modules"
+description = "Org-mode parser"
 documentation = "https://docs.rwest.io/rlib"
 repository = "https://hg.rwest.io/rlib"
 publish = ["crater"]

@@ -2,103 +2,18 @@
 //!
 //! Concrete object types and traits. All type definitions conform to
 //! the Serde spec.
-mod color;
-mod doc;
-mod location;
-mod media;
-mod meta;
-mod contact;
-mod temperature;
-pub use self::{
-  color::Color,
-  doc::{Doc, DocExtension, Org},
-  location::{City, Point},
-  media::{Media, MediaExtension},
-  meta::{Meta, Note, Property, Summary},
-  contact::Contact,
-};
-
-use std::io;
-use std::collections::BTreeMap;
-use hash::Id;
-use serde::de::DeserializeOwned;
-use serde::{Deserialize, Serialize};
+pub mod color;
+pub mod doc;
+pub mod location;
+pub mod media;
+pub mod meta;
+pub mod contact;
+pub mod temperature;
+pub mod direction;
 
 use crate::Result;
-
-/// Objective trait
-///
-/// Defines Object behaviors, implemented by Objects
-pub trait Objective {
-  fn encode(&self) -> Result<Vec<u8>>
-  where
-    Self: Serialize,
-  {
-    Ok(bincode::serialize(self)?)
-  }
-
-  fn encode_into<W>(&self, writer: W) -> Result<()>
-  where
-    W: io::Write,
-    Self: Serialize,
-  {
-    Ok(bincode::serialize_into(writer, self)?)
-  }
-
-  fn decode<'a>(&self, bytes: &'a [u8]) -> Result<Self>
-  where
-    Self: Deserialize<'a>,
-  {
-    Ok(bincode::deserialize(bytes)?)
-  }
-
-  fn decode_from<R>(&self, rdr: R) -> Result<Self>
-  where
-    R: io::Read,
-    Self: DeserializeOwned,
-  {
-    Ok(bincode::deserialize_from(rdr)?)
-  }
-
-  fn to_ron_writer<W>(&self, writer: W) -> Result<()>
-  where
-    W: io::Write,
-    Self: Serialize,
-  {
-    Ok(ron::ser::to_writer_pretty(
-      writer,
-      &self,
-      ron::ser::PrettyConfig::new().with_indentor("  ".to_owned()),
-    )?)
-  }
-
-  fn to_ron_string(&self) -> Result<String>
-  where
-    Self: Serialize,
-  {
-    Ok(ron::ser::to_string_pretty(
-      &self,
-      ron::ser::PrettyConfig::new().with_indentor("  ".to_owned()),
-    )?)
-  }
-
-  fn from_ron_reader<R>(&self, mut rdr: R) -> Result<Self>
-  where
-    R: io::Read,
-    Self: DeserializeOwned,
-  {
-    let mut bytes = Vec::new();
-    rdr.read_to_end(&mut bytes)?;
-    Ok(ron::de::from_bytes(&bytes)?)
-  }
-
-  fn from_ron_str<'a>(s: &'a str) -> Result<Self>
-  where
-    Self: Deserialize<'a>,
-  {
-    Ok(ron::de::from_bytes(s.as_bytes())?)
-  }
-}
+use std::collections::BTreeMap;
+use hash::Id;
 
 /// Identity trait
 ///
@@ -118,4 +33,47 @@ pub trait Identity: Sized {
 /// Collection container trait for single-typed sets
 pub struct Coll<T: Objective>(Vec<T>);
 
-pub struct Collection<K: Identity, V: Objective>(BTreeMap<K, V>);
+pub struct Collection<T: Objective>(BTreeMap<Id, T>);
+
+#[cfg(test)]
+mod test {
+  use super::*;
+  use std::fs;
+  use std::str::FromStr;
+  #[test]
+  fn test_location_points() {
+    let pnt = location::Point::new(1.0, 2.0);
+    assert_eq!(
+      String::from_str("(\n  lat: 1,\n  lng: 2,\n)").unwrap(),
+      pnt.to_ron_string().unwrap()
+    );
+    assert_eq!(location::Point::from_ron_str("(lat: 1.0, lng: 2.0)").unwrap(), pnt);
+  }
+
+  /// test file metadata
+  #[test]
+  fn test_basic_file_metadata() {
+    let attr = fs::metadata("Cargo.toml").unwrap();
+    println!("{:?}", attr);
+  }
+
+  #[test]
+  fn test_docs() {
+    let doc = doc::Doc::default();
+    //  assert_eq!(doc.extension(), DocExtension::from_str("org").unwrap());
+  }
+
+  #[test]
+  fn test_media() {
+    let media = media::Media::new("wav");
+    assert_eq!(media.extension, media::MediaExtension::from_str("wav").unwrap());
+  }
+
+  /// Test Org parser functionality
+  #[cfg(feature = "org")]
+  #[test]
+  fn test_org_docs() {
+    let org = doc::Org::new();
+    assert!(org.encode().is_ok());
+  }
+}

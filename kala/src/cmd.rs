@@ -5,6 +5,7 @@
 //! TODO [2021-08-23 Mon 21:56] - check all modules for
 //! target-specific dependencies and add flags.
 
+#[cfg(feature = "hg")]
 pub mod hg;
 pub mod shell;
 

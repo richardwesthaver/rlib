@@ -7,7 +7,7 @@ pub type Result<T> = std::result::Result<T, Error>;
 /// kala Error type
 pub enum Error {
   Io(io::Error),
-  Cfg(cfg::Error),
+  Obj(obj::Error),
   Logger(logger::Error),
   #[cfg(feature = "midi")]
   MidiInit(midir::InitError),
@@ -21,7 +21,7 @@ impl fmt::Display for Error {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
     match *self {
       Error::Io(ref err) => write!(f, "rlib::kala IO error: {}", err),
-      Error::Cfg(ref err) => write!(f, "rlib::kala Cfg error: {}", err),
+      Error::Obj(ref err) => write!(f, "kala Obj error: {}", err),
       Error::Logger(ref err) => write!(f, "rlib::kala Logger error: {}", err),
       #[cfg(feature = "midi")]
       Error::MidiInit(ref err) => write!(f, "rlib::kala Midi Initialization error: {}", err),
@@ -37,7 +37,7 @@ impl fmt::Debug for Error {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
     match *self {
       Error::Io(ref err) => write!(f, "rlib::kala IO error: {}", err),
-      Error::Cfg(ref err) => write!(f, "rlib::kala Cfg error: {}", err),
+      Error::Obj(ref err) => write!(f, "kala Obj error: {}", err),
       Error::Logger(ref err) => write!(f, "rlib::kala Logger error: {}", err),
       #[cfg(feature = "midi")]
       Error::MidiInit(ref err) => write!(f, "rlib::kala Midi Initialization error: {}", err),
@@ -61,9 +61,9 @@ impl From<logger::Error> for Error {
   }
 }
 
-impl From<cfg::Error> for Error {
-  fn from(e: cfg::Error) -> Self {
-    Error::Cfg(e)
+impl From<obj::Error> for Error {
+  fn from(e: obj::Error) -> Self {
+    Error::Obj(e)
   }
 }
 

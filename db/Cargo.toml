@@ -8,6 +8,11 @@ documentation = "https://docs.rwest.io/db"
 repository = "https://hg.rwest.io/rlib"
 publish = ["crater"]
 
+[dependencies]
+# rlib
+obj = { version = "0.1.0", path = "../obj" }
+ctx = { version = "0.1.0", path = "../ctx" }
+
 [dependencies.rocksdb]
 version = "0.17.0"
 default-features = false

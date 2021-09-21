@@ -16,10 +16,10 @@ midi = ["midir"]
 sys = ["rusb", "whoami"]
 x11 = ["xrandr"]
 tmux = ["tmux_interface"]
-
+hg = ["obj/hg"]
 [dependencies]
 # rlib
-cfg = { path = "../cfg" }
+obj = { path = "../obj" }
 flate = { path = "../flate" }
 logger = { path = "../logger" }
 # contrib

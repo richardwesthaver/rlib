@@ -1,5 +1,5 @@
 //! Mercurial command module
-use cfg::HgwebConfig;
+use obj::config::repo::hg::HgwebConfig;
 use cmd_lib::{spawn_with_output, use_builtin_cmd, CmdResult};
 use logger::log::info;
 use std::io::BufRead;

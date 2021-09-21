@@ -8,9 +8,13 @@ documentation = "https://docs.rwest.io/flate"
 repository = "https://hg.rwest.io/rlib"
 publish = ["crater"]
 
+[features]
+async = ["ctx"]
+
 [dependencies]
 tar = "0.4.36"
 zstd = { version = "0.9.0", default-features = false }
-zstd-safe = { version = "4.1.1", default-features = false, optional = true }
 ctx = { version = "0.1.0", path = "../ctx", optional = true }
-#async-compression = { version = "0.3.8", features = ["zstd", "tokio"] }
+zip = { version = "0.5", default-features = false, features = ["deflate"] }
+[dev-dependencies]
+tempfile = "3.2"

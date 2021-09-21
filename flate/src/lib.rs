@@ -12,6 +12,8 @@ use std::{
   path::Path,
 };
 
+// use async_compression;
+
 /// Level of compression data should be compressed with.
 #[non_exhaustive]
 #[derive(Clone, Copy, Debug)]
@@ -39,12 +41,16 @@ impl Level {
     }
   }
 }
-/// Pack a SRC directory, and return a SRC.tar.zst compressed archive at DST.
+
+/// Pack a SRC directory, and return a compressed archive at DST.
 pub fn pack<P: AsRef<Path>, Q: AsRef<Path>>(src: P, dst: Q, level: Option<Level>) {
   let mut tar = tar::Builder::new(Vec::new());
-  tar.append_dir_all(&src, &src).unwrap();
+  let src = src.as_ref();
+  let parent = src.parent().unwrap();
+  let dst = dst.as_ref();
+  tar.append_dir_all(src, src.strip_prefix(parent).unwrap()).unwrap();
   let tar = tar.into_inner().unwrap();
-  let file = fs::File::create(dst.as_ref().join(src.as_ref().with_extension("tar.zst"))).unwrap();
+  let file = fs::File::create(dst.join(src).with_extension("tar.zst")).unwrap();
   zstd::stream::copy_encode(&tar[..], file, level.unwrap_or(Level::Best).into_zstd()).unwrap(); // ultramaximum
 }
 
@@ -89,8 +95,17 @@ pub fn decompress<P: AsRef<Path>>(source: P) -> io::Result<()> {
 
 #[test]
 fn pack_test() {
-  // this is extremely dangerous, did it for fun but c'mon now 8)
-  pack(Path::new("src"), Path::new("."), None);
-  unpack(Path::new("src.tar.zst"), Path::new("."));
-  unpack_replace(Path::new("src.tar.zst"), Path::new("."));
+  let dir_path = Path::new("pack_test");
+
+  std::fs::create_dir(&dir_path).unwrap();
+
+  for i in 0..10 {
+    std::fs::File::create(&dir_path.join(format!("{}.test", i))).unwrap();
+  }
+
+  pack(&dir_path, ".", None);
+  unpack("pack_test.tar.zst", ".");
+  unpack_replace("pack_test.tar.zst", ".");
+
+  std::fs::remove_dir_all(dir_path).unwrap();
 }

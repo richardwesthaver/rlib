@@ -12,9 +12,12 @@ resolver = "2"
 [lib]
 crate-type = ["lib"]
 
+[features]
+default = ["ctx", "obj", "net", "flate", "util", "hash", "logger"]
+full = ["ctx", "obj", "kala", "net", "flate", "util", "hash", "logger", "db"]
+
 [dependencies]
 obj = { version = "0.1.0", path = "obj", optional = true }
-cfg = { version = "0.1.0", path = "cfg", optional = true }
 kala = { version = "0.1.0", path = "kala", optional = true }
 ctx = { version = "0.1.0", path = "ctx", optional = true }
 net = { version = "0.1.0", path = "net", optional = true }
@@ -28,8 +31,6 @@ util = { version = "0.1.0", path = "util", optional = true }
 members = [
   "dts",
   "ui",
-  "dmc",
-  "cfg",
   "kala",
   "ctx",
   "db",

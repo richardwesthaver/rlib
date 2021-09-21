@@ -9,9 +9,13 @@ pub type Result<T> = std::result::Result<T, Error>;
 pub enum Error {
   Message(String),
   Ron(ron::error::Error),
+  Json(serde_json::error::Error),
   Io(io::Error),
   Bincode(bincode::Error),
   Utf8(std::string::FromUtf8Error),
+  #[cfg(feature = "hg")]
+  Hg(hg_parser::ErrorKind),
+  // TODO [2021-08-25 Wed 21:58] : Git()
 }
 
 impl serde::ser::Error for Error {
@@ -32,8 +36,11 @@ impl fmt::Display for Error {
       Error::Message(msg) => f.write_str(msg),
       Error::Io(ref err) => write!(f, "obj IO error: {}", err),
       Error::Ron(ref err) => write!(f, "obj Ron error: {}", err),
+      Error::Json(ref err) => write!(f, "obj Json error: {}", err),
       Error::Bincode(ref err) => write!(f, "obj Bincode error: {}", err),
       Error::Utf8(ref err) => write!(f, "obj Utf8 error: {}", err),
+      #[cfg(feature = "hg")]
+      Error::Hg(ref err) => write!(f, "obj MercurialRepo error: {}", err),
     }
   }
 }
@@ -56,9 +63,22 @@ impl From<ron::Error> for Error {
   }
 }
 
+impl From<serde_json::Error> for Error {
+  fn from(e: serde_json::Error) -> Self {
+    Error::Json(e)
+  }
+}
+
 impl From<bincode::Error> for Error {
   fn from(e: bincode::Error) -> Self {
     Error::Bincode(e)
+  }
+}
+
+#[cfg(feature = "hg")]
+impl From<hg_parser::ErrorKind> for Error {
+  fn from(e: hg_parser::ErrorKind) -> Self {
+    Error::Hg(e)
   }
 }
 

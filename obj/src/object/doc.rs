@@ -1,21 +1,26 @@
 //! obj::doc
 //!
 //! Document object types
+
+#[cfg(feature = "org")]
 mod org;
+#[cfg(feature = "org")]
+pub use org::Org;
 
 use super::{Deserialize, Objective, Serialize};
-pub use org::Org;
 use std::fmt;
 use std::str::FromStr;
 
 /// Document object
 #[derive(Serialize, Deserialize, Debug, Hash, PartialEq)]
 pub struct Doc {
+  extension: DocExtension,
 }
 
 impl Doc {
   pub fn new(_ext: &str) -> Self {
     Doc {
+      extension: DocExtension::from_str("").unwrap(),
     }
   }
 }

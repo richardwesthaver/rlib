@@ -3,8 +3,8 @@ name = "math"
 version = "0.1.0"
 authors = ["ellis"]
 edition = "2018"
-description = "Math Modules"
-documentation = "https://docs.rwest.io/math"
+description = "quick maths"
+documentation = "https://docs.rwest.io/rlib"
 repository = "https://hg.rwest.io/rlib"
 publish = ["crater"]
 

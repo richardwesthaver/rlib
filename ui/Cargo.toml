@@ -10,7 +10,7 @@ publish = ["crater"]
 
 [dependencies]
 # rlib
-cfg = { path = "../cfg" }
+obj = { path = "../obj" }
 kala = { path = "../kala" }
 net = { path = "../net" }
 # contrib
