@@ -3,8 +3,10 @@
 //! ULID is the preferred format.
 pub use rusty_ulid::{self, Ulid};
 pub use uuid::Uuid;
+use std::str::FromStr;
+use std::fmt;
 
-
+#[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum Id {
   ObjectId(u128), // u128
   ConfigId(u32, u32), // u64
@@ -33,5 +35,25 @@ impl From<Uuid> for Id {
 impl From<Ulid> for Id {
     fn from(ulid: Ulid) -> Self {
         Id::ObjectId(u128::from(ulid))
+    }
+}
+
+impl FromStr for Id {
+    type Err = ();
+    fn from_str(input: &str) -> Result<Id, Self::Err> {
+        match input {
+          i => Ok(Id::ObjectId(u128::from_str(i).unwrap())),
+        }
+    }
+}
+
+impl fmt::Display for Id {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+      match *self {
+        Id::ObjectId(i) => write!(f, "{}", i),
+        Id::ConfigId(i, t) => write!(f, "{}:{}", i, t),
+        Id::UnitId(i) => write!(f, "{}", i),
+        Id::AtomId(i) => write!(f, "{}", i),
+       }
     }
 }

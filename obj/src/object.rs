@@ -11,7 +11,8 @@ pub mod contact;
 pub mod temperature;
 pub mod direction;
 
-use crate::Result;
+use crate::Objective;
+
 use std::collections::BTreeMap;
 use hash::Id;
 
