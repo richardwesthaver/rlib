@@ -21,7 +21,7 @@ pub fn emacs(args: Vec<&str>) -> Result<Output> {
     Command::new("emacs")
       .args(args)
       .spawn()?
-      .wait_with_output()?
+      .wait_with_output()?,
   )
 }
 

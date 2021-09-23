@@ -3,16 +3,13 @@
 //! Repo configuration primitives
 use super::Configure;
 use crate::Objective;
-use std::{
-  fmt,
-  path::PathBuf,
-};
+use std::{fmt, path::PathBuf};
 
 use serde::{Deserialize, Serialize};
-#[cfg(feature = "hg")]
-pub mod hg;
 #[cfg(feature = "git")]
 mod git;
+#[cfg(feature = "hg")]
+pub mod hg;
 /// Generic repo configuration type
 ///
 /// Wraps Mercurial and/or Git repos
@@ -68,4 +65,3 @@ pub struct SubRepo {
   pub origin: String,
   pub path: String,
 }
-

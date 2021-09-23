@@ -3,12 +3,12 @@
 //! Object Types
 #![feature(map_try_insert)]
 
-#[cfg(feature = "object")]
-mod object;
+pub mod coll;
 #[cfg(feature = "config")]
 pub mod config;
-pub mod coll;
 pub mod id;
+#[cfg(feature = "object")]
+mod object;
 
 mod err;
 
@@ -17,9 +17,9 @@ pub use err::{Error, Result};
 // re-exports
 pub use ron;
 
-use std::io;
 use serde::de::DeserializeOwned;
 use serde::{Deserialize, Serialize};
+use std::io;
 
 /// Objective trait
 ///
@@ -99,21 +99,15 @@ pub trait Objective {
     W: io::Write,
     Self: Serialize,
   {
-//    let formatter = serde_json::ser::PrettyFormatter::with_indent(b"  ");
-    Ok(
-      serde_json::ser::to_writer_pretty(
-        writer,
-        &self,
-      )?)
+    //    let formatter = serde_json::ser::PrettyFormatter::with_indent(b"  ");
+    Ok(serde_json::ser::to_writer_pretty(writer, &self)?)
   }
 
   fn to_json_string(&self) -> Result<String>
   where
     Self: Serialize,
   {
-    Ok(serde_json::ser::to_string_pretty(
-      &self,
-    )?)
+    Ok(serde_json::ser::to_string_pretty(&self)?)
   }
 
   fn from_json_reader<R>(&self, mut rdr: R) -> Result<Self>
@@ -133,4 +127,3 @@ pub trait Objective {
     Ok(serde_json::de::from_slice(s.as_bytes())?)
   }
 }
-

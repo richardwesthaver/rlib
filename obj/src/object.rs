@@ -3,13 +3,13 @@
 //! Concrete object types and traits. All type definitions conform to
 //! the Serde spec.
 pub mod color;
+pub mod contact;
+pub mod direction;
 pub mod doc;
 pub mod location;
 pub mod media;
 pub mod meta;
-pub mod contact;
 pub mod temperature;
-pub mod direction;
 
 use crate::id::Id;
 
@@ -27,7 +27,6 @@ pub trait Identity: Sized {
   fn namespace_id(&self) -> String;
 }
 
-
 #[cfg(test)]
 mod test {
   use super::*;
@@ -40,7 +39,10 @@ mod test {
       String::from_str("(\n  lat: 1,\n  lng: 2,\n)").unwrap(),
       pnt.to_ron_string().unwrap()
     );
-    assert_eq!(location::Point::from_ron_str("(lat: 1.0, lng: 2.0)").unwrap(), pnt);
+    assert_eq!(
+      location::Point::from_ron_str("(lat: 1.0, lng: 2.0)").unwrap(),
+      pnt
+    );
   }
 
   /// test file metadata
@@ -59,7 +61,10 @@ mod test {
   #[test]
   fn test_media() {
     let media = media::Media::new("wav");
-    assert_eq!(media.extension, media::MediaExtension::from_str("wav").unwrap());
+    assert_eq!(
+      media.extension,
+      media::MediaExtension::from_str("wav").unwrap()
+    );
   }
 
   /// Test Org parser functionality

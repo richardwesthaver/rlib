@@ -1,9 +1,9 @@
 //! network server primitives
+use async_trait::async_trait;
 pub use hyper;
 use obj::config::network::NetworkConfig;
-use async_trait::async_trait;
-use std::net::SocketAddr;
 use std::collections::HashMap;
+use std::net::SocketAddr;
 use std::path::PathBuf;
 
 pub struct Server {

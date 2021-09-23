@@ -28,7 +28,6 @@ impl DBPath {
       .expect("Failed to create temporary path for db.");
     let path = dir.path().join("db");
 
-
     DBPath { dir, path }
   }
 }

@@ -43,7 +43,10 @@ pub struct Point {
 impl Point {
   /// Create a new Point from (f32, f32)
   pub fn new(lat: &f32, lng: &f32) -> Self {
-    Point { lat: *lat, lng: *lng }
+    Point {
+      lat: *lat,
+      lng: *lng,
+    }
   }
 
   /// Given an additional Point, and assuming Points are on Earth,
@@ -58,14 +61,14 @@ impl Point {
     let delta_longitude = (self.lng - other.lng).to_radians();
 
     let central_angle_inner = (delta_latitude / 2.0).sin().powi(2)
-        + lat_rads.cos() * other_lat_rads.cos() * (delta_longitude / 2.0).sin().powi(2);
+      + lat_rads.cos() * other_lat_rads.cos() * (delta_longitude / 2.0).sin().powi(2);
     let central_angle = 2.0 * central_angle_inner.sqrt().asin();
 
     let distance = earth_radius_kilometer * central_angle;
 
     println!(
-        "Distance between points on the surface of Earth is {:.1} kilometers",
-        distance
+      "Distance between points on the surface of Earth is {:.1} kilometers",
+      distance
     );
 
     distance
@@ -76,7 +79,7 @@ impl Point {
 fn london_to_paris() {
   assert_eq!(
     Point::new(48.85341_f32, -2.34880_f32)
-      .earth_distance_from(Point::new(51.50853_f32,-0.12574_f32)),
+      .earth_distance_from(Point::new(51.50853_f32, -0.12574_f32)),
     334.9559_f32,
   );
 }

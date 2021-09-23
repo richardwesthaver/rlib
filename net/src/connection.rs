@@ -1,4 +1,8 @@
-use std::{collections::HashMap, fmt, net::{IpAddr, SocketAddr}};
+use std::{
+  collections::HashMap,
+  fmt,
+  net::{IpAddr, SocketAddr},
+};
 
 #[derive(PartialEq, Hash, Eq, Clone, PartialOrd, Ord, Debug, Copy)]
 pub enum Protocol {

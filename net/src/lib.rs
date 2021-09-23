@@ -15,11 +15,11 @@ pub use reqwest;
 
 #[cfg(feature = "server")]
 mod server;
-#[cfg(feature = "server")]
-pub use server::Server;
+pub use crate::err::{Error, Result};
 #[cfg(feature = "server")]
 pub use server::FileServer;
-pub use crate::err::{Error, Result};
+#[cfg(feature = "server")]
+pub use server::Server;
 
 #[cfg(test)]
 mod tests;

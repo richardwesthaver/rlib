@@ -1,12 +1,12 @@
 //! cfg::config::package
 //!
 //! Package configuration primitives
-use serde::{Deserialize, Serialize};
 use super::library::LibraryConfig;
 use super::program::ProgramConfig;
 use super::repo::RepoConfig;
 use super::Configure;
 use crate::Objective;
+use serde::{Deserialize, Serialize};
 
 use std::collections::HashMap;
 /// A single package configuration.

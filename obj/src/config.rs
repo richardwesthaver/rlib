@@ -12,8 +12,8 @@ pub mod registry;
 pub mod repo;
 pub mod user;
 
-use crate::Result;
 use crate::Objective;
+use crate::Result;
 
 use serde::de::DeserializeOwned;
 use serde::{Deserialize, Serialize};
@@ -78,7 +78,7 @@ mod test {
         program: None,
         library: None)"#,
     )
-      .unwrap();
+    .unwrap();
     assert_eq!(pkg, PackageConfig::new("test-pack-cfg"));
     pkg.repo = Some(repo::RepoConfigRepoConfig::new());
     assert_eq!(repo::RepoConfig::new(), pkg.repo.unwrap());
@@ -93,7 +93,7 @@ mod test {
         engine: None,
         peers:  None)"#,
     )
-      .unwrap();
+    .unwrap();
     assert_eq!(net, network::NetworkConfig::default());
     net.socket = "0.0.0.0:0".parse().unwrap();
     assert_eq!(net.socket, "0.0.0.0:0".parse().unwrap());

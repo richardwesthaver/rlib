@@ -1,8 +1,8 @@
 //! # Meta types
 use crate::Objective;
 
-use serde::{Deserialize, Serialize};
 use chrono::{DateTime, Utc};
+use serde::{Deserialize, Serialize};
 /// Meta object
 ///
 /// This struct is built into other Objects and provides contextual data

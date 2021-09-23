@@ -1,15 +1,15 @@
-use std::{
-  path::PathBuf,
-  net::SocketAddr,
-  fs::File,
-  io::{LineWriter, Read, Write},
-  collections::HashMap,
-};
-use serde::{Serialize, Deserialize};
+use super::SubRepo;
+use crate::Result;
 pub use hg_parser::MercurialRepository as HgRepo;
 use logger::log::{error, info, trace};
-use crate::Result;
-use super::SubRepo;
+use serde::{Deserialize, Serialize};
+use std::{
+  collections::HashMap,
+  fs::File,
+  io::{LineWriter, Read, Write},
+  net::SocketAddr,
+  path::PathBuf,
+};
 
 /// Mercurial '.hgsub' file handle, which is just a list of PATH=SOURCE pairs.
 pub struct HgSubFile {

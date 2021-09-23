@@ -3,10 +3,10 @@
 //! Media object types
 use crate::Objective;
 
+pub use mime::Mime;
 use serde::{Deserialize, Serialize};
 use std::fmt;
 use std::str::FromStr;
-pub use mime::Mime;
 /// External Media types.
 #[derive(Serialize, Deserialize, Debug, Hash, PartialEq)]
 pub struct Media {

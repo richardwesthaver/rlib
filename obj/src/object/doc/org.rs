@@ -20,15 +20,15 @@
 //! - [Using the Property API](https://orgmode.org/manual/Using-the-Property-API.html)
 //! - [Org-element API](https://orgmode.org/worg/dev/org-element-api.html)
 //! - [Orgnode.py](http://members.optusnet.com.au/~charles57/GTD/Orgnode.py)
+use crate::object::meta::Property;
 use crate::Objective;
 use crate::Result;
-use crate::object::meta::Property;
 use hash::Id;
 
 use logger::log::info;
 
+use std::path::{Path, PathBuf};
 use std::{collections::HashMap, fs};
-use std::path::{PathBuf, Path};
 
 use serde::{Deserialize, Serialize};
 
@@ -49,8 +49,8 @@ impl Org {
   }
   /// Create a new Org object from an Org-mode file
   pub fn from_file<P: AsRef<Path>>(path: P) -> Result<Self> {
-    let content =
-      String::from_utf8(fs::read(PathBuf::from(path.as_ref()))?).expect("failed to read utf8 string");
+    let content = String::from_utf8(fs::read(PathBuf::from(path.as_ref()))?)
+      .expect("failed to read utf8 string");
     let mut org = Org::new();
     org.contents.insert(Id::rand(), content);
     info!("parsed org-file: {}", path.as_ref().display());

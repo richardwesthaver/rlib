@@ -7,10 +7,7 @@
 //! Backends will be conditionally-compiled based on feature flags,
 //! and will rely on C bindings as little as possible, allowing for
 //! more flexibility in platform support.
-use std::{
-  fs, io,
-  path::Path,
-};
+use std::{fs, io, path::Path};
 
 // use async_compression;
 
@@ -18,17 +15,18 @@ use std::{
 #[non_exhaustive]
 #[derive(Clone, Copy, Debug)]
 pub enum Level {
-    /// Fastest quality of compression, usually produces bigger size.
-    Fastest,
-    /// Best quality of compression, usually produces the smallest size.
-    Best,
-    /// Default quality of compression defined by the selected compression algorithm.
-    Default,
-    /// Precise quality based on the underlying compression algorithms'
-    /// qualities. The interpretation of this depends on the algorithm chosen
-    /// and the specific implementation backing it.
-    /// Qualities are implicitly clamped to the algorithm's maximum.
-    Precise(u32),
+  /// Fastest quality of compression, usually produces bigger size.
+  Fastest,
+  /// Best quality of compression, usually produces the smallest size.
+  Best,
+  /// Default quality of compression defined by the selected compression
+  /// algorithm.
+  Default,
+  /// Precise quality based on the underlying compression algorithms'
+  /// qualities. The interpretation of this depends on the algorithm chosen
+  /// and the specific implementation backing it.
+  /// Qualities are implicitly clamped to the algorithm's maximum.
+  Precise(u32),
 }
 
 impl Level {
@@ -48,10 +46,13 @@ pub fn pack<P: AsRef<Path>, Q: AsRef<Path>>(src: P, dst: Q, level: Option<Level>
   let src = src.as_ref();
   let parent = src.parent().unwrap();
   let dst = dst.as_ref();
-  tar.append_dir_all(src, src.strip_prefix(parent).unwrap()).unwrap();
+  tar
+    .append_dir_all(src, src.strip_prefix(parent).unwrap())
+    .unwrap();
   let tar = tar.into_inner().unwrap();
   let file = fs::File::create(dst.join(src).with_extension("tar.zst")).unwrap();
-  zstd::stream::copy_encode(&tar[..], file, level.unwrap_or(Level::Best).into_zstd()).unwrap(); // ultramaximum
+  zstd::stream::copy_encode(&tar[..], file, level.unwrap_or(Level::Best).into_zstd()).unwrap();
+  // ultramaximum
 }
 
 /// unpack a tar.zst compressed archive

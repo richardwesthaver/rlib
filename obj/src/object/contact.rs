@@ -3,8 +3,8 @@
 //! Object types for people
 use crate::Objective;
 
-use serde::{Deserialize, Serialize};
 use chrono::{DateTime, Utc};
+use serde::{Deserialize, Serialize};
 
 /// Person object type
 ///
