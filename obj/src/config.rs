@@ -13,7 +13,7 @@ pub mod repo;
 pub mod user;
 
 use crate::Result;
-// use crate::Objective;
+use crate::Objective;
 
 use serde::de::DeserializeOwned;
 use serde::{Deserialize, Serialize};
@@ -21,10 +21,7 @@ use std::io;
 
 /// common trait for all config modules. This trait provides functions
 /// for de/serializing to/from RON, updating fields, and formatting.
-///
-/// TODO [2021-08-25 Wed 04:21] - consider adding json (with a feature
-/// flag? ohhh..) and bincode
-pub trait Configure {
+pub trait Configure: Objective {
   fn update(&self) -> Result<()> {
     Ok(())
   }

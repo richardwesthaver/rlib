@@ -5,6 +5,8 @@
 //! OS system and user configurations. For example: xrandr
 //! configuration.
 use super::Configure;
+use crate::Objective;
+
 use serde::{Deserialize, Serialize};
 /// Monitor configuration type
 pub struct MonitorConfig {
@@ -25,6 +27,7 @@ impl MonitorConfig {
 }
 
 impl Configure for MonitorConfig {}
+impl Objective for MonitorConfig {}
 
 /// Display configuration
 #[derive(Serialize, Deserialize, Debug, Hash)]
@@ -49,3 +52,4 @@ impl Default for DisplayConfig {
 }
 
 impl Configure for DisplayConfig {}
+impl Objective for DisplayConfig {}

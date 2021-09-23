@@ -1,13 +1,12 @@
 //! obj
 //!
-//! Object-oriented type system
+//! Object Types
 #![feature(map_try_insert)]
 
 #[cfg(feature = "object")]
 mod object;
 #[cfg(feature = "config")]
 pub mod config;
-
 pub mod coll;
 pub mod id;
 

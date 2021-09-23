@@ -4,10 +4,13 @@
 
 #[cfg(feature = "org")]
 mod org;
+
 #[cfg(feature = "org")]
 pub use org::Org;
 
-use super::{Deserialize, Objective, Serialize};
+use crate::Objective;
+
+use serde::{Deserialize, Serialize};
 use std::fmt;
 use std::str::FromStr;
 

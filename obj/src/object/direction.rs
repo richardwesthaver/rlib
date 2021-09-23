@@ -1,5 +1,7 @@
+//! # Direction types
 use crate::Error;
 use std::str::FromStr;
+
 pub enum CardinalDirection {
   North,
   South,

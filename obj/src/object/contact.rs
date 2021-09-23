@@ -1,10 +1,10 @@
 //! obj::person
 //!
 //! Object types for people
+use crate::Objective;
 
+use serde::{Deserialize, Serialize};
 use chrono::{DateTime, Utc};
-
-use super::{Deserialize, Objective, Serialize};
 
 /// Person object type
 ///

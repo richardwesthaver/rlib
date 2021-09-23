@@ -7,27 +7,35 @@ description = "Systems Programming Library"
 documentation = "https://docs.rwest.io/rlib"
 repository = "https://hg.rwest.io/rlib"
 publish = ["crater"]
-resolver = "2"
 
-[lib]
-crate-type = ["lib"]
+[package.metadata.docs.rs]
+all-features = true
 
 [features]
-default = ["ctx", "obj", "net", "flate", "util", "hash", "logger"]
-full = ["ctx", "obj", "kala", "net", "flate", "util", "hash", "logger", "db"]
+default = ["configs", "objects", "ctx", "logger"]
+full = ["ctx", "obj/full", "kala/full", "net/full", "flate", "util/full", "hash", "crypto", "logger", "db"]
+cli = ["util/cli"]
+vc = ["hg", "git"]
+hg = ["kala/hg", "obj/hg"]
+git = ["obj/git"]
+org = ["obj/org"]
+objects = ["obj/object"]
+configs = ["obj/config"]
 
 [dependencies]
-obj = { version = "0.1.0", path = "obj", optional = true }
+obj = { version = "0.1.0", path = "obj", optional = true, features = ["object", "config"] }
 kala = { version = "0.1.0", path = "kala", optional = true }
 ctx = { version = "0.1.0", path = "ctx", optional = true }
 net = { version = "0.1.0", path = "net", optional = true }
 db = { version = "0.1.0", path = "db", optional = true }
 flate = { version = "0.1.0", path = "flate", optional = true }
 hash = { version = "0.1.0", path = "hash", optional = true }
+crypto = { version = "0.1.0", path = "crypto", optional = true }
 logger = { version = "0.1.0", path = "logger", optional = true }
 util = { version = "0.1.0", path = "util", optional = true }
 
 [workspace]
+resolver = "2"
 members = [
   "dts",
   "ui",

@@ -1,24 +1,28 @@
 //! obj::media
 //!
 //! Media object types
+use crate::Objective;
 
-use super::{Deserialize, Objective, Serialize};
+use serde::{Deserialize, Serialize};
 use std::fmt;
 use std::str::FromStr;
 pub use mime::Mime;
 /// External Media types.
 #[derive(Serialize, Deserialize, Debug, Hash, PartialEq)]
 pub struct Media {
+  pub name: String,
   pub extension: MediaExtension,
 }
 
 impl Media {
-  pub fn new(ext: &str) -> Self {
+  pub fn new(name: &str, ext: &str) -> Self {
     Media {
+      name: name.to_string(),
       extension: MediaExtension::from_str(ext).unwrap(),
     }
   }
 }
+
 impl Objective for Media {}
 
 #[derive(Serialize, Deserialize, Debug, Hash, PartialEq)]

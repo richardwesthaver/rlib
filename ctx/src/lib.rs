@@ -1,6 +1,7 @@
 //! ctx --++-- Rust Runtime Contexts
-
 mod err;
+#[cfg(test)]
+mod tests;
 
 pub use err::{Error, Result};
 pub use init_tokio;
@@ -10,8 +11,6 @@ pub use tokio;
 
 use quickcheck::{Arbitrary, Gen};
 use std::fmt::{self, Debug};
-#[cfg(test)]
-mod tests;
 
 #[derive(Copy, Clone)]
 pub struct CtxInit {

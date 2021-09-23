@@ -1,13 +1,14 @@
 //! cfg::config::repo
 //!
 //! Repo configuration primitives
+use super::Configure;
+use crate::Objective;
 use std::{
   fmt,
   path::PathBuf,
 };
 
 use serde::{Deserialize, Serialize};
-
 #[cfg(feature = "hg")]
 pub mod hg;
 #[cfg(feature = "git")]
@@ -38,6 +39,9 @@ impl Default for RepoConfig {
     }
   }
 }
+
+impl Configure for RepoConfig {}
+impl Objective for RepoConfig {}
 
 /// The type of Repo (Mercurial or Git)
 pub enum RepoType {

@@ -16,7 +16,7 @@ pub trait Serve {
 }
 
 pub struct FileServer {
-  socket: SocketAddr,
-  path: PathBuf,
-  registry: HashMap<String, String>,
+  pub socket: SocketAddr,
+  pub path: PathBuf,
+  pub registry: HashMap<String, String>,
 }

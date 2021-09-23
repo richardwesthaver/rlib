@@ -11,10 +11,7 @@ pub mod contact;
 pub mod temperature;
 pub mod direction;
 
-use crate::Objective;
-
-use std::collections::BTreeMap;
-use hash::Id;
+use crate::id::Id;
 
 /// Identity trait
 ///
@@ -30,11 +27,6 @@ pub trait Identity: Sized {
   fn namespace_id(&self) -> String;
 }
 
-
-/// Collection container trait for single-typed sets
-pub struct Coll<T: Objective>(Vec<T>);
-
-pub struct Collection<T: Objective>(BTreeMap<Id, T>);
 
 #[cfg(test)]
 mod test {

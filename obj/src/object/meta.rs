@@ -1,4 +1,7 @@
-use super::{Deserialize, Objective, Serialize};
+//! # Meta types
+use crate::Objective;
+
+use serde::{Deserialize, Serialize};
 use chrono::{DateTime, Utc};
 /// Meta object
 ///

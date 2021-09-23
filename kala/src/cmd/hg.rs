@@ -7,13 +7,12 @@ use std::io::BufReader;
 
 /// Given a `HgwebConfig` struct, start the hgweb server and log to
 /// stdout.
+/// TODO: import old shed_multi_server
 pub fn hgweb(cfg: &HgwebConfig) -> CmdResult {
   println!("found hgweb_config: {:?}", cfg);
   use_builtin_cmd!(echo, info);
   // Continuously process child outputs
-  spawn_with_output!(hgweb)?.wait_with_pipe(&mut |pipe| {
-    let cfg = option_env!("SHED_CFG").expect("$SHED_CFG undefined");
-    info!("found config {}", cfg);
+  spawn_with_output!(hg serve)?.wait_with_pipe(&mut |pipe| {
     BufReader::new(pipe)
       .lines()
       .filter_map(|line| line.ok())

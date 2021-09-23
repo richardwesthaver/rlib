@@ -11,6 +11,8 @@ pub enum Error {
   Reqwest(reqwest::Error),
   #[cfg(feature = "server")]
   Axum(axum::Error),
+  #[cfg(feature = "dns")]
+  Dns(trust_dns_resolver::error::ResolveError),
   Json(serde_json::Error),
 }
 
@@ -34,6 +36,13 @@ impl From<axum::Error> for Error {
   }
 }
 
+#[cfg(feature = "dns")]
+impl From<trust_dns_resolver::error::ResolveError> for Error {
+  fn from(e: trust_dns_resolver::error::ResolveError) -> Self {
+    Error::Dns(e)
+  }
+}
+
 impl From<serde_json::Error> for Error {
   fn from(e: serde_json::Error) -> Self {
     Error::Json(e)
@@ -48,6 +57,8 @@ impl fmt::Display for Error {
       Error::Reqwest(ref err) => write!(f, "net::client Reqwest error: {}", err),
       #[cfg(feature = "server")]
       Error::Axum(ref err) => write!(f, "net::server Axum error: {}", err),
+      #[cfg(feature = "dns")]
+      Error::Dns(ref err) => write!(f, "net::server Dns error: {}", err),
       Error::Json(ref err) => write!(f, "net Json error: {}", err),
     }
   }
@@ -61,6 +72,8 @@ impl fmt::Debug for Error {
       Error::Reqwest(ref err) => write!(f, "net::client Reqwest error: {}", err),
       #[cfg(feature = "server")]
       Error::Axum(ref err) => write!(f, "net::server Axum error: {}", err),
+      #[cfg(feature = "dns")]
+      Error::Dns(ref err) => write!(f, "net::server Dns error: {}", err),
       Error::Json(ref err) => write!(f, "net Json error: {}", err),
     }
   }

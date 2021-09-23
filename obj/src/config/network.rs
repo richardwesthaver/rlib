@@ -3,6 +3,8 @@
 //! Network configuration primitives
 
 use super::Configure;
+use crate::Objective;
+
 use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;
 
@@ -34,3 +36,4 @@ impl Default for NetworkConfig {
 }
 
 impl Configure for NetworkConfig {}
+impl Objective for NetworkConfig {}

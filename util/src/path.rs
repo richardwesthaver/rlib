@@ -3,10 +3,13 @@
 //! Helper functions for working with paths on filesystem
 use std::io::Error;
 use std::path::{Component, Path, PathBuf};
+
 /// Given a path provided by the user, determines where generated files
 /// related to that path should go.
-pub fn local_relative_path(path: &Path) -> Result<PathBuf, Error> {
+// this may be for flate only- move there
+pub fn local_relative_path<P: AsRef<Path>>(path: P) -> Result<PathBuf, Error> {
   let mut rel_path = PathBuf::new();
+  let path = path.as_ref();
   for component in path.components() {
     match component {
       Component::Prefix(_) | Component::RootDir | Component::CurDir => {}

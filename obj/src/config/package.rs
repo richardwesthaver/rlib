@@ -6,6 +6,8 @@ use super::library::LibraryConfig;
 use super::program::ProgramConfig;
 use super::repo::RepoConfig;
 use super::Configure;
+use crate::Objective;
+
 use std::collections::HashMap;
 /// A single package configuration.
 #[derive(Serialize, Deserialize, Debug, PartialEq)]
@@ -46,3 +48,4 @@ impl Default for PackageConfig {
 }
 
 impl Configure for PackageConfig {}
+impl Objective for PackageConfig {}

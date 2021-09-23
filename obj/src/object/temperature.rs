@@ -2,7 +2,9 @@
 //!
 //! Generic temperatures (F/C)
 //! TODO: impl From<Celsius/Fahrenheit> using conversions
-use super::{Deserialize, Objective, Serialize};
+use crate::Objective;
+
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug, Hash)]
 pub enum Temperature {

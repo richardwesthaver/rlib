@@ -1,24 +1,36 @@
 //! obj::location
 //!
 //! Location object types
+use crate::Objective;
 
-use chrono::{DateTime, Utc};
-
-use super::{Deserialize, Objective, Serialize};
+use serde::{Deserialize, Serialize};
 
 /// A City object descriptor. Serves as an anchor for many properties
 /// in location-based data.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct City {
   point: Point,
-  area: Vec<Point>,
   name: String,
-  region: String,
-  county: String,
-  state: String,
-  timezone: DateTime<Utc>,
+  area: Option<Vec<Point>>,
+  region: Option<String>,
+  state: Option<String>,
+  country: Option<String>,
+  timezone: Option<String>,
 }
 
+impl City {
+  pub fn new(point: Point) -> Self {
+    City {
+      point,
+      name: "ellisville".to_string(),
+      area: None,
+      region: None,
+      country: None,
+      state: None,
+      timezone: Some("est".to_string()),
+    }
+  }
+}
 impl Objective for City {}
 
 /// Geo-coordinate Point object type
@@ -30,8 +42,8 @@ pub struct Point {
 
 impl Point {
   /// Create a new Point from (f32, f32)
-  pub fn new(lat: f32, lng: f32) -> Self {
-    Point { lat, lng }
+  pub fn new(lat: &f32, lng: &f32) -> Self {
+    Point { lat: *lat, lng: *lng }
   }
 
   /// Given an additional Point, and assuming Points are on Earth,
@@ -68,6 +80,7 @@ fn london_to_paris() {
     334.9559_f32,
   );
 }
+
 impl From<City> for Point {
   fn from(city: City) -> Self {
     city.point
@@ -75,4 +88,3 @@ impl From<City> for Point {
 }
 
 impl Objective for Point {}
-
