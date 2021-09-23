@@ -19,7 +19,7 @@ dns = ["trust-dns-resolver"]
 # rlib
 obj = { path = "../obj", features = ["config"] }
 # contrib
-futures = "0.3.16"
+futures = "0.3.17"
 bytes = "1.0.1"
 logger = { path = "../logger" }
 url = "2.2.2"

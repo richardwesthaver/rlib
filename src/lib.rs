@@ -1,6 +1,3 @@
-#[macro_use]
-extern crate ctx;
-
 #[cfg(feature = "crypto")]
 pub use crypto;
 #[cfg(feature = "db")]
