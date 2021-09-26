@@ -15,6 +15,7 @@ pub enum Error {
   Utf8(std::string::FromUtf8Error),
   #[cfg(feature = "hg")]
   Hg(hg_parser::ErrorKind),
+  Parse(std::string::ParseError),
   // TODO [2021-08-25 Wed 21:58] : Git()
 }
 
@@ -41,6 +42,7 @@ impl fmt::Display for Error {
       Error::Utf8(ref err) => write!(f, "obj Utf8 error: {}", err),
       #[cfg(feature = "hg")]
       Error::Hg(ref err) => write!(f, "obj MercurialRepo error: {}", err),
+      Error::Parse(ref err) => write!(f, "obj Parse error: {}", err),
     }
   }
 }
@@ -48,6 +50,12 @@ impl fmt::Display for Error {
 impl From<io::Error> for Error {
   fn from(e: io::Error) -> Self {
     Error::Io(e)
+  }
+}
+
+impl From<std::string::ParseError> for Error {
+  fn from(e: std::string::ParseError) -> Self {
+    Error::Parse(e)
   }
 }
 

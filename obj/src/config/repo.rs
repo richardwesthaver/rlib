@@ -12,7 +12,7 @@ mod git;
 pub mod hg;
 /// Generic repo configuration type
 ///
-/// Wraps Mercurial and/or Git repos
+/// Wraps Mercurial and Git repos
 #[derive(Serialize, Deserialize, Debug, Hash, PartialEq)]
 pub struct RepoConfig {
   pub vcs: String,

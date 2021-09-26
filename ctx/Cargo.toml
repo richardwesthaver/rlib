@@ -20,5 +20,5 @@ path = "tests/ctx-init.rs"
 macros = { version = "0.1.0", path = "macros" }
 quickcheck = "1"
 init-tokio = { path = "init-tokio" }
-tokio = { version = "1.9.0", features = ["full"] }
+tokio = { version = "1.10.0", features = ["full"] }
 rayon = "1.5.1"

@@ -1,5 +1,5 @@
-mod client;
-mod resolver;
+pub mod client;
+pub mod resolver;
 
 use std::{collections::HashMap, net::IpAddr};
 

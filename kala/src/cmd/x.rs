@@ -2,9 +2,9 @@
 //!
 //! This module will only compile on GNU Linux.
 use crate::Result;
-use cfg::DisplayConfig;
 use cmd_lib::{run_cmd, CmdResult};
 use logger::log::{debug, info, trace};
+use obj::config::display::DisplayConfig;
 use std::env;
 
 // this import depends on x11 crate. the x11-sys build script fails on

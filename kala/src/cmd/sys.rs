@@ -52,7 +52,7 @@ pub fn usb_devices(devices: Option<HashMap<(u16, u16), String>>) -> Result<()> {
           device.bus_number(),
           device.address()
         ),
-        None => debug!(
+        None => println!(
           "bus:{:03} dev:{:03} unknown",
           device.bus_number(),
           device.address()

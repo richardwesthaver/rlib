@@ -1,5 +1,7 @@
 #[cfg(feature = "crypto")]
 pub use crypto;
+#[cfg(feature = "ctx")]
+pub use ctx;
 #[cfg(feature = "db")]
 pub use db;
 #[cfg(feature = "flate")]

@@ -17,6 +17,7 @@ sys = ["rusb", "whoami"]
 x11 = ["xrandr"]
 tmux = ["tmux_interface"]
 hg = ["obj/hg"]
+#py = ["rustpython-vm"]
 [dependencies]
 # rlib
 obj = { path = "../obj" }

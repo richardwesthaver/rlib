@@ -15,7 +15,7 @@ pub trait Lookup {
 }
 
 #[repr(transparent)]
-pub struct Resolver(TokioAsyncResolver);
+pub struct Resolver(pub TokioAsyncResolver);
 
 impl Resolver {
   pub async fn new(dns_server: &Option<Ipv4Addr>) -> Result<Self> {

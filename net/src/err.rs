@@ -14,6 +14,7 @@ pub enum Error {
   #[cfg(feature = "dns")]
   Dns(trust_dns_resolver::error::ResolveError),
   Json(serde_json::Error),
+  UnexpectedEnd,
 }
 
 impl From<io::Error> for Error {
@@ -60,6 +61,7 @@ impl fmt::Display for Error {
       #[cfg(feature = "dns")]
       Error::Dns(ref err) => write!(f, "net::server Dns error: {}", err),
       Error::Json(ref err) => write!(f, "net Json error: {}", err),
+      Error::UnexpectedEnd => write!(f, "unexpected end of buffer."),
     }
   }
 }
@@ -75,6 +77,7 @@ impl fmt::Debug for Error {
       #[cfg(feature = "dns")]
       Error::Dns(ref err) => write!(f, "net::server Dns error: {}", err),
       Error::Json(ref err) => write!(f, "net Json error: {}", err),
+      Error::UnexpectedEnd => write!(f, "unexpected end of buffer."),
     }
   }
 }

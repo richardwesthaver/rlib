@@ -13,9 +13,10 @@ use serde::{Deserialize, Serialize};
 pub struct ProgramConfig {
   name: String,
   install_path: Option<String>,
-  linker: Option<String>,
   compiler: Option<String>,
   flags: Option<Vec<String>>,
+  build: Option<String>,
+  install: Option<String>,
 }
 
 impl Configure for ProgramConfig {}

@@ -1,6 +1,7 @@
 use super::SubRepo;
-use crate::Result;
-pub use hg_parser::MercurialRepository as HgRepo;
+use crate::{config::Configure, Objective, Result};
+use hg_parser::{file_content, FileType, ManifestEntryDetails, MercurialRepository, Revision};
+
 use logger::log::{error, info, trace};
 use serde::{Deserialize, Serialize};
 use std::{
@@ -8,8 +9,29 @@ use std::{
   fs::File,
   io::{LineWriter, Read, Write},
   net::SocketAddr,
-  path::PathBuf,
+  path::{Path, PathBuf},
+  time::Instant,
 };
+
+/// Mercurial configuration type -- corresponds to .hgrc file
+///
+/// TODO set 'default' and 'default_push' paths
+#[derive(Serialize, Deserialize, Debug, PartialEq)]
+pub struct MercurialConfig {
+  pub ui: HashMap<String, String>,
+  pub extensions: Option<HashMap<String, Option<String>>>,
+  pub paths: Option<HashMap<String, String>>,
+  pub web: HgwebConfig,
+}
+
+impl MercurialConfig {
+  pub fn handle<P: AsRef<Path>>(path: P) -> MercurialRepository {
+    MercurialRepository::open(path).unwrap()
+  }
+}
+
+impl Objective for MercurialConfig {}
+impl Configure for MercurialConfig {}
 
 /// Mercurial '.hgsub' file handle, which is just a list of PATH=SOURCE pairs.
 pub struct HgSubFile {
@@ -123,14 +145,14 @@ impl Default for HgSubFile {
 /// Based on the configuration file for 'hgweb' scripts.
 ///
 /// We don't store the file path in a field because all HgwebConfig
-/// values are relative to $PWD.
-#[derive(Serialize, Deserialize, Debug, Clone)]
+/// values are relative to env::current_dir()
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct HgwebConfig {
   pub name: String,
   pub contact: String,
   pub description: String,
   pub extensions: Vec<String>,
-  pub sock: SocketAddr,
+  pub socket: SocketAddr,
   pub paths: HashMap<PathBuf, PathBuf>,
 }
 
@@ -141,10 +163,125 @@ impl Default for HgwebConfig {
       contact: "".to_string(),
       description: "".to_string(),
       extensions: vec![],
-      sock: "0.0.0.0:0"
+      socket: "0.0.0.0:0"
         .parse()
         .expect("could not parse hgweb socketaddr"),
       paths: HashMap::new(),
     }
   }
+}
+
+/// from hg_parser crate docs - given a mercurial repo as a path,
+/// exports to git fast-import format (to stdout)
+pub fn export_hg_git<P: AsRef<Path>>(path: P) -> Result<()> {
+  let start = Instant::now();
+  let repo = MercurialRepository::open(path).expect("could not open repo path");
+
+  let stdout = std::io::stdout();
+  let mut writer = stdout.lock();
+
+  for changeset in &repo {
+    let revision = changeset.revision;
+    eprintln!("rev: {:?}", revision);
+
+    let header = &changeset.header;
+    let mut branch = None;
+    let mut closed = false;
+    for (key, value) in &header.extra {
+      if key == b"branch" {
+        branch = Some(value.as_slice());
+      }
+
+      if key == b"close" && value == b"1" {
+        closed = true;
+      }
+    }
+
+    let mut branch: Vec<_> = branch.unwrap_or_else(|| b"master").into();
+    for b in branch.iter_mut() {
+      if *b == b' ' {
+        *b = b'-';
+      }
+    }
+
+    let user = String::from_utf8_lossy(&header.user);
+    let desc = String::from_utf8_lossy(&header.comment);
+
+    let time = header.time.timestamp_secs();
+    let timezone = header.time.tz_offset_secs();
+    let tz = format!("{:+03}{:02}", -timezone / 3600, ((-timezone % 3600) / 60));
+
+    write!(writer, "reset refs/heads/")?;
+    writer.write_all(&mut branch)?;
+    write!(writer, "\ncommit refs/heads/")?;
+    writer.write_all(&mut branch)?;
+    writeln!(writer, "\nmark :{}", mark(revision))?;
+
+    writeln!(writer, "author {} {} {}", user, time, tz)?;
+    writeln!(writer, "committer {} {} {}", user, time, tz)?;
+    writeln!(writer, "data {}", desc.len() + 1)?;
+    writeln!(writer, "{}\n", desc)?;
+
+    match (header.p1, header.p2) {
+      (Some(p1), Some(p2)) => {
+        writeln!(writer, "from :{}", mark(p1))?;
+        writeln!(writer, "merge :{}", mark(p2))?;
+      }
+      (Some(p), None) | (None, Some(p)) => {
+        writeln!(writer, "from :{}", mark(p))?;
+      }
+      _ => (),
+    }
+
+    for mut file in changeset.files {
+      match (file.data, file.manifest_entry) {
+        (None, None) => {
+          write!(writer, "D ")?;
+          writer.write_all(&mut file.path)?;
+          writeln!(writer)?;
+        }
+        (Some(data), Some(manifest_entry)) => {
+          write!(
+            writer,
+            "M {} inline ",
+            match manifest_entry.details {
+              ManifestEntryDetails::File(FileType::Symlink) => "120000",
+              ManifestEntryDetails::File(FileType::Executable) => "100755",
+              ManifestEntryDetails::Tree | ManifestEntryDetails::File(FileType::Regular) =>
+                "100644",
+            }
+          )?;
+          writer.write_all(&mut file.path)?;
+          let data = file_content(&data);
+          writeln!(writer, "\ndata {}", data.len())?;
+          writer.write_all(&data[..])?;
+        }
+        _ => panic!("Wrong file data!"),
+      }
+    }
+
+    if closed {
+      write!(writer, "reset refs/tags/archive/")?;
+      writer.write_all(&mut branch)?;
+      writeln!(writer, "\nfrom :{}\n", mark(revision))?;
+
+      write!(writer, "reset refs/heads/")?;
+      writer.write_all(&mut branch)?;
+      writeln!(writer, "\nfrom 0000000000000000000000000000000000000000\n")?;
+    }
+  }
+
+  for (rev, tag) in repo.tags().unwrap() {
+    eprintln!("export tag {}", tag.name);
+    writeln!(writer, "reset refs/tags/{}", tag.name).unwrap();
+    writeln!(writer, "from :{}", mark(rev)).unwrap();
+    writeln!(writer).unwrap();
+  }
+
+  eprintln!("Done. Elapsed: {:?}", start.elapsed());
+  Ok(())
+}
+
+fn mark<R: Into<Revision>>(rev: R) -> usize {
+  (rev.into() + 1).0 as usize
 }

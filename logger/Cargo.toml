@@ -10,4 +10,4 @@ publish = ["crater"]
 
 [dependencies]
 log = { version = "0.4.14", features = ["kv_unstable"] }
-flexi_logger = { version = "0.18.0", features = ["async", "specfile", "compress", "colors", "atty"] }
+flexi_logger = { version = "0.19", features = ["async", "specfile", "compress", "colors", "atty"] }

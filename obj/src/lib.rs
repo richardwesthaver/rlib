@@ -17,6 +17,7 @@ pub use err::{Error, Result};
 // re-exports
 pub use ron;
 
+use ron::extensions::Extensions;
 use serde::de::DeserializeOwned;
 use serde::{Deserialize, Serialize};
 use std::io;
@@ -63,7 +64,9 @@ pub trait Objective {
     Ok(ron::ser::to_writer_pretty(
       writer,
       &self,
-      ron::ser::PrettyConfig::new().with_indentor("  ".to_owned()),
+      ron::ser::PrettyConfig::new()
+        .with_indentor("  ".to_owned())
+        .with_extensions(Extensions::all()),
     )?)
   }
 

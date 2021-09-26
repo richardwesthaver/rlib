@@ -1,6 +1,6 @@
 //! logger library
 use flexi_logger::Logger;
-use flexi_logger::{AdaptiveFormat, Age, Cleanup, Criterion, FileSpec, Naming};
+use flexi_logger::{AdaptiveFormat, Cleanup, Criterion, FileSpec, Naming};
 pub use log;
 use log::{Level, LevelFilter, Metadata, Record};
 
@@ -44,12 +44,21 @@ pub fn flexi(level: &str) -> Result<()> {
 }
 
 /// Initialize `Logger` and log to a file instead of stdout
-pub fn file() -> Result<()> {
-  Logger::try_with_env_or_str("trace")? // Write all error, warn, and info messages
-    // use a simple filename without a timestamp
-    .log_to_file(FileSpec::default())
-    .rotate(Criterion::Age(Age::Day), Naming::Timestamps, Cleanup::Never)
+pub fn file(env: &str, log_path: &str, log_name: &str) -> Result<()> {
+  Logger::try_with_env_or_str(env)? // Write all messages
+    .log_to_file(
+      FileSpec::default()
+        .directory(log_path)
+        .basename(log_name)
+        .suffix("log"),
+    )
+    .print_message()
     .append()
+    .rotate(
+      Criterion::Size(1024 * 1000 * 1),
+      Naming::Numbers,
+      Cleanup::Never,
+    )
     .start()?;
   Ok(())
 }

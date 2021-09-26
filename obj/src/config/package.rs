@@ -37,10 +37,10 @@ impl PackageConfig {
 impl Default for PackageConfig {
   fn default() -> Self {
     PackageConfig {
-      name: "default".to_string(),
+      name: ".".to_string(),
       repo: Some(RepoConfig::default()),
-      bin: Some(ProgramConfig::default()),
-      lib: Some(LibraryConfig::default()),
+      bin: None,
+      lib: None,
       babel: None,
       meta: None,
     }
