@@ -38,11 +38,17 @@ impl From<Ulid> for Id {
   }
 }
 
+impl From<u128> for Id {
+  fn from(src: u128) -> Self {
+    Id::ObjectId(src)
+  }
+}
+
 impl FromStr for Id {
   type Err = ();
   fn from_str(input: &str) -> Result<Id, Self::Err> {
     match input {
-      i => Ok(Id::ObjectId(u128::from_str(i).unwrap())),
+      i => Ok(Id::ObjectId(u128::from(Ulid::from_str(i).unwrap()))),
     }
   }
 }
@@ -50,7 +56,7 @@ impl FromStr for Id {
 impl fmt::Display for Id {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
     match *self {
-      Id::ObjectId(i) => write!(f, "{}", i),
+      Id::ObjectId(i) => write!(f, "{}", Ulid::from(i)),
       Id::ConfigId(i, t) => write!(f, "{}:{}", i, t),
       Id::UnitId(i) => write!(f, "{}", i),
       Id::AtomId(i) => write!(f, "{}", i),

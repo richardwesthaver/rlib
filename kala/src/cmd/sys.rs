@@ -60,5 +60,6 @@ pub fn usb_devices(devices: Option<HashMap<(u16, u16), String>>) -> Result<()> {
       }
     };
   }
+  println!("--++--");
   Ok(())
 }

@@ -10,6 +10,10 @@
 use std::{fs, io, path::Path};
 
 // use async_compression;
+#[cfg(feature = "flate2")]
+pub use flate2;
+
+pub use tar;
 
 /// Level of compression data should be compressed with.
 #[non_exhaustive]

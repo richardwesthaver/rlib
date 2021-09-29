@@ -66,7 +66,7 @@ impl Registry {
 /// A transaction that is backed by rocksdb.
 #[derive(Debug)]
 pub struct RegistryTransaction {
-  db: Arc<DB>,
+  pub db: Arc<DB>,
 }
 
 impl RegistryTransaction {

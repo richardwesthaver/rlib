@@ -19,3 +19,4 @@ pub mod sys;
 pub mod tmux;
 #[cfg(all(target_os = "linux", target_env = "gnu", feature = "x11"))]
 pub mod x;
+pub mod repl;

@@ -8,7 +8,7 @@ pub mod coll;
 pub mod config;
 pub mod id;
 #[cfg(feature = "object")]
-mod object;
+pub mod object;
 
 mod err;
 

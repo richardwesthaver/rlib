@@ -20,6 +20,7 @@ hg = ["obj/hg"]
 #py = ["rustpython-vm"]
 [dependencies]
 # rlib
+ctx = { path = "../ctx" }
 obj = { path = "../obj" }
 flate = { path = "../flate" }
 logger = { path = "../logger" }
