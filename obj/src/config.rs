@@ -10,6 +10,11 @@ mod package;
 mod program;
 mod registry;
 mod repo;
+#[cfg(feature = "git")]
+pub use repo::git::GitRepository;
+#[cfg(feature = "hg")]
+pub use repo::hg::{export_hg_git, HgSubFile, HgwebConfig, MercurialConfig};
+
 mod user;
 
 pub use {
@@ -21,11 +26,7 @@ pub use {
   package::PackageConfig,
   program::ProgramConfig,
   registry::RegistryConfig,
-  repo::{
-    git::GitRepository,
-    hg::{export_hg_git, HgSubFile, HgwebConfig, MercurialConfig},
-    RepoConfig,
-  },
+  repo::RepoConfig,
   user::UserConfig,
 };
 
