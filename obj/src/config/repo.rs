@@ -1,13 +1,11 @@
 //! cfg::config::repo
 //!
 //! Repo configuration primitives
-use super::Configure;
-use crate::Objective;
-use std::{fmt, path::PathBuf};
+use std::path::PathBuf;
 
 use serde::{Deserialize, Serialize};
 #[cfg(feature = "git")]
-mod git;
+pub mod git;
 #[cfg(feature = "hg")]
 pub mod hg;
 /// Generic repo configuration type
@@ -33,24 +31,6 @@ impl Default for RepoConfig {
       vcs: "hg".to_string(),
       origin: "".to_string(),
       path: PathBuf::from("."),
-    }
-  }
-}
-
-impl Configure for RepoConfig {}
-impl Objective for RepoConfig {}
-
-/// The type of Repo (Mercurial or Git)
-pub enum RepoType {
-  MercurialRepository,
-  GitRepository,
-}
-
-impl fmt::Display for RepoType {
-  fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-    match self {
-      RepoType::MercurialRepository => write!(f, "hg"),
-      RepoType::GitRepository => write!(f, "git"),
     }
   }
 }

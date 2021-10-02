@@ -1,5 +1,5 @@
 use super::SubRepo;
-use crate::{config::Configure, Objective, Result};
+use crate::Result;
 use hg_parser::{file_content, FileType, ManifestEntryDetails, MercurialRepository, Revision};
 
 use logger::log::{error, info, trace};
@@ -29,9 +29,6 @@ impl MercurialConfig {
     MercurialRepository::open(path).unwrap()
   }
 }
-
-impl Objective for MercurialConfig {}
-impl Configure for MercurialConfig {}
 
 /// Mercurial '.hgsub' file handle, which is just a list of PATH=SOURCE pairs.
 pub struct HgSubFile {

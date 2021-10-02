@@ -4,11 +4,10 @@
 use super::library::LibraryConfig;
 use super::program::ProgramConfig;
 use super::repo::RepoConfig;
-use super::Configure;
-use crate::Objective;
+use super::MetaConfig;
 use serde::{Deserialize, Serialize};
-
 use std::collections::HashMap;
+
 /// A single package configuration.
 #[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub struct PackageConfig {
@@ -18,7 +17,7 @@ pub struct PackageConfig {
   pub bin: Option<ProgramConfig>,
   pub lib: Option<LibraryConfig>,
   pub babel: Option<HashMap<String, Vec<String>>>,
-  pub meta: Option<String>, // will be MetaConfig
+  pub meta: Option<MetaConfig>, // will be MetaConfig
 }
 
 impl PackageConfig {
@@ -46,6 +45,3 @@ impl Default for PackageConfig {
     }
   }
 }
-
-impl Configure for PackageConfig {}
-impl Objective for PackageConfig {}

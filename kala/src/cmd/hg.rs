@@ -2,7 +2,7 @@
 use crate::Result;
 use ctx::tokio::process::Command;
 use logger::log::debug;
-use obj::config::repo::hg::MercurialConfig;
+use obj::config::MercurialConfig;
 
 /// Given a `HgwebConfig` struct, start the hgweb server and log to
 /// stdout.

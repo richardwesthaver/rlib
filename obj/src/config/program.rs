@@ -1,10 +1,6 @@
 //! cfg::config::program
 //!
 //! Program configuration primitives
-
-use super::Configure;
-use crate::Objective;
-
 use serde::{Deserialize, Serialize};
 /// Program configuration type
 ///
@@ -18,6 +14,3 @@ pub struct ProgramConfig {
   build: Option<String>,
   install: Option<String>,
 }
-
-impl Configure for ProgramConfig {}
-impl Objective for ProgramConfig {}

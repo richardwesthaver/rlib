@@ -49,14 +49,13 @@ pub fn pack<P: AsRef<Path>, Q: AsRef<Path>>(src: P, dst: Q, level: Option<Level>
   let mut tar = tar::Builder::new(Vec::new());
   let src = src.as_ref();
   let parent = src.parent().unwrap();
-  let dst = dst.as_ref();
-  tar
-    .append_dir_all(src, src.strip_prefix(parent).unwrap())
-    .unwrap();
+  let art = src.strip_prefix(parent).unwrap();
+  tar.append_dir_all(art, src).unwrap();
+
   let tar = tar.into_inner().unwrap();
-  let file = fs::File::create(dst.join(src).with_extension("tar.zst")).unwrap();
+  let dst = dst.as_ref();
+  let file = fs::File::create(dst).unwrap();
   zstd::stream::copy_encode(&tar[..], file, level.unwrap_or(Level::Best).into_zstd()).unwrap();
-  // ultramaximum
 }
 
 /// unpack a tar.zst compressed archive
@@ -74,11 +73,12 @@ pub fn unpack_replace<P: AsRef<Path>, Q: AsRef<Path>>(src: P, dst: Q) {
   unpack(&src, dst);
   fs::remove_file(src).expect("could not remove source package");
 }
+
 /// compress a file with zstd
-pub fn compress<P: AsRef<Path>>(source: P) -> io::Result<()> {
-  let mut file = fs::File::open(&source)?;
+pub fn compress<P: AsRef<Path>, Q: AsRef<Path>>(src: P, dst: Q) -> io::Result<()> {
+  let mut file = fs::File::open(&src)?;
   let mut encoder = {
-    let target = fs::File::create(source.as_ref().with_extension("zst"))?;
+    let target = fs::File::create(dst.as_ref())?;
     zstd::Encoder::new(target, 22)?
   };
   io::copy(&mut file, &mut encoder)?;

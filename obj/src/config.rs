@@ -1,20 +1,56 @@
 //! cfg::config
 //!
 //! Primitive configuration types
+mod database;
+mod display;
+mod library;
+mod meta;
+mod network;
+mod package;
+mod program;
+mod registry;
+mod repo;
+mod user;
 
-pub mod database;
-pub mod display;
-pub mod library;
-pub mod network;
-pub mod package;
-pub mod program;
-pub mod registry;
-pub mod repo;
-pub mod user;
+pub use {
+  database::DatabaseConfig,
+  display::{DisplayConfig, MonitorConfig},
+  library::LibraryConfig,
+  meta::MetaConfig,
+  network::NetworkConfig,
+  package::PackageConfig,
+  program::ProgramConfig,
+  registry::RegistryConfig,
+  repo::{
+    git::GitRepository,
+    hg::{export_hg_git, HgSubFile, HgwebConfig, MercurialConfig},
+    RepoConfig,
+  },
+  user::UserConfig,
+};
 
 use crate::Objective;
 use crate::Result;
 
+macro_rules! impl_config {
+  ($($t:ident),*) => {
+    $(
+    impl Objective for $t {}
+    impl Configure for $t {}
+    )*
+  };
+}
+
+impl_config!(
+  MetaConfig,
+  RepoConfig,
+  DatabaseConfig,
+  DisplayConfig,
+  MonitorConfig,
+  UserConfig,
+  LibraryConfig,
+  NetworkConfig
+);
 /// common trait for all config modules. This trait provides functions
 /// for de/serializing to/from RON, updating fields, and formatting.
 pub trait Configure: Objective {
