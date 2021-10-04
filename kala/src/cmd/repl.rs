@@ -32,14 +32,19 @@ pub async fn k(args: Vec<&str>) -> Output {
     .args(args.into_iter())
     .spawn()
     .expect("ngn/k failed to start")
-    .wait_with_output().await.expect("ngn/k command failed")
+    .wait_with_output()
+    .await
+    .expect("ngn/k command failed")
 }
 
 pub async fn k9(args: Vec<&str>) -> Output {
   Command::new("li2.0")
     .args(args.into_iter())
-    .spawn().expect("shakti (k9) li2.0 failed to start")
-    .wait_with_output().await.expect("shakti command failed")
+    .spawn()
+    .expect("shakti (k9) li2.0 failed to start")
+    .wait_with_output()
+    .await
+    .expect("shakti command failed")
 }
 
 pub async fn dyalog(args: Vec<&str>) -> Output {

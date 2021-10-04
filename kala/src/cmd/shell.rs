@@ -1,35 +1,38 @@
 //! Shell command module
 use crate::Result;
 use cmd_lib::{run_cmd, CmdResult};
+use ctx::tokio::io::Result as CR;
+use ctx::tokio::process::Command;
 use std::collections::HashMap;
 use std::process::Output;
-use ctx::tokio::process::Command;
-use ctx::tokio::io::Result as CR;
 /// GNU Makefile command
 pub async fn make(args: Vec<&str>) -> CR<Output> {
   Command::new("make")
     .args(args.into_iter())
     .spawn()
     .expect("make failed.")
-    .wait_with_output().await
+    .wait_with_output()
+    .await
 }
 
 /// GNU Emacs command
 pub async fn emacs(args: Vec<&str>) -> CR<Output> {
-    Command::new("emacs")
-      .args(args)
-      .spawn()?
-      .wait_with_output().await
+  Command::new("emacs")
+    .args(args)
+    .spawn()?
+    .wait_with_output()
+    .await
 }
 
 /// ffmpeg command
 pub async fn ffmpeg(args: Vec<&str>, envs: HashMap<&str, &str>) -> CR<Output> {
-    Command::new("ffmpeg")
-      .env_clear()
-      .envs(envs)
-      .args(args)
-      .spawn()?
-      .wait_with_output().await
+  Command::new("ffmpeg")
+    .env_clear()
+    .envs(envs)
+    .args(args)
+    .spawn()?
+    .wait_with_output()
+    .await
 }
 
 /// start the mpd daemon in background
@@ -58,14 +61,16 @@ pub async fn wg_keygen(peers: Vec<&str>) -> Result<()> {
     Command::new("wg")
       .arg("genkey")
       .stdout(key_file)
-      .output().await
+      .output()
+      .await
       .expect("could not create private key");
 
     Command::new("wg")
       .arg("pubkey")
       .stdin(std::fs::File::open(format!("{}{}", i, ".key")).unwrap())
       .stdout(pub_file)
-      .output().await
+      .output()
+      .await
       .expect("could not create public key");
   }
 

@@ -12,20 +12,20 @@ pub use server::Server;
 pub mod coding;
 pub mod connection;
 mod engine;
+#[cfg(feature = "axum")]
+pub use axum;
+#[cfg(feature = "dns")]
+pub use engine::dns;
 #[cfg(feature = "http")]
 pub use engine::http;
 #[cfg(feature = "quic")]
 pub use engine::quic;
-#[cfg(feature = "dns")]
-pub use engine::dns;
 #[cfg(feature = "ssh")]
 pub use engine::ssh;
 #[cfg(all(feature = "uds", unix))]
 pub use engine::uds;
 #[cfg(feature = "reqwest")]
 pub use reqwest;
-#[cfg(feature = "axum")]
-pub use axum;
 
 #[cfg(test)]
 mod tests;

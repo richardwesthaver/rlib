@@ -4,7 +4,7 @@ pub mod dns;
 pub mod http;
 #[cfg(feature = "quic")]
 pub mod quic;
-#[cfg(feature="ssh")]
+#[cfg(feature = "ssh")]
 pub mod ssh;
-#[cfg(all(feature="uds", unix))]
+#[cfg(all(feature = "uds", unix))]
 pub mod uds;

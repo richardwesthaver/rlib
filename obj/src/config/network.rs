@@ -2,8 +2,8 @@
 //!
 //! Network configuration primitives
 use serde::{Deserialize, Serialize};
-use std::net::SocketAddr;
 use std::fmt;
+use std::net::SocketAddr;
 /// Network configuration
 #[derive(Serialize, Deserialize, Hash, Debug, PartialEq, Clone)]
 pub struct NetworkConfig {
@@ -44,7 +44,7 @@ impl Default for EngineType {
 }
 
 impl std::fmt::Display for EngineType {
-  fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
+  fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
     match self {
       EngineType::Quic => write!(f, "quic"),
       EngineType::Http => write!(f, "http"),

@@ -1,9 +1,9 @@
 //! Mercurial command module
 use crate::Result;
 use ctx::tokio::process::Command;
-use std::process::Output;
 use logger::log::debug;
 use obj::config::MercurialConfig;
+use std::process::Output;
 
 /// Given a `HgwebConfig` struct, start the hgweb server and log to
 /// stdout.
