@@ -16,7 +16,5 @@ pub use logger;
 pub use net;
 #[cfg(feature = "obj")]
 pub use obj;
-#[cfg(feature = "organ")]
-pub use organ;
 #[cfg(feature = "util")]
 pub use util;

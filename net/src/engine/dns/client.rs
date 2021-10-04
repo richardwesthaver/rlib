@@ -12,14 +12,14 @@ use tokio::{
   sync::mpsc::{self, Sender},
 };
 
-use super::{resolver::Lookup, IpTable};
+use super::{resolver::Lookup, IpMap};
 
 type PendingAddrs = HashSet<IpAddr>;
 
 const CHANNEL_SIZE: usize = 1_000;
 
 pub struct Client {
-  cache: Arc<Mutex<IpTable>>,
+  cache: Arc<Mutex<IpMap>>,
   pending: Arc<Mutex<PendingAddrs>>,
   tx: Option<Sender<Vec<IpAddr>>>,
   handle: Option<JoinHandle<()>>,
@@ -30,7 +30,7 @@ impl Client {
   where
     R: Lookup + Send + Sync + 'static,
   {
-    let cache = Arc::new(Mutex::new(IpTable::new()));
+    let cache = Arc::new(Mutex::new(IpMap::new()));
     let pending = Arc::new(Mutex::new(PendingAddrs::new()));
     let (tx, mut rx) = mpsc::channel::<Vec<IpAddr>>(CHANNEL_SIZE);
 
@@ -82,7 +82,7 @@ impl Client {
     }
   }
 
-  pub fn cache(&mut self) -> IpTable {
+  pub fn cache(&mut self) -> IpMap {
     let cache = self.cache.lock().unwrap();
     cache.clone()
   }

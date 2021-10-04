@@ -23,6 +23,7 @@ objects = ["obj/object"]
 configs = ["obj/config"]
 bs = ["util/bs"]
 flate2 = ["flate/flate2"]
+ssh = ["net/ssh"]
 [dependencies]
 obj = { version = "0.1.0", path = "obj", optional = true, features = ["object", "config"] }
 kala = { version = "0.1.0", path = "kala", optional = true, features = ["full"] }

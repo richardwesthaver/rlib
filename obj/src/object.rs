@@ -6,6 +6,8 @@ pub mod color;
 pub mod contact;
 pub mod direction;
 pub mod doc;
+#[cfg(feature="org")]
+pub use doc::org::Org;
 pub mod location;
 pub mod media;
 pub mod meta;

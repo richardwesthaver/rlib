@@ -1,15 +1,10 @@
 //! obj::doc
 //!
 //! Document object types
-
 #[cfg(feature = "org")]
-mod org;
-
-#[cfg(feature = "org")]
-pub use org::Org;
+pub mod org;
 
 use crate::Objective;
-
 use serde::{Deserialize, Serialize};
 use std::fmt;
 use std::str::FromStr;

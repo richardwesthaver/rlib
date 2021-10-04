@@ -4,9 +4,7 @@ pub mod dns;
 pub mod http;
 #[cfg(feature = "quic")]
 pub mod quic;
-
-pub enum EngineType {
-  Quic,
-  Http,
-  Dns,
-}
+#[cfg(feature="ssh")]
+pub mod ssh;
+#[cfg(all(feature="uds", unix))]
+pub mod uds;

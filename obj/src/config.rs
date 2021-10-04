@@ -33,6 +33,7 @@ pub use {
 use crate::Objective;
 use crate::Result;
 
+#[macro_export]
 macro_rules! impl_config {
   ($($t:ident),*) => {
     $(
@@ -52,6 +53,7 @@ impl_config!(
   LibraryConfig,
   NetworkConfig
 );
+
 /// common trait for all config modules. This trait provides functions
 /// for de/serializing to/from RON, updating fields, and formatting.
 pub trait Configure: Objective {

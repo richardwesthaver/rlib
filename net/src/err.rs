@@ -13,6 +13,8 @@ pub enum Error {
   Axum(axum::Error),
   #[cfg(feature = "dns")]
   Dns(trust_dns_resolver::error::ResolveError),
+  #[cfg(feature = "ssh")]
+  Ssh(thrussh::Error),
   Json(serde_json::Error),
   UnexpectedEnd,
 }
@@ -44,6 +46,13 @@ impl From<trust_dns_resolver::error::ResolveError> for Error {
   }
 }
 
+#[cfg(feature = "ssh")]
+impl From<thrussh::Error> for Error {
+  fn from(e: thrussh::Error) -> Self {
+    Error::Ssh(e)
+  }
+}
+
 impl From<serde_json::Error> for Error {
   fn from(e: serde_json::Error) -> Self {
     Error::Json(e)
@@ -59,7 +68,9 @@ impl fmt::Display for Error {
       #[cfg(feature = "server")]
       Error::Axum(ref err) => write!(f, "net::server Axum error: {}", err),
       #[cfg(feature = "dns")]
-      Error::Dns(ref err) => write!(f, "net::server Dns error: {}", err),
+      Error::Dns(ref err) => write!(f, "net::engine::dns error: {}", err),
+      #[cfg(feature = "ssh")]
+      Error::Ssh(ref err) => write!(f, "net::engine::ssh error: {}", err),
       Error::Json(ref err) => write!(f, "net Json error: {}", err),
       Error::UnexpectedEnd => write!(f, "unexpected end of buffer."),
     }
@@ -76,6 +87,8 @@ impl fmt::Debug for Error {
       Error::Axum(ref err) => write!(f, "net::server Axum error: {}", err),
       #[cfg(feature = "dns")]
       Error::Dns(ref err) => write!(f, "net::server Dns error: {}", err),
+      #[cfg(feature = "ssh")]
+      Error::Ssh(ref err) => write!(f, "net::engine::ssh error: {}", err),
       Error::Json(ref err) => write!(f, "net Json error: {}", err),
       Error::UnexpectedEnd => write!(f, "unexpected end of buffer."),
     }

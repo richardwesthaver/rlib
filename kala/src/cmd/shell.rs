@@ -2,39 +2,34 @@
 use crate::Result;
 use cmd_lib::{run_cmd, CmdResult};
 use std::collections::HashMap;
-use std::process::{Command, Output, Stdio};
-
+use std::process::Output;
+use ctx::tokio::process::Command;
+use ctx::tokio::io::Result as CR;
 /// GNU Makefile command
-pub fn make(target: &str) {
-  let make = Command::new("make")
-    .arg(target)
-    .stdin(Stdio::null())
-    .stdout(Stdio::inherit())
-    .status()
-    .expect("make failed.");
-  println!("make finished with {}", make);
+pub async fn make(args: Vec<&str>) -> CR<Output> {
+  Command::new("make")
+    .args(args.into_iter())
+    .spawn()
+    .expect("make failed.")
+    .wait_with_output().await
 }
 
 /// GNU Emacs command
-pub fn emacs(args: Vec<&str>) -> Result<Output> {
-  Ok(
+pub async fn emacs(args: Vec<&str>) -> CR<Output> {
     Command::new("emacs")
       .args(args)
       .spawn()?
-      .wait_with_output()?,
-  )
+      .wait_with_output().await
 }
 
 /// ffmpeg command
-pub fn ffmpeg(args: Vec<&str>, envs: HashMap<&str, &str>) -> Result<Output> {
-  Ok(
+pub async fn ffmpeg(args: Vec<&str>, envs: HashMap<&str, &str>) -> CR<Output> {
     Command::new("ffmpeg")
       .env_clear()
       .envs(envs)
       .args(args)
       .spawn()?
-      .wait_with_output()?,
-  )
+      .wait_with_output().await
 }
 
 /// start the mpd daemon in background
@@ -55,7 +50,7 @@ pub fn conky(cfg: &str) -> CmdResult {
   Ok(run_cmd!(conky  -qbdc "$cfg" '&')?)
 }
 
-pub fn wg_keygen(peers: Vec<&str>) -> Result<()> {
+pub async fn wg_keygen(peers: Vec<&str>) -> Result<()> {
   println!("writing keypairs to {:?}", std::env::current_dir().unwrap());
   for i in peers.iter() {
     let key_file = std::fs::File::create(format!("{}{}", i, ".key")).unwrap();
@@ -63,17 +58,15 @@ pub fn wg_keygen(peers: Vec<&str>) -> Result<()> {
     Command::new("wg")
       .arg("genkey")
       .stdout(key_file)
-      .output()
+      .output().await
       .expect("could not create private key");
 
     Command::new("wg")
       .arg("pubkey")
       .stdin(std::fs::File::open(format!("{}{}", i, ".key")).unwrap())
       .stdout(pub_file)
-      .output()
+      .output().await
       .expect("could not create public key");
-
-    println!("{} -- done", i);
   }
 
   Ok(())

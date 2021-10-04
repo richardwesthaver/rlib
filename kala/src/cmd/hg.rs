@@ -1,6 +1,7 @@
 //! Mercurial command module
 use crate::Result;
 use ctx::tokio::process::Command;
+use std::process::Output;
 use logger::log::debug;
 use obj::config::MercurialConfig;
 
@@ -13,4 +14,14 @@ pub async fn hgweb(cfg: &MercurialConfig) -> Result<()> {
   output.await?;
 
   Ok(())
+}
+
+pub async fn hg(args: Vec<&str>) -> Output {
+  Command::new("hg")
+    .args(args.into_iter())
+    .spawn()
+    .expect("mercurial error")
+    .wait_with_output()
+    .await
+    .expect("mercurial command failed")
 }
