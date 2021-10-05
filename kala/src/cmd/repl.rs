@@ -1,78 +1,56 @@
-use std::process::Output;
-
+use ctx::tokio::io::Result as CR;
 use ctx::tokio::process::Command;
+use std::process::Output;
 //use std::process::Stdio;
 
-/// BQN interpreter
-pub async fn bqn(args: Vec<&str>) -> std::process::ExitStatus {
-  Command::new("bqn")
-    .args(args.into_iter())
-    .spawn()
-    .expect("BQN failed to start")
-    .wait()
-    .await
-    .expect("BQN command failed")
+#[macro_export]
+macro_rules! impl_cmd {
+  ($($t:ident),*) => {
+    $(
+      pub async fn $t(args: Vec<&str>) -> CR<Output> {
+        Command::new("$t")
+          .args(args.into_iter())
+          .spawn()?
+        .wait_with_output()
+          .await
+      }
+    )*
+  }
 }
 
-/// Erlang runtime
-pub async fn erl(args: Vec<&str>) -> Output {
-  Command::new("erl")
+impl_cmd!(erl, dyalog, lua);
+
+/// BQN interpreter
+pub async fn bqn(args: Vec<&str>) -> CR<Output> {
+  Command::new("bqn")
     .args(args.into_iter())
-    .spawn()
-    .expect("Erlang failed to start")
+    .spawn()?
     .wait_with_output()
     .await
-    .expect("Erlang command failed")
 }
 
 /// the ngn/k implementation (k6)
-pub async fn k(args: Vec<&str>) -> Output {
+pub async fn k(args: Vec<&str>) -> CR<Output> {
   Command::new("k")
     .arg("/home/ellis/shed/bin/repl.k")
     .args(args.into_iter())
-    .spawn()
-    .expect("ngn/k failed to start")
+    .spawn()?
     .wait_with_output()
     .await
-    .expect("ngn/k command failed")
 }
 
-pub async fn k9(args: Vec<&str>) -> Output {
+pub async fn k9(args: Vec<&str>) -> CR<Output> {
   Command::new("li2.0")
     .args(args.into_iter())
-    .spawn()
-    .expect("shakti (k9) li2.0 failed to start")
+    .spawn()?
     .wait_with_output()
     .await
-    .expect("shakti command failed")
 }
 
-pub async fn dyalog(args: Vec<&str>) -> Output {
-  Command::new("dyalog")
-    .args(args.into_iter())
-    .spawn()
-    .expect("dyalog failed to start")
-    .wait_with_output()
-    .await
-    .expect("dyalog command failed")
-}
-
-pub async fn gnu_apl(args: Vec<&str>) -> Output {
+pub async fn gnu_apl(args: Vec<&str>) -> CR<Output> {
   Command::new("apl")
     .args(args.into_iter())
-    .spawn()
-    .expect("dyalog failed to start")
+    .spawn()?
     .wait_with_output()
     .await
-    .expect("dyalog command failed")
-}
-
-pub async fn lua(args: Vec<&str>) -> Output {
-  Command::new("lua")
-    .args(args.into_iter())
-    .spawn()
-    .expect("lua failed to start")
-    .wait_with_output()
-    .await
-    .expect("lua command failed")
 }

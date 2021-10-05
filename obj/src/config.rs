@@ -10,6 +10,8 @@ mod package;
 mod program;
 mod registry;
 mod repo;
+#[cfg(feature = "oauth")]
+pub use network::Oauth2Config;
 #[cfg(feature = "git")]
 pub use repo::git::GitRepository;
 #[cfg(feature = "hg")]
@@ -53,6 +55,9 @@ impl_config!(
   LibraryConfig,
   NetworkConfig
 );
+
+#[cfg(feature = "oauth")]
+impl_config!(Oauth2Config);
 
 /// common trait for all config modules. This trait provides functions
 /// for de/serializing to/from RON, updating fields, and formatting.

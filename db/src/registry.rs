@@ -3,7 +3,7 @@ use rocksdb::{ColumnFamilyDescriptor, DBCompactionStyle, Options, DB};
 // use rocksdb::{WriteBatch, WriteOptions};
 use crate::Result;
 // use obj::id;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::sync::Arc;
 // replace with obj::config type
 fn get_options(max_open_files: Option<i32>) -> Options {
@@ -31,6 +31,7 @@ fn get_options(max_open_files: Option<i32>) -> Options {
 /// Registry handle
 pub struct Registry {
   pub db: Arc<DB>,
+  pub path: PathBuf,
 }
 
 pub struct ColumnFamilies(Vec<ColumnFamilyDescriptor>);
@@ -54,12 +55,14 @@ impl Registry {
         db
       }
     };
-    Ok(Registry { db: Arc::new(db) })
+    Ok(Registry {
+      db: Arc::new(db),
+      path: path.to_path_buf(),
+    })
   }
-  pub fn repair<P: AsRef<Path>>(path: P) -> Result<()> {
-    let opts = get_options(Some(1_000));
-    DB::repair(&opts, path)?;
-    Ok(())
+  pub fn open(self) -> Result<RegistryTransaction> {
+    let h = RegistryTransaction::new(self.db);
+    Ok(h)
   }
 }
 
