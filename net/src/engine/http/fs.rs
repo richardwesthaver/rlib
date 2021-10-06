@@ -4,6 +4,8 @@ use std::collections::HashMap;
 use std::net::SocketAddr;
 use std::path::PathBuf;
 
+pub use tower_http::services::ServeDir;
+
 pub async fn handler() -> Html<&'static str> {
   Html("<h1>hey there neighbour</h1>")
 }

@@ -2,6 +2,7 @@
 //!
 //! Program configuration primitives
 use serde::{Deserialize, Serialize};
+
 /// Program configuration type
 ///
 /// This config is used for modifying how a `Program` is built.

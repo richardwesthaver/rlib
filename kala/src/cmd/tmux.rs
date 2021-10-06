@@ -1,8 +1,8 @@
 //! tmux command module
-use logger::log::error;
-use tmux_interface::{HasSession, TmuxCommand};
-
 use crate::Result;
+use logger::log::error;
+use tmux_interface::HasSession;
+pub use tmux_interface::TmuxCommand;
 
 /// TODO [2021-08-25 Wed 06:27] - Build a tmux session from a TmuxSessionConfig
 /// struct

@@ -2,7 +2,7 @@
 //!
 //! Object Types
 #![feature(map_try_insert)]
-
+#![feature(derive_default_enum)]
 pub mod coll;
 #[cfg(feature = "config")]
 pub mod config;

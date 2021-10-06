@@ -101,3 +101,19 @@ impl From<Oauth2Config> for ApplicationSecret {
     }
   }
 }
+
+#[cfg(feature = "ssh")]
+#[derive(Serialize, Deserialize, Hash, Debug, PartialEq, Clone, Default)]
+pub struct SshConfig {}
+
+impl From<SshConfig> for thrussh::server::Config {
+  fn from(cfg: SshConfig) -> Self {
+    Self::default()
+  }
+}
+
+impl From<SshConfig> for thrussh::client::Config {
+  fn from(cfg: SshConfig) -> Self {
+    Self::default()
+  }
+}

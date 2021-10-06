@@ -38,11 +38,12 @@ pub fn xrandr_list() {
 /// Configure a Display with xrandr
 pub fn xrandr(cfg: DisplayConfig) -> Result<std::process::Output> {
   trace!("{:#?}", cfg);
+  let mode = format!("{}x{}", cfg.resolution.0, cfg.resolution.1);
   let mut args = vec![
     "--output",
     &cfg.output,
     "--mode",
-    &cfg.mode,
+    &mode,
     "--pos",
     &cfg.pos,
     "--rotate",

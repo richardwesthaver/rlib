@@ -1,8 +1,10 @@
 //! # Direction types
 use crate::Error;
+use crate::{Deserialize, Serialize};
 use std::str::FromStr;
-
+#[derive(Debug, Default, Serialize, Deserialize)]
 pub enum CardinalDirection {
+  #[default]
   North,
   South,
   East,
@@ -34,7 +36,41 @@ impl From<CardinalDirection> for String {
   }
 }
 
-#[derive(Eq, PartialEq, Clone, Debug, Hash, Copy)]
+#[derive(Debug, Default, Serialize, Deserialize)]
+pub enum RelativeDirection {
+  Up,
+  #[default]
+  Down,
+  Left,
+  Right,
+}
+
+impl FromStr for RelativeDirection {
+  type Err = Error;
+
+  fn from_str(s: &str) -> Result<RelativeDirection, Self::Err> {
+    match s {
+      "up" | "u" => Ok(RelativeDirection::Up),
+      "down" | "d" => Ok(RelativeDirection::Down),
+      "left" | "l" => Ok(RelativeDirection::Left),
+      "right" | "r" => Ok(RelativeDirection::Right),
+      _ => Err(Error::Message("not a RelativeDirection".to_string())),
+    }
+  }
+}
+
+impl From<RelativeDirection> for String {
+  fn from(d: RelativeDirection) -> Self {
+    match d {
+      RelativeDirection::Up => "up".to_string(),
+      RelativeDirection::Down => "down".to_string(),
+      RelativeDirection::Left => "left".to_string(),
+      RelativeDirection::Right => "right".to_string(),
+    }
+  }
+}
+
+#[derive(Eq, PartialEq, Clone, Debug, Hash, Copy, Serialize, Deserialize)]
 pub enum EdgeDirection {
   Outbound,
   Inbound,

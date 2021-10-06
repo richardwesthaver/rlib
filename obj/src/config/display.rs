@@ -5,31 +5,14 @@
 //! OS system and user configurations. For example: xrandr
 //! configuration.
 use serde::{Deserialize, Serialize};
-/// Monitor configuration type
-#[derive(Serialize, Deserialize, Debug, Hash)]
-pub struct MonitorConfig {
-  pub name: String,
-  pub brightness: u32,
-  pub resolution: (u16, u16),
-}
-
-impl MonitorConfig {
-  /// Create a new Monitor configuration
-  pub fn new(name: &str, brightness: u32, x: u16, y: u16) -> Self {
-    MonitorConfig {
-      name: String::from(name),
-      brightness,
-      resolution: (x, y),
-    }
-  }
-}
 
 /// Display configuration
 #[derive(Serialize, Deserialize, Debug, Hash)]
 pub struct DisplayConfig {
+  pub name: String,
+  pub resolution: (u16, u16),
   pub output: String,
   pub primary: bool,
-  pub mode: String,
   pub pos: String,
   pub rotate: String,
 }
@@ -37,9 +20,10 @@ pub struct DisplayConfig {
 impl Default for DisplayConfig {
   fn default() -> Self {
     DisplayConfig {
+      name: "".to_string(),
       output: "".to_string(),
+      resolution: (1920, 1080),
       primary: true,
-      mode: "1920x1080".to_string(),
       pos: "0x0".to_string(),
       rotate: "normal".to_string(),
     }

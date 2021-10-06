@@ -5,4 +5,7 @@ pub use axum::{http::StatusCode, service, Router};
 pub use hyper;
 #[cfg(feature = "hyper-rustls")]
 pub use hyper_rustls;
-pub use tower_http::services::ServeDir;
+
+#[cfg(feature = "urlencoding")]
+// returns `Cow`, use `.into_owned()` to get a Vec or String
+pub use urlencoding;

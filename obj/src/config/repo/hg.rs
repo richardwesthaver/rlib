@@ -44,7 +44,7 @@ impl HgSubFile {
       subrepos: vec![],
     }
   }
-  /// should perform validation to ensure that the path is in a hg repo.
+  /// ensure that the path is in a hg repo.
   fn parent_is_hg(&self) -> bool {
     if self.path.parent().unwrap().join(".hg").exists() {
       true

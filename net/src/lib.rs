@@ -26,6 +26,7 @@ pub use engine::ssh;
 pub use engine::uds;
 #[cfg(feature = "reqwest")]
 pub use reqwest;
-
+#[cfg(all(feature = "tun", linux))]
+pub use tokio_tun as tun;
 #[cfg(test)]
 mod tests;

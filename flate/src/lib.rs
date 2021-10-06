@@ -86,7 +86,7 @@ pub fn compress<P: AsRef<Path>, Q: AsRef<Path>>(src: P, dst: Q) -> io::Result<()
   Ok(())
 }
 
-/// decompress a zst file
+/// decompress a zst file into the current directory
 pub fn decompress<P: AsRef<Path>>(source: P) -> io::Result<()> {
   let mut decoder = {
     let file = fs::File::open(&source)?;
