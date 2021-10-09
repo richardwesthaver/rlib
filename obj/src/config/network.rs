@@ -5,9 +5,6 @@ use serde::{Deserialize, Serialize};
 use std::fmt;
 use std::net::SocketAddr;
 
-#[cfg(feature = "oauth")]
-use yup_oauth2::ApplicationSecret;
-
 /// Network configuration
 #[derive(Serialize, Deserialize, Hash, Debug, PartialEq, Clone)]
 pub struct NetworkConfig {
@@ -56,64 +53,5 @@ impl std::fmt::Display for EngineType {
       EngineType::Ssh => write!(f, "ssh"),
       EngineType::Uds => write!(f, "uds"),
     }
-  }
-}
-
-#[cfg(feature = "oauth")]
-#[derive(Serialize, Deserialize, Hash, Debug, PartialEq, Clone, Default)]
-pub struct Oauth2Config {
-  pub client_id: String,
-  pub client_secret: String,
-  pub redirect_uris: Vec<String>,
-  pub auth_uri: String,
-  pub token_uri: String,
-  pub project_id: Option<String>, //for apptoken
-  pub client_email: Option<String>,
-}
-
-#[cfg(feature = "oauth")]
-impl From<ApplicationSecret> for Oauth2Config {
-  fn from(shh: ApplicationSecret) -> Self {
-    Oauth2Config {
-      client_id: shh.client_id,
-      client_secret: shh.client_secret,
-      redirect_uris: shh.redirect_uris,
-      auth_uri: shh.auth_uri,
-      token_uri: shh.token_uri,
-      project_id: shh.project_id,
-      client_email: shh.client_email,
-    }
-  }
-}
-
-#[cfg(feature = "oauth")]
-impl From<Oauth2Config> for ApplicationSecret {
-  fn from(cfg: Oauth2Config) -> Self {
-    ApplicationSecret {
-      client_id: cfg.client_id,
-      client_secret: cfg.client_secret,
-      redirect_uris: cfg.redirect_uris,
-      auth_uri: cfg.auth_uri,
-      token_uri: cfg.token_uri,
-      project_id: cfg.project_id,
-      client_email: cfg.client_email,
-      ..Self::default()
-    }
-  }
-}
-
-#[cfg(feature = "ssh")]
-#[derive(Serialize, Deserialize, Hash, Debug, PartialEq, Clone, Default)]
-pub struct SshConfig {}
-
-impl From<SshConfig> for thrussh::server::Config {
-  fn from(cfg: SshConfig) -> Self {
-    Self::default()
-  }
-}
-
-impl From<SshConfig> for thrussh::client::Config {
-  fn from(cfg: SshConfig) -> Self {
-    Self::default()
   }
 }

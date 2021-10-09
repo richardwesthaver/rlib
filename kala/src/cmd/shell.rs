@@ -24,6 +24,14 @@ pub async fn emacs(args: Vec<&str>) -> CR<Output> {
     .await
 }
 
+pub async fn emacsclient(args: Vec<&str>) -> CR<Output> {
+  Command::new("emacsclient")
+    .args(args)
+    .spawn()?
+    .wait_with_output()
+    .await
+}
+
 /// ffmpeg command
 pub async fn ffmpeg(args: Vec<&str>, envs: HashMap<&str, &str>) -> CR<Output> {
   Command::new("ffmpeg")

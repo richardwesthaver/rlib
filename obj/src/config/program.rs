@@ -2,16 +2,15 @@
 //!
 //! Program configuration primitives
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
+use super::RepoConfig;
 
 /// Program configuration type
-///
-/// This config is used for modifying how a `Program` is built.
-#[derive(Serialize, Deserialize, Debug, Hash, Default, PartialEq)]
+#[derive(Serialize, Deserialize, Debug, Default, PartialEq)]
 pub struct ProgramConfig {
-  name: String,
-  install_path: Option<String>,
-  compiler: Option<String>,
-  flags: Option<Vec<String>>,
-  build: Option<String>,
-  install: Option<String>,
+  pub name: String,
+  pub path: String,
+  pub src: RepoConfig,
+  pub build: Option<String>,
+  pub scripts: HashMap<String, String>,
 }

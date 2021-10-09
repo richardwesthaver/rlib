@@ -11,9 +11,6 @@ use serde::{Deserialize, Serialize};
 /// Registry configuration type
 #[derive(Serialize, Deserialize, Debug, Hash, PartialEq)]
 pub struct RegistryConfig {
-  leader: bool,
-  key_type: String,
-  val_type: String,
   crypto: Option<String>,
   net: Option<NetworkConfig>,
   db: DatabaseConfig,

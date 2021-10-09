@@ -1,20 +1,30 @@
 //! cfg::config::user
 //!
 //! User configuration primitives
-use crate::object::direction::RelativeDirection;
+use crate::object::{direction::RelativeDirection, location::Point};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+
+use super::{DisplayConfig, PackageConfig, ProjectConfig, AuthConfig};
+
 /// User configuration type
 ///
 /// Used to configure system users for various platforms.
 #[derive(Serialize, Deserialize, Debug, Default)]
-pub struct UserConfig {}
+pub struct UserConfig {
+  pub shell: UserShellConfig,
+  pub geo: Option<Point>,
+  pub displays: Option<Vec<DisplayConfig>>,
+  pub packages: Vec<PackageConfig>,
+  pub projects: Vec<ProjectConfig>,
+  pub auth: Vec<AuthConfig>,
+}
 
 #[derive(Serialize, Deserialize, Debug, Default)]
 pub struct UserShellConfig {
-  env: HashMap<String, String>,
-  cmds: HashMap<String, String>,
-  shell: ShellType,
+  pub env: HashMap<String, String>,
+  pub cmds: HashMap<String, String>,
+  pub shell: ShellType,
 }
 
 #[derive(Serialize, Deserialize, Debug, Hash, Default)]
@@ -27,18 +37,18 @@ pub enum ShellType {
 
 #[derive(Serialize, Deserialize, Debug, Default)]
 pub struct TmuxSessionConfig {
-  windows: Vec<TmuxWindowConfig>,
+  pub windows: Vec<TmuxWindowConfig>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Default)]
 pub struct TmuxWindowConfig {
-  name: String,
-  panes: Vec<TmuxPaneConfig>,
+  pub name: String,
+  pub panes: Vec<TmuxPaneConfig>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Default)]
 pub struct TmuxPaneConfig {
-  name: String,
-  position: Option<RelativeDirection>,
-  init: Option<String>,
+  pub name: String,
+  pub position: Option<RelativeDirection>,
+  pub init: Option<String>,
 }

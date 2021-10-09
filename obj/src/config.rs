@@ -1,6 +1,7 @@
 //! cfg::config
 //!
 //! Primitive configuration types
+mod auth;
 mod database;
 mod display;
 mod library;
@@ -8,23 +9,24 @@ mod meta;
 mod network;
 mod package;
 mod program;
+mod project;
+mod user;
 mod registry;
 mod repo;
 #[cfg(feature = "oauth")]
-pub use network::Oauth2Config;
+pub use auth::Oauth2Config;
 #[cfg(feature = "ssh")]
-pub use network::SshConfig;
+pub use auth::SshConfig;
 #[cfg(feature = "git")]
 pub use repo::git::GitRepository;
 #[cfg(feature = "hg")]
 pub use repo::hg::{export_hg_git, HgSubFile, HgwebConfig, MercurialConfig};
 
-mod user;
-
 pub use {
   database::DatabaseConfig, display::DisplayConfig, library::LibraryConfig, meta::MetaConfig,
   network::NetworkConfig, package::PackageConfig, program::ProgramConfig, registry::RegistryConfig,
-  repo::RepoConfig, user::UserConfig,
+  project::ProjectConfig, repo::RepoConfig, user::UserConfig, auth::AuthConfig,
+  auth::AuthProvider,
 };
 
 use crate::Objective;
@@ -47,7 +49,10 @@ impl_config!(
   DisplayConfig,
   UserConfig,
   LibraryConfig,
-  NetworkConfig
+  ProgramConfig,
+  ProjectConfig,
+  NetworkConfig,
+  AuthConfig
 );
 
 #[cfg(feature = "oauth")]

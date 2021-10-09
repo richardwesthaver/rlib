@@ -1,6 +1,6 @@
 //! logger library
-use flexi_logger::{with_thread, AdaptiveFormat, Cleanup, Criterion, FileSpec, Naming};
-use flexi_logger::{Age, Duplicate, Logger, LoggerHandle, WriteMode};
+use flexi_logger::{with_thread, AdaptiveFormat, FileSpec};
+use flexi_logger::{Duplicate, Logger, LoggerHandle};
 pub use log;
 use log::{Level, LevelFilter, Metadata, Record};
 
@@ -43,26 +43,20 @@ pub fn flexi(level: &str) -> Result<()> {
   Ok(())
 }
 
-/// Initialize `Logger` and log to a file instead of stdout
+/// Initialize file Logger
 pub fn file(env: &str, log_path: &str, log_name: &str) -> Result<LoggerHandle> {
   Ok(
-    Logger::try_with_env_or_str(env)? // Write all messages
+    Logger::try_with_env_or_str(env)?
       .log_to_file(
         FileSpec::default()
+          .suppress_timestamp()
           .directory(log_path)
           .basename(log_name)
           .suffix("log"),
       )
       .format_for_files(with_thread)
-      .adaptive_format_for_stderr(AdaptiveFormat::Opt)
       .append()
-      .rotate(
-        Criterion::Age(Age::Day),
-        Naming::Timestamps,
-        Cleanup::KeepLogFiles(14),
-      )
-      .write_mode(WriteMode::BufferAndFlush)
-      .duplicate_to_stderr(Duplicate::Error)
+      .duplicate_to_stdout(Duplicate::Error)
       .start()?,
   )
 }
