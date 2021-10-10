@@ -12,15 +12,13 @@ publish = ["crater"]
 all-features = true
 
 [features]
-default = ["configs", "objects", "ctx", "logger"]
+default = ["ctx", "logger"]
 full = ["ctx", "obj/full", "kala/full", "net/full", "flate", "util/full", "hash", "crypto", "logger", "db"]
 cli = ["util/cli"]
 vc = ["hg", "git"]
 hg = ["kala/hg", "obj/hg"]
 git = ["obj/git"]
 org = ["obj/org"]
-objects = ["obj/object"]
-configs = ["obj/config"]
 bs = ["util/bs"]
 anyhow = ["util/anyhow"]
 flate2 = ["flate/flate2"]
@@ -28,7 +26,7 @@ ssh = ["net/ssh", "obj/ssh"]
 tls = ["net/tls"]
 oauth = ["obj/oauth"]
 [dependencies]
-obj = { version = "0.1.0", path = "obj", optional = true, features = ["object", "config"] }
+obj = { version = "0.1.0", path = "obj", optional = true }
 kala = { version = "0.1.0", path = "kala", optional = true, features = ["full"] }
 ctx = { version = "0.1.0", path = "ctx", optional = true }
 net = { version = "0.1.0", path = "net", optional = true, features = ["full"] }

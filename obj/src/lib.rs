@@ -4,10 +4,8 @@
 #![feature(map_try_insert)]
 #![feature(derive_default_enum)]
 pub mod coll;
-#[cfg(feature = "config")]
 pub mod config;
 pub mod id;
-#[cfg(feature = "object")]
 pub mod object;
 
 mod err;

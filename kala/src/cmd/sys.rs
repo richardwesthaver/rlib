@@ -5,6 +5,34 @@ use crate::Result;
 pub use flate::pack;
 use logger::log::debug;
 use std::collections::HashMap;
+use ctx::tokio::process::Command;
+
+/// OS-specific browser command. supports Win/Mac/Linux
+pub async fn open_browser(url: &str) {
+    if cfg!(target_os = "windows") {
+        // https://stackoverflow.com/a/49115945
+      Command::new("rundll32.exe")
+        .args(&["url.dll,FileProtocolHandler", url])
+        .status().await
+        .expect("failed to open file");
+    } else if cfg!(target_os = "macos") || cfg!(target_os = "linux") {
+        // https://dwheeler.com/essays/open-files-urls.html
+        #[cfg(target_os = "macos")]
+        let cmd = "open";
+        #[cfg(target_os = "linux")]
+        let cmd = "xdg-open";
+
+        #[cfg(any(target_os = "macos", target_os = "linux"))]
+        {
+          Command::new(cmd)
+            .arg(url)
+            .status().await
+            .expect("failed to open file");
+        }
+    } else {
+      unimplemented!() //Ignore others
+    }
+}
 
 /// Print information about the current host using `whoami` crate
 pub fn describe_host() {

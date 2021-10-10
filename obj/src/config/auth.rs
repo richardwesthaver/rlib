@@ -7,29 +7,12 @@ use std::str::FromStr;
 
 #[derive(Serialize, Deserialize, Debug, Default, Hash)]
 pub struct AuthConfig {
-  pub provider: AuthProvider,
+  pub provider: String,
   #[cfg(feature = "oauth")]
   pub oauth: Option<Oauth2Config>,
   #[cfg(feature = "ssh")]
   pub ssh: Option<SshConfig>,
   pub pw: Option<PasswordConfig>
-}
-
-#[derive(Serialize, Deserialize, Debug, Default, Hash)]
-pub struct AuthProvider(pub String,pub String);
-
-impl fmt::Display for AuthProvider {
-  fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-    write!(f, "{}:{}", self.0, self.1)
-  }
-}
-
-impl FromStr for AuthProvider {
-  type Err = ();
-  fn from_str(input: &str) -> Result<AuthProvider, Self::Err> {
-    let s: Vec<&str> = input.split(":").collect();
-    Ok(AuthProvider(s[0].to_string(), s[1].to_string()))
-  }
 }
 
 #[derive(Serialize, Deserialize, Default, Debug, Hash)]
@@ -45,6 +28,11 @@ pub struct Oauth2Config {
   pub token_uri: String,
   pub project_id: Option<String>, //for apptoken
   pub client_email: Option<String>,
+  /// The URL of the public x509 certificate, used to verify the signature on JWTs, such
+  /// as ID tokens, signed by the authentication provider.
+  pub auth_provider_x509_cert_url: Option<String>,
+  ///  The URL of the public x509 certificate, used to verify JWTs signed by the client.
+  pub client_x509_cert_url: Option<String>,
 }
 
 #[cfg(feature = "oauth")]
@@ -58,6 +46,8 @@ impl From<ApplicationSecret> for Oauth2Config {
       token_uri: shh.token_uri,
       project_id: shh.project_id,
       client_email: shh.client_email,
+      auth_provider_x509_cert_url: shh.auth_provider_x509_cert_url,
+      client_x509_cert_url: shh.client_x509_cert_url,
     }
   }
 }
@@ -73,7 +63,8 @@ impl From<Oauth2Config> for ApplicationSecret {
       token_uri: cfg.token_uri,
       project_id: cfg.project_id,
       client_email: cfg.client_email,
-      ..Self::default()
+      auth_provider_x509_cert_url: cfg.auth_provider_x509_cert_url,
+      client_x509_cert_url: cfg.client_x509_cert_url,
     }
   }
 }

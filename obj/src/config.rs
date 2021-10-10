@@ -26,7 +26,6 @@ pub use {
   database::DatabaseConfig, display::DisplayConfig, library::LibraryConfig, meta::MetaConfig,
   network::NetworkConfig, package::PackageConfig, program::ProgramConfig, registry::RegistryConfig,
   project::ProjectConfig, repo::RepoConfig, user::UserConfig, auth::AuthConfig,
-  auth::AuthProvider,
 };
 
 use crate::Objective;
