@@ -10,7 +10,7 @@ use super::RepoConfig;
 pub struct ProgramConfig {
   pub name: String,
   pub path: String,
-  pub src: RepoConfig,
+  pub repo: Option<RepoConfig>,
   pub build: Option<String>,
   pub scripts: HashMap<String, String>,
 }

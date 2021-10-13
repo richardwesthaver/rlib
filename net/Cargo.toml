@@ -10,12 +10,11 @@ publish = ["crater"]
 
 [features]
 default = ["client", "server"]
-full = ["client", "server", "quic", "http", "dns", "wss", "tun", "tls", "ssh"]
+full = ["client", "server", "quic", "http", "dns", "wss", "tun", "tls"]
 client = ["reqwest", "async-trait"]
 server = ["hyper", "async-trait", "axum", "tower-http"]
 http = ["hyper","axum","tower-http","reqwest","oauth2","urlencoding","headers","http-rs"]
 tls = ["hyper-rustls", "http"]
-ssh = ["thrussh", "thrussh-config", "thrussh-keys"]
 quic = ["quinn"]
 dns = ["trust-dns-resolver"]
 tun = ["tokio-tun"]
@@ -24,7 +23,7 @@ wss = ["tokio-tungstenite/rustls-tls", "ws"]
 
 [dependencies]
 # rlib
-obj = { path = "../obj", features = ["oauth", "ssh"] }
+obj = { path = "../obj", features = ["oauth"] }
 # contrib
 futures = "0.3.16"
 bytes = "1.0.1"
@@ -51,9 +50,6 @@ tower-http = {version = "0.1", features = ["fs", "trace"], optional = true}
 trust-dns-resolver = {version = "0.20.3", features = [], optional = true}
 tokio-tun = {version = "0.3.15", optional = true}
 ipnetwork = "0.18.0"
-thrussh = {version = "0.33.5", optional = true, features = ["openssl"]}
-thrussh-keys = {version = "0.21.0", optional = true, features = ["openssl"]}
-thrussh-config = {version = "0.6.0", optional = true}
 tokio-tungstenite = {version = "0.15.0", optional = true}
 [dev-dependencies]
 ctx = { path = "../ctx" } # use [ctx::test] for free integration testing

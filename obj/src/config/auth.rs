@@ -1,9 +1,8 @@
 //! Auth Configs
 use serde::{Serialize, Deserialize};
+
 #[cfg(feature = "oauth")]
 use yup_oauth2::ApplicationSecret;
-use std::fmt;
-use std::str::FromStr;
 
 #[derive(Serialize, Deserialize, Debug, Default, Hash)]
 pub struct AuthConfig {
@@ -72,17 +71,3 @@ impl From<Oauth2Config> for ApplicationSecret {
 #[cfg(feature = "ssh")]
 #[derive(Serialize, Deserialize, Hash, Debug, PartialEq, Clone, Default)]
 pub struct SshConfig {}
-
-#[cfg(feature = "ssh")]
-impl From<SshConfig> for thrussh::server::Config {
-  fn from(cfg: SshConfig) -> Self {
-    Self::default()
-  }
-}
-
-#[cfg(feature = "ssh")]
-impl From<SshConfig> for thrussh::client::Config {
-  fn from(cfg: SshConfig) -> Self {
-    Self::default()
-  }
-}

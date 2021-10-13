@@ -8,7 +8,7 @@ macro_rules! impl_cmd {
   ($($t:ident),*) => {
     $(
       pub async fn $t(args: Vec<&str>) -> CR<Output> {
-        Command::new("$t")
+        Command::new(stringify!($t))
           .args(args.into_iter())
           .spawn()?
         .wait_with_output()
@@ -49,6 +49,15 @@ pub async fn k9(args: Vec<&str>) -> CR<Output> {
 
 pub async fn gnu_apl(args: Vec<&str>) -> CR<Output> {
   Command::new("apl")
+    .args(args.into_iter())
+    .spawn()?
+    .wait_with_output()
+    .await
+}
+
+/// BQN interpreter
+pub async fn awesome_client(args: Vec<&str>) -> CR<Output> {
+  Command::new("awesome-client")
     .args(args.into_iter())
     .spawn()?
     .wait_with_output()

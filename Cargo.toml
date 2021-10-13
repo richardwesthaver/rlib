@@ -22,7 +22,7 @@ org = ["obj/org"]
 bs = ["util/bs"]
 anyhow = ["util/anyhow"]
 flate2 = ["flate/flate2"]
-ssh = ["net/ssh", "obj/ssh"]
+ssh = ["obj/ssh"]
 tls = ["net/tls"]
 oauth = ["obj/oauth"]
 [dependencies]
@@ -57,4 +57,5 @@ members = [
   "alch",
   "logger",
   "util",
+  "organ",
 ]

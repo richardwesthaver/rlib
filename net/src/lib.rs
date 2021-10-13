@@ -20,8 +20,6 @@ pub use engine::dns;
 pub use engine::http;
 #[cfg(feature = "quic")]
 pub use engine::quic;
-#[cfg(feature = "ssh")]
-pub use engine::ssh;
 #[cfg(all(feature = "uds", unix))]
 pub use engine::uds;
 #[cfg(feature = "reqwest")]
