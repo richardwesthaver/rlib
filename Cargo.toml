@@ -24,11 +24,15 @@ anyhow = ["util/anyhow"]
 flate2 = ["flate/flate2"]
 tls = ["net/tls"]
 oauth = ["obj/oauth"]
+python = ["kala/python", "kala/input"]
+midi = ["kala/midi"]
+sys = ["kala/sys"]
+tmux = ["kala/tmux"]
 [dependencies]
 obj = { version = "0.1.0", path = "obj", optional = true }
-kala = { version = "0.1.0", path = "kala", optional = true, features = ["full"] }
+kala = { version = "0.1.0", path = "kala", optional = true }
 ctx = { version = "0.1.0", path = "ctx", optional = true }
-net = { version = "0.1.0", path = "net", optional = true, features = ["full"] }
+net = { version = "0.1.0", path = "net", optional = true }
 db = { version = "0.1.0", path = "db", optional = true }
 flate = { version = "0.1.0", path = "flate", optional = true }
 hash = { version = "0.1.0", path = "hash", optional = true }

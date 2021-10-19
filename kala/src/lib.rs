@@ -10,5 +10,7 @@
 //! - some features *only* support unix, others *only* support GNU Linux
 //!   specifically
 pub mod cmd;
+#[cfg(feature = "python")]
+pub mod python;
 mod err;
 pub use err::{Error, Result};

@@ -1,7 +1,12 @@
+//! cmd/repl.rs --- REPLs for programming languages
+//!
+//! note that all of these commands call some binary at runtime which
+//! needs to be available on your path. These don't offer much
+//! utility, but other embedded REPLs are available (see python module
+//! in crate root)
 use ctx::tokio::io::Result as CR;
 use ctx::tokio::process::Command;
 use std::process::Output;
-//use std::process::Stdio;
 
 #[macro_export]
 macro_rules! impl_cmd {
@@ -18,48 +23,4 @@ macro_rules! impl_cmd {
   }
 }
 
-impl_cmd!(erl, dyalog, lua);
-
-/// BQN interpreter
-pub async fn bqn(args: Vec<&str>) -> CR<Output> {
-  Command::new("bqn")
-    .args(args.into_iter())
-    .spawn()?
-    .wait_with_output()
-    .await
-}
-
-/// the ngn/k implementation (k6)
-pub async fn k(args: Vec<&str>) -> CR<Output> {
-  Command::new("k")
-    .arg("/home/ellis/shed/bin/repl.k")
-    .args(args.into_iter())
-    .spawn()?
-    .wait_with_output()
-    .await
-}
-
-pub async fn k9(args: Vec<&str>) -> CR<Output> {
-  Command::new("li2.0")
-    .args(args.into_iter())
-    .spawn()?
-    .wait_with_output()
-    .await
-}
-
-pub async fn gnu_apl(args: Vec<&str>) -> CR<Output> {
-  Command::new("apl")
-    .args(args.into_iter())
-    .spawn()?
-    .wait_with_output()
-    .await
-}
-
-/// BQN interpreter
-pub async fn awesome_client(args: Vec<&str>) -> CR<Output> {
-  Command::new("awesome-client")
-    .args(args.into_iter())
-    .spawn()?
-    .wait_with_output()
-    .await
-}
+impl_cmd!(erl, dyalog, lua, bqn, apl, k, shakti, python);
