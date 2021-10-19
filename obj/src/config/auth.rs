@@ -9,7 +9,6 @@ pub struct AuthConfig {
   pub provider: String,
   #[cfg(feature = "oauth")]
   pub oauth: Option<Oauth2Config>,
-  #[cfg(feature = "ssh")]
   pub ssh: Option<SshConfig>,
   pub pw: Option<PasswordConfig>
 }
@@ -68,6 +67,5 @@ impl From<Oauth2Config> for ApplicationSecret {
   }
 }
 
-#[cfg(feature = "ssh")]
 #[derive(Serialize, Deserialize, Hash, Debug, PartialEq, Clone, Default)]
 pub struct SshConfig {}

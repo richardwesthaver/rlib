@@ -3,7 +3,7 @@ use std::{fmt, io};
 
 /// kala Result type
 pub type Result<T> = std::result::Result<T, Error>;
-
+pub type R<T, E> = std::result::Result<T, E>;
 /// kala Error type
 pub enum Error {
   Io(io::Error),

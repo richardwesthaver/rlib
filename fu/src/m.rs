@@ -1,12 +1,10 @@
-//! rlib::fu::m
-//! Monadic types (experimental)
-#![feature(generic_associated_types)]
+//! m.rs
+//! Monadic functions (experimental)
 #![allow(incomplete_features, dead_code)]
 
 pub trait Functor {
   type Unwrapped;
   type Wrapped<B>: Functor;
-
   fn map<F, B>(self, f: F) -> Self::Wrapped<B>
   where
     F: FnMut(Self::Unwrapped) -> B;
@@ -34,23 +32,23 @@ pub trait MonadTrans {
   fn lift(base: Self::Base) -> Self;
 }
 
-struct IdentityT<M>(M);
+struct IdT<M>(M);
 
-impl<M: Functor> Functor for IdentityT<M> {
+impl<M: Functor> Functor for IdT<M> {
   type Unwrapped = M::Unwrapped;
-  type Wrapped<A> = IdentityT<M::Wrapped<A>>;
+  type Wrapped<A> = IdT<M::Wrapped<A>>;
 
   fn map<F, B>(self, f: F) -> Self::Wrapped<B>
   where
     F: FnMut(M::Unwrapped) -> B,
   {
-    IdentityT(self.0.map(f))
+    IdT(self.0.map(f))
   }
 }
 
-impl<M: Pointed> Pointed for IdentityT<M> {
+impl<M: Pointed> Pointed for IdT<M> {
   fn wrap<T>(t: T) -> IdentityT<M::Wrapped<T>> {
-    IdentityT(M::wrap(t))
+    IdT(M::wrap(t))
   }
 }
 
@@ -59,20 +57,20 @@ impl<M: Applicative> Applicative for IdentityT<M> {
   where
     F: FnMut(Self::Unwrapped, B) -> C,
   {
-    IdentityT(self.0.lift_a2(b.0, f))
+    IdT(self.0.lift_a2(b.0, f))
   }
 }
 
-impl<M: Monad> Monad for IdentityT<M> {
+impl<M: Monad> Monad for IdT<M> {
   fn bind<B, F>(self, mut f: F) -> Self::Wrapped<B>
   where
     F: FnMut(Self::Unwrapped) -> Self::Wrapped<B>,
   {
-    IdentityT(self.0.bind(|x| f(x).0))
+    IdT(self.0.bind(|x| f(x).0))
   }
 }
 
-impl<M: Monad> MonadTrans for IdentityT<M> {
+impl<M: Monad> MonadTrans for IdT<M> {
   type Base = M;
 
   fn lift(base: M) -> Self {

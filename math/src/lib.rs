@@ -3,7 +3,11 @@
 
 use std::cmp::Ordering;
 
-fn partition(data: &[i32]) -> Option<(Vec<i32>, i32, Vec<i32>)> {
+pub fn factorial(n: usize) -> usize {
+  (1..n).fold(1, |n1, n2| n1 * n2)
+}
+
+pub fn partition(data: &[i32]) -> Option<(Vec<i32>, i32, Vec<i32>)> {
   match data.len() {
     0 => None,
     _ => {
@@ -26,7 +30,7 @@ fn partition(data: &[i32]) -> Option<(Vec<i32>, i32, Vec<i32>)> {
   }
 }
 
-fn select(data: &[i32], k: usize) -> Option<i32> {
+pub fn select(data: &[i32], k: usize) -> Option<i32> {
   let part = partition(data);
 
   match part {
@@ -43,7 +47,7 @@ fn select(data: &[i32], k: usize) -> Option<i32> {
   }
 }
 
-fn median(data: &[i32]) -> Option<f32> {
+pub fn median(data: &[i32]) -> Option<f32> {
   let size = data.len();
 
   match size {
@@ -60,7 +64,7 @@ fn median(data: &[i32]) -> Option<f32> {
   }
 }
 
-fn mean(data: &[i32]) -> Option<f32> {
+pub fn mean(data: &[i32]) -> Option<f32> {
   let sum = data.iter().sum::<i32>() as f32;
   let count = data.len();
 
@@ -70,7 +74,7 @@ fn mean(data: &[i32]) -> Option<f32> {
   }
 }
 
-fn std_deviation(data: &[i32]) -> Option<f32> {
+pub fn std_deviation(data: &[i32]) -> Option<f32> {
   match (mean(data), data.len()) {
     (Some(data_mean), count) if count > 0 => {
       let variance = data
@@ -89,10 +93,7 @@ fn std_deviation(data: &[i32]) -> Option<f32> {
   }
 }
 
-#[cfg(test)]
-mod tests {
-  #[test]
-  fn it_works() {
-    assert_eq!(2 + 2, 4);
-  }
+#[test]
+fn test_factorial() {
+  assert_eq!(factorial(20), 121645100408832000);
 }

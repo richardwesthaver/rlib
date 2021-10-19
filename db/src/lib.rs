@@ -3,8 +3,9 @@
 //! This library provides types and builder functions for working with
 //! databases. Currently the only backend supported is RocksDB.
 mod err;
+pub mod cache;
+mod meter;
 pub mod registry;
-
 pub use err::{Error, Result};
 
 pub use rocksdb::{ColumnFamilyDescriptor, Options, DB};

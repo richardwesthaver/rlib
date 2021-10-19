@@ -3,7 +3,7 @@ name = "rlib"
 version = "0.1.0"
 authors = ["ellis"]
 edition = "2018"
-description = "Systems Programming Library"
+description = "System Programming Library"
 documentation = "https://docs.rwest.io/rlib"
 repository = "https://hg.rwest.io/rlib"
 publish = ["crater"]
@@ -22,7 +22,6 @@ org = ["obj/org"]
 bs = ["util/bs"]
 anyhow = ["util/anyhow"]
 flate2 = ["flate/flate2"]
-ssh = ["obj/ssh"]
 tls = ["net/tls"]
 oauth = ["obj/oauth"]
 [dependencies]
@@ -58,4 +57,5 @@ members = [
   "logger",
   "util",
   "organ",
+  "fu",
 ]

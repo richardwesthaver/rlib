@@ -15,8 +15,6 @@ mod registry;
 mod repo;
 #[cfg(feature = "oauth")]
 pub use auth::Oauth2Config;
-#[cfg(feature = "ssh")]
-pub use auth::SshConfig;
 #[cfg(feature = "git")]
 pub use repo::git::GitRepository;
 #[cfg(feature = "hg")]
@@ -25,7 +23,7 @@ pub use repo::hg::{export_hg_git, HgSubFile, HgwebConfig, MercurialConfig};
 pub use {
   database::DatabaseConfig, display::DisplayConfig, library::LibraryConfig, meta::MetaConfig,
   network::NetworkConfig, package::PackageConfig, program::ProgramConfig, registry::RegistryConfig,
-  project::ProjectConfig, repo::RepoConfig, user::UserConfig, auth::AuthConfig,
+  project::ProjectConfig, repo::RepoConfig, user::UserConfig, auth::{AuthConfig, SshConfig},
 };
 
 use crate::Objective;
@@ -51,13 +49,12 @@ impl_config!(
   ProgramConfig,
   ProjectConfig,
   NetworkConfig,
-  AuthConfig
+  AuthConfig,
+  SshConfig
 );
 
 #[cfg(feature = "oauth")]
 impl_config!(Oauth2Config);
-#[cfg(feature = "ssh")]
-impl_config!(SshConfig);
 
 /// common trait for all config modules. This trait provides functions
 /// for de/serializing to/from RON, updating fields, and formatting.

@@ -1,15 +1,16 @@
-//! # Id types for different formats
+//! rlib/obj/src/id.rs --- rlib::obj::id
 //!
-//! ULID is the preferred format.
-pub use rusty_ulid::{self, Ulid};
+//! primitive ID types.
+
 use std::fmt;
 use std::str::FromStr;
+pub use rusty_ulid::{self, Ulid};
 pub use uuid::Uuid;
+
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum Id {
   ObjectId(u128),     // u128
-  ConfigId(u32, u32), // u64
   UnitId(u32),        // u32
   AtomId(u16),        // u16
 }
@@ -46,7 +47,7 @@ impl From<u128> for Id {
 
 impl FromStr for Id {
   type Err = ();
-  fn from_str(input: &str) -> Result<Id, Self::Err> {
+  fn from_str(input: &str) -> std::result::Result<Id, Self::Err> {
     match input {
       i => Ok(Id::ObjectId(u128::from(Ulid::from_str(i).unwrap()))),
     }
@@ -56,8 +57,7 @@ impl FromStr for Id {
 impl fmt::Display for Id {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
     match *self {
-      Id::ObjectId(i) => write!(f, "{}", Ulid::from(i)),
-      Id::ConfigId(i, t) => write!(f, "{}:{}", i, t),
+      Id::ObjectId(i) => {write!(f, "{}", Ulid::from(i))},
       Id::UnitId(i) => write!(f, "{}", i),
       Id::AtomId(i) => write!(f, "{}", i),
     }
