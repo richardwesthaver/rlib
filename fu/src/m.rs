@@ -47,12 +47,12 @@ impl<M: Functor> Functor for IdT<M> {
 }
 
 impl<M: Pointed> Pointed for IdT<M> {
-  fn wrap<T>(t: T) -> IdentityT<M::Wrapped<T>> {
+  fn wrap<T>(t: T) -> IdT<M::Wrapped<T>> {
     IdT(M::wrap(t))
   }
 }
 
-impl<M: Applicative> Applicative for IdentityT<M> {
+impl<M: Applicative> Applicative for IdT<M> {
   fn lift_a2<F, B, C>(self, b: Self::Wrapped<B>, f: F) -> Self::Wrapped<C>
   where
     F: FnMut(Self::Unwrapped, B) -> C,
@@ -74,7 +74,7 @@ impl<M: Monad> MonadTrans for IdT<M> {
   type Base = M;
 
   fn lift(base: M) -> Self {
-    IdentityT(base)
+    IdT(base)
   }
 }
 
