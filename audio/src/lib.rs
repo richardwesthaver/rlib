@@ -101,6 +101,7 @@ where
     }
   }
 }
+
 #[cfg(test)]
 #[test]
 fn default_device() {
