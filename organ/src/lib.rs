@@ -1,6 +1,8 @@
-#[macro_use] extern crate lalrpop_util;
+#[macro_use]
+extern crate lalrpop_util;
 
-#[cfg(test)] mod tests;
+#[cfg(test)]
+mod tests;
 
 lalrpop_mod!(pub grammar); // synthesized by LALRPOP
 

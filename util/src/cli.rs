@@ -1,5 +1,7 @@
 //! cli module
-pub use clap::{App, AppSettings, Arg, ArgGroup, ArgSettings, Subcommand, ValueHint, ArgMatches, ColorChoice};
+pub use clap::{
+  App, AppSettings, Arg, ArgGroup, ArgMatches, ArgSettings, ColorChoice, Subcommand, ValueHint,
+};
 #[cfg(feature = "bs")]
 pub mod comp_gen {
   pub use clap_generate::generators::{Bash, Elvish, Fish, PowerShell, Zsh};

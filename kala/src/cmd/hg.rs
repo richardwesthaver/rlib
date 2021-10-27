@@ -16,7 +16,7 @@ pub async fn hgweb(cfg: &MercurialConfig) -> R<Output, E> {
   output.await
 }
 
-pub async fn hg<'a> (args: &[&'a str]) -> R<Output, E> {
+pub async fn hg<'a>(args: &[&'a str]) -> R<Output, E> {
   Command::new("hg")
     .args(args.into_iter())
     .spawn()

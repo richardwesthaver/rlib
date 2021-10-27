@@ -108,9 +108,9 @@ fn pack_test() {
     std::fs::File::create(&dir_path.join(format!("{}.test", i))).unwrap();
   }
 
-  pack(&dir_path, ".", None);
-  unpack("pack_test.tar.zst", ".");
-  unpack_replace("pack_test.tar.zst", ".");
+  pack(&dir_path, "pack_test.tar.zst", None);
+  unpack("pack_test.tar.zst", "pack_test");
+  unpack_replace("pack_test.tar.zst", "pack_test");
 
   std::fs::remove_dir_all(dir_path).unwrap();
 }

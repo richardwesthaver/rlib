@@ -5,7 +5,7 @@ use crate::object::{direction::RelativeDirection, location::Point};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
-use super::{DisplayConfig, PackageConfig, ProjectConfig, AuthConfig};
+use super::{AuthConfig, DisplayConfig, PackageConfig, ProjectConfig};
 
 /// User configuration type
 ///

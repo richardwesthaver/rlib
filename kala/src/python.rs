@@ -1,8 +1,8 @@
 //! RustPython functions and interpreter
 use crate::cmd::input::rustyline;
 
-use util::cli::ArgMatches;
 use logger::log::{debug, error, warn};
+use util::cli::ArgMatches;
 
 use rustpython_vm::builtins::{PyDictRef, PyStrRef};
 use rustpython_vm::{
@@ -95,7 +95,9 @@ fn flush_std(vm: &VirtualMachine) {
 /// refer to https://github.com/RustPython/RustPython/blob/ec5b6b4e8783b211344bce4b5cb0ae09a1572ec3/vm/src/vm.rs#L137 for PySettings fields
 fn create_settings(opts: &ArgMatches) -> PySettings {
   let mut settings = PySettings {
-    interactive: !opts.is_present("command") && !opts.is_present("script") && !opts.is_present("module"),
+    interactive: !opts.is_present("command")
+      && !opts.is_present("script")
+      && !opts.is_present("module"),
     ..Default::default()
   };
 
@@ -122,14 +124,13 @@ fn create_settings(opts: &ArgMatches) -> PySettings {
     settings.verbose = value;
   }
 
-  let argv = if let Some(script) =  opts.values_of("script") {
+  let argv = if let Some(script) = opts.values_of("script") {
     script.map(ToOwned::to_owned).collect()
   } else if let Some(cmd) = opts.values_of("command") {
     std::iter::once("-c".to_owned())
       .chain(cmd.skip(1).map(ToOwned::to_owned))
       .collect()
-  }
-  else if let Some(module) = opts.values_of("module") {
+  } else if let Some(module) = opts.values_of("module") {
     std::iter::once("PLACEHOLDER".to_owned())
       .chain(module.skip(1).map(ToOwned::to_owned))
       .collect::<Vec<String>>()
@@ -180,10 +181,7 @@ fn get_paths(env_variable_name: &str) -> impl Iterator<Item = String> + '_ {
     })
 }
 
-fn run_rustpython(
-  vm: &VirtualMachine,
-  opts: &ArgMatches,
-) -> PyResult<()> {
+fn run_rustpython(vm: &VirtualMachine, opts: &ArgMatches) -> PyResult<()> {
   let scope = vm.new_scope_with_builtins();
   let main_module = vm.new_module("__main__", scope.globals.clone(), None);
   main_module
@@ -588,23 +586,24 @@ impl<'vm> ShellHelper<'vm> {
 }
 
 use rustyline::{
-  completion::Completer, highlight::Highlighter, hint::Hinter, validate::Validator, Context,
-  Helper,
+  completion::Completer, highlight::Highlighter, hint::Hinter, validate::Validator, Context, Helper,
 };
 impl Completer for ShellHelper<'_> {
   type Candidate = String;
-  
+
   fn complete(
     &self,
     line: &str,
     pos: usize,
     _ctx: &Context,
   ) -> rustyline::Result<(usize, Vec<String>)> {
-    Ok(self
-       .complete_opt(&line[0..pos])
-       // as far as I can tell, there's no better way to do both completion
-       // and indentation (or even just indentation)
-       .unwrap_or_else(|| (pos, vec!["\t".to_owned()])))
+    Ok(
+      self
+        .complete_opt(&line[0..pos])
+        // as far as I can tell, there's no better way to do both completion
+        // and indentation (or even just indentation)
+        .unwrap_or_else(|| (pos, vec!["\t".to_owned()])),
+    )
   }
 }
 

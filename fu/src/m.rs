@@ -169,6 +169,3 @@ impl<A> Monad for Option<A> {
     self.and_then(f)
   }
 }
-
-#[cfg(test)]
-mod tests;

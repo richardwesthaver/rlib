@@ -10,9 +10,9 @@ mod network;
 mod package;
 mod program;
 mod project;
-mod user;
 mod registry;
 mod repo;
+mod user;
 #[cfg(feature = "oauth")]
 pub use auth::Oauth2Config;
 #[cfg(feature = "git")]
@@ -21,9 +21,18 @@ pub use repo::git::GitRepository;
 pub use repo::hg::{export_hg_git, HgSubFile, HgwebConfig, MercurialConfig};
 
 pub use {
-  database::DatabaseConfig, display::DisplayConfig, library::LibraryConfig, meta::MetaConfig,
-  network::NetworkConfig, package::PackageConfig, program::ProgramConfig, registry::RegistryConfig,
-  project::ProjectConfig, repo::RepoConfig, user::UserConfig, auth::{AuthConfig, SshConfig},
+  auth::{AuthConfig, SshConfig},
+  database::DatabaseConfig,
+  display::DisplayConfig,
+  library::LibraryConfig,
+  meta::MetaConfig,
+  network::NetworkConfig,
+  package::PackageConfig,
+  program::ProgramConfig,
+  project::ProjectConfig,
+  registry::RegistryConfig,
+  repo::RepoConfig,
+  user::UserConfig,
 };
 
 use crate::Objective;

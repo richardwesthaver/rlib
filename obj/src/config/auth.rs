@@ -1,5 +1,5 @@
 //! Auth Configs
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 #[cfg(feature = "oauth")]
 use yup_oauth2::ApplicationSecret;
@@ -10,7 +10,7 @@ pub struct AuthConfig {
   #[cfg(feature = "oauth")]
   pub oauth: Option<Oauth2Config>,
   pub ssh: Option<SshConfig>,
-  pub pw: Option<PasswordConfig>
+  pub pw: Option<PasswordConfig>,
 }
 
 #[derive(Serialize, Deserialize, Default, Debug, Hash)]
@@ -26,10 +26,11 @@ pub struct Oauth2Config {
   pub token_uri: String,
   pub project_id: Option<String>, //for apptoken
   pub client_email: Option<String>,
-  /// The URL of the public x509 certificate, used to verify the signature on JWTs, such
-  /// as ID tokens, signed by the authentication provider.
+  /// The URL of the public x509 certificate, used to verify the signature on
+  /// JWTs, such as ID tokens, signed by the authentication provider.
   pub auth_provider_x509_cert_url: Option<String>,
-  ///  The URL of the public x509 certificate, used to verify JWTs signed by the client.
+  ///  The URL of the public x509 certificate, used to verify JWTs signed by the
+  /// client.
   pub client_x509_cert_url: Option<String>,
 }
 

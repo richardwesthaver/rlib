@@ -17,7 +17,8 @@ sys = ["rusb", "whoami"]
 x11 = ["xrandr"]
 tmux = ["tmux_interface"]
 hg = ["obj/hg"]
-python = ["rustpython-vm", "rustpython-parser", "rustpython-compiler", "pylib", "num-traits",]
+python = ["rustpython-vm", "rustpython-parser", "rustpython-compiler", "pylib", "num-traits", "rustyline"]
+dmc = ["rustyline"]
 [dependencies]
 # rlib
 ctx = { path = "../ctx" }

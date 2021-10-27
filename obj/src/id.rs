@@ -2,17 +2,16 @@
 //!
 //! primitive ID types.
 
+pub use rusty_ulid::{self, Ulid};
 use std::fmt;
 use std::str::FromStr;
-pub use rusty_ulid::{self, Ulid};
 pub use uuid::Uuid;
-
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum Id {
-  ObjectId(u128),     // u128
-  UnitId(u32),        // u32
-  AtomId(u16),        // u16
+  ObjectId(u128), // u128
+  UnitId(u32),    // u32
+  AtomId(u16),    // u16
 }
 
 pub struct NameSpace {
@@ -57,7 +56,9 @@ impl FromStr for Id {
 impl fmt::Display for Id {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
     match *self {
-      Id::ObjectId(i) => {write!(f, "{}", Ulid::from(i))},
+      Id::ObjectId(i) => {
+        write!(f, "{}", Ulid::from(i))
+      }
       Id::UnitId(i) => write!(f, "{}", i),
       Id::AtomId(i) => write!(f, "{}", i),
     }

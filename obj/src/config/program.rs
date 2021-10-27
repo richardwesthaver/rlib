@@ -1,9 +1,9 @@
 //! cfg::config::program
 //!
 //! Program configuration primitives
+use super::RepoConfig;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use super::RepoConfig;
 
 /// Program configuration type
 #[derive(Serialize, Deserialize, Debug, Default, PartialEq)]
