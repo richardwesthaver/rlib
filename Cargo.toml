@@ -40,16 +40,16 @@ hash = { version = "0.1.0", path = "hash", optional = true }
 crypto = { version = "0.1.0", path = "crypto", optional = true }
 logger = { version = "0.1.0", path = "logger", optional = true }
 util = { version = "0.1.0", path = "util", optional = true }
-
+fu = { version = "0.1.0", path = "fu", optional = true }
+alch = { version = "0.1.0", path = "alch", optional = true }
+math = { version = "0.1.0", path = "math", optional = true }
 [workspace]
 resolver = "2"
 members = [
-  "dts",
   "ui",
   "kala",
   "ctx",
   "db",
-  "dts",
   "math",
   "net",
   "obj",

@@ -1,7 +1,8 @@
 //! cfg::config::program
 //!
 //! Program configuration primitives
-use super::RepoConfig;
+use crate::RepoConfig;
+
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 

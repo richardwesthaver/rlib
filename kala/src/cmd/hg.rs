@@ -4,7 +4,7 @@ use std::io::Error as E;
 
 use ctx::tokio::process::Command;
 use logger::log::debug;
-use obj::config::MercurialConfig;
+use obj::MercurialConfig;
 use std::process::Output;
 
 /// Given a `HgwebConfig` struct, start the hgweb server and log to

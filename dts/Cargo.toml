@@ -1,9 +1,0 @@
-[package]
-name = "dts"
-version = "0.1.0"
-authors = ["ellis"]
-edition = "2021"
-description = "Demonic Type System Modules"
-documentation = "https://docs.rwest.io/dts"
-repository = "https://hg.rwest.io/rlib"
-publish = ["crater"]

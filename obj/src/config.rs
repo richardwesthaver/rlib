@@ -1,77 +1,18 @@
 //! cfg::config
 //!
 //! Primitive configuration types
-mod auth;
-mod database;
-mod display;
-mod library;
-mod meta;
-mod network;
-mod package;
-mod program;
-mod project;
-mod registry;
-mod repo;
-mod user;
-#[cfg(feature = "oauth")]
-pub use auth::Oauth2Config;
-#[cfg(feature = "git")]
-pub use repo::git::GitRepository;
-#[cfg(feature = "hg")]
-pub use repo::hg::{export_hg_git, HgSubFile, HgwebConfig, MercurialConfig};
-
-pub use {
-  auth::{AuthConfig, SshConfig},
-  database::DatabaseConfig,
-  display::DisplayConfig,
-  library::LibraryConfig,
-  meta::MetaConfig,
-  network::NetworkConfig,
-  package::PackageConfig,
-  program::ProgramConfig,
-  project::ProjectConfig,
-  registry::RegistryConfig,
-  repo::RepoConfig,
-  user::UserConfig,
-};
-
-use crate::Objective;
-use crate::Result;
-
-#[macro_export]
-macro_rules! impl_config {
-  ($($t:ident),*) => {
-    $(
-    impl Objective for $t {}
-    impl Configure for $t {}
-    )*
-  };
-}
-
-impl_config!(
-  MetaConfig,
-  RepoConfig,
-  DatabaseConfig,
-  DisplayConfig,
-  UserConfig,
-  LibraryConfig,
-  ProgramConfig,
-  ProjectConfig,
-  NetworkConfig,
-  AuthConfig,
-  SshConfig
-);
-
-#[cfg(feature = "oauth")]
-impl_config!(Oauth2Config);
-
-/// common trait for all config modules. This trait provides functions
-/// for de/serializing to/from RON, updating fields, and formatting.
-pub trait Configure: Objective {
-  fn update(&self) -> Result<()> {
-    Ok(())
-  }
-}
+pub mod auth;
+pub mod database;
+pub mod display;
+pub mod library;
+pub mod meta;
+pub mod network;
+pub mod package;
+pub mod program;
+pub mod project;
+pub mod registry;
+pub mod repo;
+pub mod user;
 
 #[cfg(test)]
 mod test {

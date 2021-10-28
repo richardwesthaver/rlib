@@ -14,4 +14,6 @@ obj = { path = "../obj" }
 kala = { path = "../kala" }
 net = { path = "../net" }
 # contrib
-druid = "0.7.0"
+tui = { version = "0.16.0", features = ["crossterm"], default-features = false }
+unicode-width = "0.1.8"
+crossterm = { version = "0.19.0" }

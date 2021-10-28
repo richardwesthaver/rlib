@@ -1,4 +1,4 @@
-//! RustPython functions and interpreter
+//! python.rs --- RustPython functions and interpreter
 use crate::cmd::input::rustyline;
 
 use logger::log::{debug, error, warn};

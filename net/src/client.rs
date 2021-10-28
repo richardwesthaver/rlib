@@ -1,5 +1,5 @@
 //! network client primitives
-use obj::config::NetworkConfig;
+use obj::NetworkConfig;
 
 pub struct Client {
   pub cfg: NetworkConfig,

@@ -1,24 +1,99 @@
-//! obj
-//!
-//! Object Types
+//! lib.rs --- Objective types
 #![feature(map_try_insert)]
 #![feature(derive_default_enum)]
-pub mod coll;
-pub mod config;
-pub mod id;
-pub mod object;
+pub use ron;
 
+mod id;
+mod coll;
 mod err;
 
+mod config;
+mod object;
+
+pub use id::{NameSpace, Domain, Id};
+pub use coll::{Coll, Collection};
 pub use err::{Error, Result};
 
-// re-exports
-pub use ron;
+#[cfg(feature = "org")]
+pub use object::doc::org::Org;
+
+pub use object::{
+  color::Color,
+  location::{Point, City},
+  direction::{CardinalDirection, RelativeDirection, EdgeDirection},
+  doc::{Doc, DocExtension},
+  media::{Media, MediaExtension},
+  meta::{Meta, Property, Summary, Note},
+  temperature::Temperature,
+};
+
+#[cfg(feature = "oauth")]
+pub use config::auth::Oauth2Config;
+#[cfg(feature = "git")]
+pub use config::repo::git::GitRepository;
+#[cfg(feature = "hg")]
+pub use config::repo::hg::{export_hg_git, HgSubFile, HgwebConfig, MercurialConfig};
+
+pub use config::{
+  auth::{AuthConfig, SshConfig},
+  database::DatabaseConfig,
+  display::DisplayConfig,
+  library::LibraryConfig,
+  meta::MetaConfig,
+  network::NetworkConfig,
+  package::PackageConfig,
+  program::ProgramConfig,
+  project::ProjectConfig,
+  registry::RegistryConfig,
+  repo::RepoConfig,
+  user::{UserConfig, TmuxSessionConfig, TmuxWindowConfig, TmuxPaneConfig, ShellConfig},
+  
+};
 
 use ron::extensions::Extensions;
 use serde::de::DeserializeOwned;
 use serde::{Deserialize, Serialize};
+
 use std::io;
+
+#[macro_export]
+macro_rules! impl_config {
+  ($($t:ident),*) => {
+    $(
+    impl Objective for $t {}
+    impl Configure for $t {}
+    )*
+  };
+}
+
+impl_config!(
+  MetaConfig,
+  RepoConfig,
+  DatabaseConfig,
+  DisplayConfig,
+  UserConfig,
+  ShellConfig,
+  TmuxSessionConfig,
+  TmuxWindowConfig,
+  TmuxPaneConfig,
+  LibraryConfig,
+  ProgramConfig,
+  ProjectConfig,
+  NetworkConfig,
+  AuthConfig,
+  SshConfig
+);
+
+#[cfg(feature = "oauth")]
+impl_config!(Oauth2Config);
+
+/// common trait for all config modules. This trait provides functions
+/// for de/serializing to/from RON, updating fields, and formatting.
+pub trait Configure: Objective {
+  fn update(&self) -> Result<()> {
+    Ok(())
+  }
+}
 
 /// Objective trait
 ///

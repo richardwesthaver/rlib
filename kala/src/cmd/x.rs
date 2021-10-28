@@ -4,7 +4,7 @@
 use crate::Result;
 use cmd_lib::{run_cmd, CmdResult};
 use logger::log::{debug, info, trace};
-use obj::config::DisplayConfig;
+use obj::DisplayConfig;
 use std::env;
 
 // this import depends on x11 crate. the x11-sys build script fails on

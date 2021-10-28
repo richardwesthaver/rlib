@@ -5,14 +5,14 @@ use crate::object::{direction::RelativeDirection, location::Point};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
-use super::{AuthConfig, DisplayConfig, PackageConfig, ProjectConfig};
+use crate::{AuthConfig, DisplayConfig, PackageConfig, ProjectConfig};
 
 /// User configuration type
 ///
 /// Used to configure system users for various platforms.
 #[derive(Serialize, Deserialize, Debug, Default)]
 pub struct UserConfig {
-  pub shell: UserShellConfig,
+  pub shell: ShellConfig,
   pub geo: Option<Point>,
   pub displays: Option<Vec<DisplayConfig>>,
   pub packages: Vec<PackageConfig>,
@@ -21,7 +21,7 @@ pub struct UserConfig {
 }
 
 #[derive(Serialize, Deserialize, Debug, Default)]
-pub struct UserShellConfig {
+pub struct ShellConfig {
   pub env: HashMap<String, String>,
   pub cmds: HashMap<String, String>,
   pub shell: ShellType,
@@ -35,17 +35,25 @@ pub enum ShellType {
   Sh,
 }
 
+/// A session is a single collection of `pseudo terminals` under the
+/// management of tmux. Each session has one or more windows linked to
+/// it.
 #[derive(Serialize, Deserialize, Debug, Default)]
 pub struct TmuxSessionConfig {
+  pub name: String,
   pub windows: Vec<TmuxWindowConfig>,
 }
 
+/// A window occupies the entire screen and may be split into
+/// rectangular panes.
 #[derive(Serialize, Deserialize, Debug, Default)]
 pub struct TmuxWindowConfig {
   pub name: String,
   pub panes: Vec<TmuxPaneConfig>,
 }
 
+/// An isolated pseudo terminal (pty) inside a Window, inside a
+/// Session.
 #[derive(Serialize, Deserialize, Debug, Default)]
 pub struct TmuxPaneConfig {
   pub name: String,

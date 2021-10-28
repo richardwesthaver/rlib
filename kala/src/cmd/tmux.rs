@@ -1,14 +1,22 @@
-//! tmux command module
+//! cmd/tmux.rs --- tmux commands
 use crate::Result;
 use logger::log::error;
-use tmux_interface::HasSession;
-pub use tmux_interface::TmuxCommand;
+use obj::TmuxSessionConfig;
+use obj::RelativeDirection::*;
+pub use tmux_interface::{HasSession, NewSession, TargetSession, TmuxCommand};
 
-/// TODO [2021-08-25 Wed 06:27] - Build a tmux session from a TmuxSessionConfig
-/// struct
-pub fn tmux_build_session(session_name: &str) -> Result<()> {
+pub fn tmux_attach_session(name: &str) -> Result<()> {
+  TmuxCommand::new().attach_session().target_session(name).output().unwrap();
+  Ok(())
+}
+pub fn tmux_kill_session(name: &str) -> Result<()> {
+  TmuxCommand::new().kill_session().target_session(name).output().unwrap();
+  Ok(())
+}
+/// Build a tmux session from `TmuxSessionConfig`
+pub fn tmux_build_session(cfg: TmuxSessionConfig) -> Result<()> {
   if HasSession::new()
-    .target_session(session_name)
+    .target_session(&cfg.name)
     .output()
     .unwrap()
     .0
@@ -16,42 +24,62 @@ pub fn tmux_build_session(session_name: &str) -> Result<()> {
     .success()
     == true
   {
-    error!("Tmux session {} already exists", session_name);
+    error!("Tmux session {} already exists", cfg.name);
   } else {
-    let tmux = TmuxCommand::new();
+    // bootstrap detached session
+    let mut tmux = TmuxCommand::new();
     tmux
       .new_session()
       .detached()
-      .session_name(session_name)
-      .window_name("status")
-      .shell_command("htop")
+      .session_name(&cfg.name)
       .output()
       .unwrap();
-    tmux
-      .split_window()
-      .horizontal()
-      .shell_command("systemd-cgtop")
-      .output()
-      .unwrap();
-    tmux
-      .split_window()
-      .vertical()
-      .shell_command("journalctl -xef")
-      .output()
-      .unwrap();
-    tmux
-      .new_window()
-      .window_name("emacs")
-      .shell_command("emacs -nw -l ~/.emacs.d/lisp/init-home-tmux.el")
-      .output()
-      .unwrap();
-
-    tmux
-      .attach_session()
-      .target_session(session_name)
-      .output()
-      .unwrap();
+    // build windows
+    for i in cfg.windows.iter() {
+      tmux.new_window().window_name(&i.name).output().unwrap();
+      for p in i.panes.iter() {
+        match &p.position {
+          None => {
+            tmux.shell_cmd(p.init.as_ref().unwrap()).output().unwrap();
+          }
+          Some(rp) => {
+            let pinit = match rp {
+              Up => tmux
+                .shell_cmd(p.init.as_ref().unwrap())
+                .split_window()
+                .before()
+                .vertical()
+                .output(),
+              Down => tmux
+                .shell_cmd(p.init.as_ref().unwrap())
+                .split_window()
+                .vertical()
+                .output(),
+              Left => tmux
+                .shell_cmd(p.init.as_ref().unwrap())
+                .split_window()
+                .before()
+                .horizontal()
+                .output(),
+              Right => tmux
+                .shell_cmd(p.init.as_ref().unwrap())
+                .split_window()
+                .horizontal()
+                .output(),
+            };
+            pinit.unwrap();
+          }
+        }
+      }
+    }
   }
-
   Ok(())
+}
+
+#[test]
+fn tmux_session() {
+  let mut cfg = TmuxSessionConfig::default();
+  cfg.name = "sesh".to_string();
+  tmux_build_session(cfg).unwrap();
+  tmux_kill_session("sesh").unwrap();
 }

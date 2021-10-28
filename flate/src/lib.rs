@@ -54,17 +54,21 @@ pub fn pack<P: AsRef<Path>, Q: AsRef<Path>>(src: P, dst: Q, level: Option<Level>
 
   let tar = tar.into_inner().unwrap();
   let dst = dst.as_ref();
-  let file = fs::File::create(dst).unwrap();
+  let file = fs::File::create(dst).expect("failed to create output path");
   zstd::stream::copy_encode(&tar[..], file, level.unwrap_or(Level::Best).into_zstd()).unwrap();
 }
 
-/// unpack a tar.zst compressed archive
+/// unpack a tar.zst compressed archive or zst file
 pub fn unpack<P: AsRef<Path>, Q: AsRef<Path>>(src: P, dst: Q) {
-  let input = fs::File::open(src).unwrap();
+  let src = src.as_ref();
+  let input = fs::File::open(src).expect("failed to open input");
   let mut buff = Vec::new();
   zstd::stream::copy_decode(input, &mut buff).unwrap();
-  let mut ar = tar::Archive::new(&buff[..]);
-  ar.unpack(dst).unwrap();
+  if tar::Archive::new(&buff[..]).entries().is_ok() {
+    tar::Archive::new(&buff[..]).unpack(dst).unwrap();
+  } else {
+    decompress(src).unwrap();
+  }
 }
 
 /// unpack a tar.zst compressed archive, removing the source file before
@@ -92,7 +96,7 @@ pub fn decompress<P: AsRef<Path>>(source: P) -> io::Result<()> {
     let file = fs::File::open(&source)?;
     zstd::Decoder::new(file)?
   };
-  let mut target = fs::File::create(source.as_ref().to_str().unwrap().trim_end_matches(".zst"))?;
+  let mut target = fs::File::create(source.as_ref().to_str().unwrap())?;
   io::copy(&mut decoder, &mut target)?;
   decoder.finish();
   Ok(())

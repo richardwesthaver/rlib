@@ -1,7 +1,7 @@
 //! network server primitives
 use async_trait::async_trait;
 pub use hyper;
-use obj::config::NetworkConfig;
+use obj::NetworkConfig;
 pub struct Server {
   pub cfg: NetworkConfig,
 }

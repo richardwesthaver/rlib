@@ -3,7 +3,7 @@ use oauth2::{
   basic::{BasicClient, BasicTokenType},
   AuthUrl, ClientId, ClientSecret, EmptyExtraTokenFields, RedirectUrl, TokenUrl,
 };
-pub use obj::config::Oauth2Config;
+pub use obj::Oauth2Config;
 
 pub use oauth2::{
   reqwest::async_http_client, AuthorizationCode, CsrfToken, PkceCodeChallenge, Scope,

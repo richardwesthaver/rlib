@@ -2,7 +2,6 @@
 //!
 //! Repo configuration primitives
 use std::path::PathBuf;
-
 use serde::{Deserialize, Serialize};
 #[cfg(feature = "git")]
 pub mod git;

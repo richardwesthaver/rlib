@@ -1,4 +1,4 @@
-//! kala errors
+//! err.rs --- kala errors
 use std::{fmt, io};
 
 /// kala Result type
@@ -15,6 +15,8 @@ pub enum Error {
   MidiConnect(midir::ConnectError<midir::ConnectErrorKind>),
   #[cfg(feature = "midi")]
   MidiPortInfo(midir::PortInfoError),
+  #[cfg(feature = "input")]
+  Readline(rustyline::error::ReadlineError),
 }
 
 impl fmt::Display for Error {
@@ -29,6 +31,8 @@ impl fmt::Display for Error {
       Error::MidiConnect(ref err) => write!(f, "rlib::kala Midi Connection error: {}", err),
       #[cfg(feature = "midi")]
       Error::MidiPortInfo(ref err) => write!(f, "rlib::kala Midi PortInfo error: {}", err),
+      #[cfg(feature = "input")]
+      Error::Readline(ref err) => write!(f, "rlib::kala Readline error: {}", err),
     }
   }
 }
@@ -45,6 +49,8 @@ impl fmt::Debug for Error {
       Error::MidiConnect(ref err) => write!(f, "rlib::kala Midi Connection error: {}", err),
       #[cfg(feature = "midi")]
       Error::MidiPortInfo(ref err) => write!(f, "rlib::kala Midi PortInfo error: {}", err),
+      #[cfg(feature = "input")]
+      Error::Readline(ref err) => write!(f, "rlib::kala Readline error: {}", err),
     }
   }
 }
@@ -85,6 +91,13 @@ impl From<midir::ConnectError<midir::ConnectErrorKind>> for Error {
 impl From<midir::PortInfoError> for Error {
   fn from(e: midir::PortInfoError) -> Self {
     Error::MidiPortInfo(e)
+  }
+}
+
+#[cfg(feature = "input")]
+impl From<rustyline::error::ReadlineError> for Error {
+  fn from(e: rustyline::error::ReadlineError) -> Self {
+    Error::Readline(e)
   }
 }
 

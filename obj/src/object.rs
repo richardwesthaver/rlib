@@ -6,28 +6,10 @@ pub mod color;
 pub mod contact;
 pub mod direction;
 pub mod doc;
-#[cfg(feature = "org")]
-pub use doc::org::Org;
 pub mod location;
 pub mod media;
 pub mod meta;
 pub mod temperature;
-
-use crate::id::Id;
-
-/// Identity trait
-///
-/// Defines Identity-related behaviors, implemented by Objects
-pub trait Identity: Sized {
-  /// return the hashed bytes of an ObjectId
-  fn id(&self) -> Id;
-  /// return the hexcode string of an ObjectId
-  fn hex_id(&self) -> String;
-  /// return the human-readable string of an ObjectId
-  fn string_id(&self) -> String;
-  /// return the namespace of an ObjectId
-  fn namespace_id(&self) -> String;
-}
 
 #[cfg(test)]
 mod test {

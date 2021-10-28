@@ -1,3 +1,4 @@
+//! lib.rs --- RLIB
 #[cfg(feature = "crypto")]
 #[doc(inline)]
 pub use crypto;
@@ -28,3 +29,18 @@ pub use obj;
 #[cfg(feature = "util")]
 #[doc(inline)]
 pub use util;
+#[cfg(feature = "audio")]
+#[doc(inline)]
+pub use audio;
+#[cfg(feature = "fu")]
+#[doc(inline)]
+pub use fu;
+#[cfg(feature = "alch")]
+#[doc(inline)]
+pub use alch;
+#[cfg(feature = "eve")]
+#[doc(inline)]
+pub use eve;
+#[cfg(feature = "math")]
+#[doc(inline)]
+pub use math;

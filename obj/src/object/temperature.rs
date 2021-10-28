@@ -13,9 +13,9 @@ pub enum Temperature {
 }
 
 #[derive(Serialize, Deserialize, Debug, Hash, Default)]
-pub struct Celsius(u32);
+struct Celsius(u32);
 
 #[derive(Serialize, Deserialize, Debug, Hash, Default)]
-pub struct Fahrenheit(u32);
+struct Fahrenheit(u32);
 
 impl Objective for Temperature {}

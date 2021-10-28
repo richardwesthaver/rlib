@@ -1,5 +1,5 @@
 //! Project configurations
-use super::PackageConfig;
+use crate::PackageConfig;
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug, Default)]

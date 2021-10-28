@@ -1,11 +1,13 @@
-//! registry module
+//! registry.rs --- Registry Types
 use rocksdb::{ColumnFamilyDescriptor, DBCompactionStyle, Options, DB};
+
 // use rocksdb::{WriteBatch, WriteOptions};
 use crate::Result;
+
 // use obj::id;
 use std::path::{Path, PathBuf};
-use std::sync::Arc;
-// replace with obj::config type
+
+//  HACK 2021-10-28: replace with obj::config type
 fn get_options(max_open_files: Option<i32>) -> Options {
   // https://github.com/facebook/rocksdb/wiki/RocksDB-Tuning-Guide
   let mut opts = Options::default();
@@ -30,7 +32,7 @@ fn get_options(max_open_files: Option<i32>) -> Options {
 
 /// Registry handle
 pub struct Registry {
-  pub db: Arc<DB>,
+  pub db: DB,
   pub path: PathBuf,
 }
 
@@ -48,7 +50,7 @@ impl Registry {
     let db = match DB::open_cf(&opts, path, vec!["reg"]) {
       Ok(db) => db,
       Err(_) => {
-        let mut db = DB::open(&opts, path)?;
+        let db = DB::open(&opts, path)?;
         for cf_name in vec!["reg"] {
           db.create_cf(cf_name, &opts)?;
         }
@@ -56,7 +58,7 @@ impl Registry {
       }
     };
     Ok(Registry {
-      db: Arc::new(db),
+      db,
       path: path.to_path_buf(),
     })
   }
@@ -69,11 +71,11 @@ impl Registry {
 /// A transaction that is backed by rocksdb.
 #[derive(Debug)]
 pub struct RegistryTransaction {
-  pub db: Arc<DB>,
+  pub db: DB,
 }
 
 impl RegistryTransaction {
-  pub fn new(db: Arc<DB>) -> Self {
+  pub fn new(db: DB) -> Self {
     RegistryTransaction { db }
   }
 }

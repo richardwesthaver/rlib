@@ -7,6 +7,20 @@ use std::fmt;
 use std::str::FromStr;
 pub use uuid::Uuid;
 
+/// Identity trait
+///
+/// Defines Identity-related behaviors
+pub trait Identity: Sized {
+  /// return the hashed bytes of an ObjectId
+  fn id(&self) -> Id;
+  /// return the hexcode string of an ObjectId
+  fn hex_id(&self) -> String;
+  /// return the human-readable string of an ObjectId
+  fn string_id(&self) -> String;
+  /// return the namespace of an ObjectId
+  fn namespace_id(&self) -> String;
+}
+
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum Id {
   ObjectId(u128), // u128

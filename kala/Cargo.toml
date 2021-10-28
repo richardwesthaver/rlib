@@ -2,8 +2,8 @@
 name = "kala"
 version = "0.1.0"
 authors = ["ellis"]
-edition = "2018"
-description = "Desktop Command Modules"
+edition = "2021"
+description = "System Commands"
 documentation = "https://docs.rwest.io/kala"
 repository = "https://hg.rwest.io/rlib"
 publish = ["crater"]

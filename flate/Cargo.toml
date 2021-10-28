@@ -2,21 +2,22 @@
 name = "flate"
 version = "0.1.0"
 authors = ["ellis"]
-edition = "2018"
+edition = "2021"
 description = "Archive and Compression Modules"
-documentation = "https://docs.rwest.io/flate"
+documentation = "https://docs.rwest.io/rlib/flate"
 repository = "https://hg.rwest.io/rlib"
 publish = ["crater"]
 
 [features]
-async = ["ctx"]
+async = ["ctx", "zstd-safe"]
 
 [dependencies]
-tar = "0.4.36"
+tar = "0.4.37"
 zstd = { version = "0.9.0", default-features = false }
+zstd-safe = { version = "4.1.1", features = ["experimental"], optional=true }
 ctx = { version = "0.1.0", path = "../ctx", optional = true }
 zip = { version = "0.5", default-features = false, features = ["deflate"] }
-flate2 = {version = "1.0", optional = true }
+flate2 = {version = "1.0", optional = true, features = ["rust_backend", "tokio"], default-features=false }
 
 [dev-dependencies]
 tempfile = "3.2"

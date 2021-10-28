@@ -1,10 +1,12 @@
 //! cfg::config::package
 //!
 //! Package configuration primitives
-use super::library::LibraryConfig;
-use super::program::ProgramConfig;
-use super::repo::RepoConfig;
-use super::MetaConfig;
+use crate::{LibraryConfig,
+	    ProgramConfig,
+	    RepoConfig,
+	    MetaConfig,
+};
+
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
@@ -13,7 +15,7 @@ use std::collections::HashMap;
 pub struct PackageConfig {
   /// Name of this package
   pub name: String,
-  pub repo: Option<RepoConfig>,
+  pub repo: RepoConfig,
   pub bin: Option<ProgramConfig>,
   pub lib: Option<LibraryConfig>,
   pub babel: Option<HashMap<String, Vec<String>>>,
@@ -25,7 +27,7 @@ impl PackageConfig {
   pub fn new(name: &str) -> Self {
     PackageConfig {
       name: name.to_string(),
-      repo: None,
+      repo: RepoConfig::new(),
       bin: None,
       lib: None,
       babel: None,
@@ -37,7 +39,7 @@ impl Default for PackageConfig {
   fn default() -> Self {
     PackageConfig {
       name: ".".to_string(),
-      repo: Some(RepoConfig::default()),
+      repo: RepoConfig::default(),
       bin: None,
       lib: None,
       babel: None,

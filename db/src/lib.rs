@@ -3,12 +3,15 @@
 //! This library provides types and builder functions for working with
 //! databases. Currently the only backend supported is RocksDB.
 pub mod cache;
-mod err;
-mod meter;
 pub mod registry;
+pub mod blob;
+pub mod backup;
+pub mod comp;
+mod err;
+
 pub use err::{Error, Result};
 
-pub use rocksdb::{ColumnFamilyDescriptor, Options, DB};
+pub use rocksdb::{ColumnFamilyDescriptor, Options, DBWithThreadMode, MultiThreaded, DB};
 
 use std::path::PathBuf;
 use std::sync::Arc;
