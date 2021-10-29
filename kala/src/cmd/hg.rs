@@ -1,6 +1,6 @@
 //! Mercurial command module
-use crate::err::R;
-use std::io::Error as E;
+use std::result::Result;
+use std::io::Error;
 
 use ctx::tokio::process::Command;
 use logger::log::debug;
@@ -10,13 +10,13 @@ use std::process::Output;
 /// Given a `HgwebConfig` struct, start the hgweb server and log to
 /// stdout.
 /// TODO: import old shed_multi_server
-pub async fn hgweb(cfg: &MercurialConfig) -> R<Output, E> {
+pub async fn hgweb(cfg: &MercurialConfig) -> Result<Output, Error> {
   debug!("found hgrc: {:?}", cfg);
   let output = Command::new("hg").arg("serve").output();
   output.await
 }
 
-pub async fn hg<'a>(args: &[&'a str]) -> R<Output, E> {
+pub async fn hg<'a>(args: &[&'a str]) -> Result<Output, Error> {
   Command::new("hg")
     .args(args.into_iter())
     .spawn()

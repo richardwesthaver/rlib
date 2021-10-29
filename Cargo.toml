@@ -2,8 +2,8 @@
 name = "rlib"
 version = "0.1.0"
 authors = ["ellis"]
-edition = "2018"
-description = "System Programming Library"
+edition = "2021"
+description = "Richard's Rust Library"
 documentation = "https://docs.rwest.io/rlib"
 repository = "https://hg.rwest.io/rlib"
 publish = ["crater"]
@@ -29,6 +29,7 @@ dmc = ["kala/dmc", "kala/input"]
 midi = ["kala/midi"]
 sys = ["kala/sys"]
 tmux = ["kala/tmux"]
+
 [dependencies]
 obj = { version = "0.1.0", path = "obj", optional = true }
 kala = { version = "0.1.0", path = "kala", optional = true }
@@ -43,8 +44,9 @@ util = { version = "0.1.0", path = "util", optional = true }
 fu = { version = "0.1.0", path = "fu", optional = true }
 alch = { version = "0.1.0", path = "alch", optional = true }
 math = { version = "0.1.0", path = "math", optional = true }
+ui = { version = "0.1.0", path = "ui", optional = true }
+
 [workspace]
-resolver = "2"
 members = [
   "ui",
   "kala",

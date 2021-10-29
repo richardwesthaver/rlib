@@ -44,3 +44,6 @@ pub use eve;
 #[cfg(feature = "math")]
 #[doc(inline)]
 pub use math;
+#[cfg(feature = "ui")]
+#[doc(inline)]
+pub use ui;

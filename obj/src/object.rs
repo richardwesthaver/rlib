@@ -18,7 +18,7 @@ mod test {
   use std::str::FromStr;
   #[test]
   fn test_location_points() {
-    let pnt = location::Point::new(1.0, 2.0);
+    let pnt = location::Point::new(&1.0, &2.0);
     assert_eq!(
       String::from_str("(\n  lat: 1,\n  lng: 2,\n)").unwrap(),
       pnt.to_ron_string().unwrap()
