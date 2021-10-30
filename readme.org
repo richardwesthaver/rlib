@@ -1,0 +1,106 @@
+# Created 2021-10-30 Sat 08:24
+#+title: rlib
+#+author: ellis
+- what -- a Rust system library
+- why -- develop next-gen applications and services
+- how -- a common interface for low-level modules
+- status -- EXPERIMENTAL
+- [[https://hg.rwest.io/rlib][src]] <-
+- [[https://docs.rwest.io/rlib][docs]] <-
+* Usage
+This crate is not (yet) published on crates.io. To get started you'll need
+to clone the [[https://hg.rwest.io/rlib][repo]] and add it as a dependency to your project like so:
+#+begin_src toml
+  [package]
+  name = "foo"
+  #...
+  [dependencies]
+  rlib = { version = "0.1.0", path = "../rlib", features = ["cli","kala","anyhow"]} #include some features
+#+end_src
+
+then just use the modules in your code:
+#+begin_src rust
+  use rlib::{ctx, logger, kala};
+  use rlib::util::Result;
+  #[ctx::main]
+  async fn main() -> Result<()> {
+    logger::flexi("debug")?;
+    println!("greetings stranger!");
+    kala::cmd::sys::describe_host();
+    Ok(())
+  }
+#+end_src
+
+Once our local cargo package registry is complete, instructions will
+be included for how to use this crate from within a =shed= development
+environment.
+
+* Crates
+=rlib= is split into separate crates with a single [[https://doc.rust-lang.org/book/ch14-03-cargo-workspaces.html][workspace]]
+library.
+
+- obj
+  - [[https://docs.rwest.io/rlib/doc/obj][API docs]]
+  =Objects= are pre-defined Rust structs that can easily encode to RON,
+  JSON or Bincode, and tagged with metadata such as an =Id=, for easy
+  indexing. They implement a few traits, namely =Objective= and
+  =Identity= which define common functions.
+
+  Objects can be initialized using the =Objective= methods, which allows
+  all fields in their type definition to be decoded from JSON, RON, or
+  bincode. Some Objects also provide methods used to parse the
+  underlying type itself, such as =Wav= for .wav audio files and =Org=
+  for .org text files.
+- ctx
+  - [[https://docs.rwest.io/rlib/doc/ctx][API docs]]
+  Async runtime context(s).
+- eve
+  - [[https://docs.rwest.io/rlib/doc/eve][API docs]]
+  Async event queue (io_uring). Linux only and very experimental
+- net
+  - [[https://docs.rwest.io/rlib/doc/net][API docs]]
+  Network modules for building clients/servers.
+- db
+  - [[https://docs.rwest.io/rlib/doc/db][API docs]]
+  Database modules
+- alch
+  - [[https://docs.rwest.io/rlib/doc/alch][API docs]]
+  Allocator implementations for the niche.
+- hash
+  - [[https://docs.rwest.io/rlib/doc/hash][API docs]]
+  Hash algorithms. (re-exported in =crypto= too)
+- logger
+  - [[https://docs.rwest.io/rlib/doc/logger][API docs]]
+  Logging essentials including a runtime context and macros from the =log= crate
+- math
+  - [[https://docs.rwest.io/rlib/doc/math][API docs]]
+  TBD
+- flate
+  - [[https://docs.rwest.io/rlib/doc/flate][API docs]]
+  Compression module swiss-army knife built around =zstd=.
+- crypto
+  Crypto /primitives/.
+  - [[https://ed25519.cr.yp.to/][ed25519]] and [[https://github.com/dalek-cryptography/ed25519-dalek][ed25519-dalek]] public-key signatures
+  - [[https://cr.yp.to/snuffle.html][Salsa20]] stream cipher + [[https://cr.yp.to/snuffle/xsalsa-20081128.pdf][XSalsa20]]
+  - [[https://nacl.cr.yp.to/secretbox.html][NaCl]] (TBD)
+  - [[https://docs.rwest.io/rlib/doc/crypto][API docs]]
+- audio
+  - [[https://docs.rwest.io/rlib/doc/audio][API docs]]
+  Cross-platform audio device detection and playback.
+- kala
+  Handy /offline/ functions.
+  - [[https://docs.rwest.io/rlib/doc/kala][API docs]]
+- dmc
+  TBD
+  - [[https://docs.rwest.io/rlib/doc/dmc][API docs]]
+- dts
+  - [[https://docs.rwest.io/rlib/doc/dts][API docs]]
+  Experimental types (Monads and GATs and such)
+- ui
+  - [[https://docs.rwest.io/rlib/doc/ui][API docs]]
+  TBD
+- util
+  - [[https://docs.rwest.io/rlib/doc/util][API docs]]
+  Utilities and development tools designed to reduce boilerplate code
+  for build scripts and binaries. Includes wrappers for =anyhow=,
+  =clap=, =chrono=, and some other useful things.
