@@ -1,1 +1,1 @@
-pub use rocksdb::{CompactOptions, compaction_filter::CompactionFilter};
+pub use rocksdb::{compaction_filter::CompactionFilter, CompactOptions};

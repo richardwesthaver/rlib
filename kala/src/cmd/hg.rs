@@ -1,6 +1,5 @@
 //! Mercurial command module
-use std::result::Result;
-use std::io::Error;
+use std::{io::Error, result::Result};
 
 use ctx::tokio::process::Command;
 use logger::log::debug;

@@ -1,7 +1,9 @@
 //! ui library
 use crossterm::{cursor, execute, queue, style, terminal, Result};
-use std::io::{stdout, BufWriter, Stdout, Write};
-use std::time::{Duration, Instant};
+use std::{
+  io::{stdout, BufWriter, Stdout, Write},
+  time::{Duration, Instant},
+};
 
 pub struct Ui {
   pub canvas: Vec<Vec<char>>,
@@ -12,8 +14,8 @@ pub struct Ui {
 }
 
 pub fn clear(w: &mut BufWriter<Stdout>) -> Result<()> {
-    queue!(w, terminal::Clear(terminal::ClearType::All))?;
-    Ok(())
+  queue!(w, terminal::Clear(terminal::ClearType::All))?;
+  Ok(())
 }
 
 pub fn run() -> Result<()> {

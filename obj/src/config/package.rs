@@ -1,11 +1,7 @@
 //! cfg::config::package
 //!
 //! Package configuration primitives
-use crate::{LibraryConfig,
-	    ProgramConfig,
-	    RepoConfig,
-	    MetaConfig,
-};
+use crate::{LibraryConfig, MetaConfig, ProgramConfig, RepoConfig};
 
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;

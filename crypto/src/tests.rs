@@ -1,7 +1,6 @@
-use salsa20::XSalsa20;
 use salsa20::{
   cipher::{generic_array::GenericArray, NewCipher, StreamCipher},
-  Salsa20,
+  Salsa20, XSalsa20,
 };
 const KEY_BYTES: usize = 32;
 const IV_BYTES: usize = 8;

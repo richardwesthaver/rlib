@@ -2,8 +2,7 @@
 //!
 //! Network configuration primitives
 use serde::{Deserialize, Serialize};
-use std::fmt;
-use std::net::SocketAddr;
+use std::{fmt, net::SocketAddr};
 
 /// Network configuration
 #[derive(Serialize, Deserialize, Hash, Debug, PartialEq, Clone)]

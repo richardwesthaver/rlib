@@ -2,7 +2,7 @@
 default = "crates-io"
 [registries.crater]
 index = "https://github.com/richardwesthaver/crater-index.git"
-local-registry = "/mnt/cia/src/crater/crates"
+local-registry = "~/shed/src/contrib/crater/crates"
 [registries.crates-io]
 index = "https://github.com/rust-lang/crates.io-index.git"
 

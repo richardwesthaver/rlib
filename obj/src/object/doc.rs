@@ -6,8 +6,7 @@ pub mod org;
 
 use crate::Objective;
 use serde::{Deserialize, Serialize};
-use std::fmt;
-use std::str::FromStr;
+use std::{fmt, str::FromStr};
 
 /// Document object
 #[derive(Serialize, Deserialize, Debug, Hash, PartialEq)]

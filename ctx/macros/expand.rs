@@ -1,8 +1,11 @@
 use proc_macro2::TokenStream;
 use quote::quote;
-use syn::parse::{Parse, ParseStream};
-use syn::punctuated::Punctuated;
-use syn::{parse_quote, Error, ItemFn, Result, Token};
+use syn::{
+  parse::{Parse, ParseStream},
+  parse_quote,
+  punctuated::Punctuated,
+  Error, ItemFn, Result, Token,
+};
 
 #[derive(Copy, Clone, PartialEq)]
 pub enum Mode {

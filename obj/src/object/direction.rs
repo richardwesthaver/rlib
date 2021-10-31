@@ -1,6 +1,5 @@
 //! # Direction types
-use crate::Error;
-use crate::{Deserialize, Serialize};
+use crate::{Deserialize, Error, Serialize};
 use std::str::FromStr;
 #[derive(Debug, Default, Serialize, Deserialize)]
 pub enum CardinalDirection {

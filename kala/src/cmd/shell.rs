@@ -1,10 +1,8 @@
 //! Shell command module
 use crate::Result;
 use cmd_lib::{run_cmd, CmdResult};
-use ctx::tokio::io::Result as CR;
-use ctx::tokio::process::Command;
-use std::collections::HashMap;
-use std::process::Output;
+use ctx::tokio::{io::Result as CR, process::Command};
+use std::{collections::HashMap, process::Output};
 /// GNU Makefile command
 pub async fn make(args: Vec<&str>) -> CR<Output> {
   Command::new("make")

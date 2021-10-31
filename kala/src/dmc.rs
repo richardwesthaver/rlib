@@ -7,9 +7,11 @@ use rustyline::{
   validate::{self, MatchingBracketValidator, Validator},
   Cmd, CompletionType, Config, Context, EditMode, Editor, KeyEvent,
 };
-use std::borrow::Cow::{self, Borrowed, Owned};
-use std::env;
-use std::path::PathBuf;
+use std::{
+  borrow::Cow::{self, Borrowed, Owned},
+  env,
+  path::PathBuf,
+};
 
 use rustyline_derive::Helper;
 

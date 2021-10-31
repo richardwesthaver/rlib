@@ -14,8 +14,7 @@ pub mod temperature;
 #[cfg(test)]
 mod test {
   use super::*;
-  use std::fs;
-  use std::str::FromStr;
+  use std::{fs, str::FromStr};
   #[test]
   fn test_location_points() {
     let pnt = location::Point::new(&1.0, &2.0);

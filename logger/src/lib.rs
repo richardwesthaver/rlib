@@ -1,6 +1,5 @@
 //! logger library
-use flexi_logger::{with_thread, AdaptiveFormat, FileSpec};
-use flexi_logger::{Duplicate, Logger, LoggerHandle};
+use flexi_logger::{with_thread, AdaptiveFormat, Duplicate, FileSpec, Logger, LoggerHandle};
 pub use log;
 use log::{Level, LevelFilter, Metadata, Record};
 

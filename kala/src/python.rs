@@ -4,17 +4,19 @@ use crate::cmd::input::rustyline;
 use logger::log::{debug, error, warn};
 use util::cli::ArgMatches;
 
-use rustpython_vm::builtins::{PyDictRef, PyStrRef};
 use rustpython_vm::{
-  builtins::PyInt, compile, exceptions::print_exception, match_class, scope::Scope, stdlib::sys,
-  InitParameter, Interpreter, ItemProtocol, PyResult, PySettings, TypeProtocol, VirtualMachine,
+  builtins::{PyDictRef, PyInt, PyStrRef},
+  compile,
+  exceptions::print_exception,
+  function::ArgIterable,
+  match_class,
+  scope::Scope,
+  stdlib::sys,
+  InitParameter, Interpreter, ItemProtocol, PyResult, PySettings, TryFromObject, TypeProtocol,
+  VirtualMachine,
 };
-use rustpython_vm::{function::ArgIterable, TryFromObject};
 
-use std::env;
-use std::path::PathBuf;
-use std::process;
-use std::str::FromStr;
+use std::{env, path::PathBuf, process, str::FromStr};
 
 /// The main cli of the `rustpython` interpreter. This function will
 /// exit with `process::exit()` based on the return code of the python
@@ -308,10 +310,10 @@ fn run_script(vm: &VirtualMachine, scope: Scope, script_file: &str) -> PyResult<
 //
 
 use rustpython_parser::error::{LexicalErrorType, ParseErrorType};
-use rustpython_vm::readline::{Readline, ReadlineResult};
 use rustpython_vm::{
   builtins::PyBaseExceptionRef,
   compile::{CompileError, CompileErrorType},
+  readline::{Readline, ReadlineResult},
 };
 
 enum ShellExecResult {

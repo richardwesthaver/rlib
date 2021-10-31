@@ -3,27 +3,27 @@
 #![feature(derive_default_enum)]
 pub use ron;
 
-mod id;
 mod coll;
 mod err;
+mod id;
 
 mod config;
 mod object;
 
-pub use id::{NameSpace, Domain, Id};
 pub use coll::{Coll, Collection};
 pub use err::{Error, Result};
+pub use id::{Domain, Id, NameSpace};
 
 #[cfg(feature = "org")]
 pub use object::doc::org::Org;
 
 pub use object::{
   color::Color,
-  location::{Point, City},
-  direction::{CardinalDirection, RelativeDirection, EdgeDirection},
+  direction::{CardinalDirection, EdgeDirection, RelativeDirection},
   doc::{Doc, DocExtension},
+  location::{City, Point},
   media::{Media, MediaExtension},
-  meta::{Meta, Property, Summary, Note},
+  meta::{Meta, Note, Property, Summary},
   temperature::Temperature,
 };
 
@@ -46,13 +46,11 @@ pub use config::{
   project::ProjectConfig,
   registry::RegistryConfig,
   repo::RepoConfig,
-  user::{UserConfig, TmuxSessionConfig, TmuxWindowConfig, TmuxPaneConfig, ShellConfig},
-  
+  user::{ShellConfig, TmuxPaneConfig, TmuxSessionConfig, TmuxWindowConfig, UserConfig},
 };
 
 use ron::extensions::Extensions;
-use serde::de::DeserializeOwned;
-use serde::{Deserialize, Serialize};
+use serde::{de::DeserializeOwned, Deserialize, Serialize};
 
 use std::io;
 

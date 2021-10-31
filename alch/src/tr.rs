@@ -1,6 +1,7 @@
-use std::alloc::System;
-use std::alloc::{GlobalAlloc, Layout};
-use std::sync::atomic::{AtomicU64, Ordering};
+use std::{
+  alloc::{GlobalAlloc, Layout, System},
+  sync::atomic::{AtomicU64, Ordering},
+};
 
 /// a simple global allocator for tracing memory usage
 /// from https://github.com/datafuselabs/databend/issues/1148#issuecomment-907829698

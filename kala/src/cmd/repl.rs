@@ -4,8 +4,7 @@
 //! needs to be available on your path. These don't offer much
 //! utility, but other embedded REPLs are available (see python module
 //! in crate root)
-use ctx::tokio::io::Result as CR;
-use ctx::tokio::process::Command;
+use ctx::tokio::{io::Result as CR, process::Command};
 use std::process::Output;
 
 #[macro_export]

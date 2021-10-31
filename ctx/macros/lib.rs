@@ -7,8 +7,7 @@ extern crate proc_macro;
 mod expand;
 
 use proc_macro::TokenStream;
-use syn::parse_macro_input;
-use syn::punctuated::Punctuated;
+use syn::{parse_macro_input, punctuated::Punctuated};
 
 use self::expand::{expand, Mode};
 

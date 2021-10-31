@@ -1,16 +1,23 @@
 //! cmd/tmux.rs --- tmux commands
 use crate::Result;
 use logger::log::error;
-use obj::TmuxSessionConfig;
-use obj::RelativeDirection::*;
+use obj::{RelativeDirection::*, TmuxSessionConfig};
 pub use tmux_interface::{HasSession, NewSession, TargetSession, TmuxCommand};
 
 pub fn tmux_attach_session(name: &str) -> Result<()> {
-  TmuxCommand::new().attach_session().target_session(name).output().unwrap();
+  TmuxCommand::new()
+    .attach_session()
+    .target_session(name)
+    .output()
+    .unwrap();
   Ok(())
 }
 pub fn tmux_kill_session(name: &str) -> Result<()> {
-  TmuxCommand::new().kill_session().target_session(name).output().unwrap();
+  TmuxCommand::new()
+    .kill_session()
+    .target_session(name)
+    .output()
+    .unwrap();
   Ok(())
 }
 /// Build a tmux session from `TmuxSessionConfig`
