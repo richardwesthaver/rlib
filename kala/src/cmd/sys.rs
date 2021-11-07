@@ -1,8 +1,6 @@
-//! kala::cmd::sys modules
-//!
-//! system info commands, for the self-conscious.
+//! cmd/sys.rs --- sys commands
 use crate::Result;
-use ctx::tokio::process::Command;
+use tokio::process::Command;
 pub use flate::pack;
 use logger::log::debug;
 use std::collections::HashMap;

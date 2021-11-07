@@ -8,16 +8,12 @@ documentation = "https://docs.rwest.io/rlib/flate"
 repository = "https://hg.rwest.io/rlib"
 publish = ["crater"]
 
-[features]
-async = ["ctx", "zstd-safe"]
-
 [dependencies]
 tar = "0.4.37"
 zstd = { version = "0.9.0", default-features = false }
 zstd-safe = { version = "4.1.1", features = ["experimental"], optional=true }
-ctx = { version = "0.1.0", path = "../ctx", optional = true }
 zip = { version = "0.5", default-features = false, features = ["deflate"] }
 flate2 = {version = "1.0", optional = true, features = ["rust_backend", "tokio"], default-features=false }
-
+rayon = { version = "1.5.1", optional = true }
 [dev-dependencies]
 tempfile = "3.2"

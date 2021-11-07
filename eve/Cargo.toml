@@ -9,7 +9,7 @@ repository = "https://hg.rwest.io/rlib"
 publish = ["crater"]
 
 [target.'cfg(unix)'.dependencies]
-io-uring = "0.5.1"
+io-uring = "0.5.2"
 
 [dev-dependencies]
 libc = "0.2.99"

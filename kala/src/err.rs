@@ -1,6 +1,5 @@
 //! err.rs --- kala errors
 use std::{fmt, io};
-
 /// kala Result type
 pub type Result<T> = std::result::Result<T, Error>;
 

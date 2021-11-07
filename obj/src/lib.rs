@@ -136,8 +136,8 @@ pub trait Objective {
       writer,
       &self,
       ron::ser::PrettyConfig::new()
-        .with_indentor("  ".to_owned())
-        .with_extensions(Extensions::all()),
+        .indentor("  ".to_owned())
+        .extensions(Extensions::all()),
     )?)
   }
 
@@ -147,7 +147,7 @@ pub trait Objective {
   {
     Ok(ron::ser::to_string_pretty(
       &self,
-      ron::ser::PrettyConfig::new().with_indentor("  ".to_owned()),
+      ron::ser::PrettyConfig::new().indentor("  ".to_owned()),
     )?)
   }
 

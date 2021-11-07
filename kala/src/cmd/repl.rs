@@ -1,10 +1,9 @@
 //! cmd/repl.rs --- REPLs for programming languages
 //!
-//! note that all of these commands call some binary at runtime which
-//! needs to be available on your path. These don't offer much
-//! utility, but other embedded REPLs are available (see python module
-//! in crate root)
-use ctx::tokio::{io::Result as CR, process::Command};
+//! note that all of these commands depend on something in your
+//! $PATH. These don't offer much, but other embedded REPLs are
+//! available (see `python` and `dmc` modules)
+use tokio::{io::Result as CR, process::Command};
 use std::process::Output;
 
 #[macro_export]

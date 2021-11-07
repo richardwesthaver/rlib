@@ -1,11 +1,10 @@
-//! cmd.rs --- kalash commands
+//! cmd.rs --- kala commands
 //!
-//! collection of wrapper wrapper functions for system features
+//! collection of .. commands
 
 #[cfg(feature = "hg")]
 pub mod hg;
 pub mod shell;
-
 #[cfg(feature = "input")]
 pub mod input;
 #[cfg(feature = "midi")]

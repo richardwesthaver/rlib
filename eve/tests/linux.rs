@@ -2,15 +2,6 @@ use std::{fs, io};
 
 #[cfg(target_os = "linux")]
 #[test]
-fn on_linux() {
-  let output = std::process::Command::new("uname")
-    .output()
-    .expect("should be linux!");
-  assert_eq!(b"Linux\n", output.stdout.as_slice());
-}
-
-#[cfg(target_os = "linux")]
-#[test]
 fn io_uring_result() -> io::Result<()> {
   use std::os::unix::io::AsRawFd;
 

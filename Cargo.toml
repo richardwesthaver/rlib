@@ -4,16 +4,36 @@ version = "0.1.0"
 authors = ["ellis"]
 edition = "2021"
 description = "Richard's Rust Library"
-documentation = "https://docs.rwest.io/rlib"
+documentation = "https://rwest.io/d/rlib"
 repository = "https://hg.rwest.io/rlib"
 publish = ["crater"]
+
+[workspace]
+members = [
+  "ui",
+  "kala",
+  "db",
+  "math",
+  "net",
+  "obj",
+  "crypto",
+  "hash",
+  "flate",
+  "eve",
+  "audio",
+  "alch",
+  "logger",
+  "util",
+  "organ",
+  "fu",
+]
 
 [package.metadata.docs.rs]
 all-features = true
 
 [features]
-default = ["ctx", "logger"]
-full = ["ctx", "obj/full", "kala/full", "net/full", "flate", "util/full", "hash", "crypto", "logger", "db"]
+default = []
+full = ["obj/full", "kala/full", "net/full", "flate", "util/full", "hash", "crypto", "logger", "db"]
 cli = ["util/cli"]
 vc = ["hg", "git"]
 hg = ["kala/hg", "obj/hg"]
@@ -33,7 +53,6 @@ tmux = ["kala/tmux"]
 [dependencies]
 obj = { version = "0.1.0", path = "obj", optional = true }
 kala = { version = "0.1.0", path = "kala", optional = true }
-ctx = { version = "0.1.0", path = "ctx", optional = true }
 net = { version = "0.1.0", path = "net", optional = true }
 db = { version = "0.1.0", path = "db", optional = true }
 flate = { version = "0.1.0", path = "flate", optional = true }
@@ -42,27 +61,7 @@ crypto = { version = "0.1.0", path = "crypto", optional = true }
 logger = { version = "0.1.0", path = "logger", optional = true }
 util = { version = "0.1.0", path = "util", optional = true }
 fu = { version = "0.1.0", path = "fu", optional = true }
+audio = { version = "0.1.0", path = "audio", optional = true }
 alch = { version = "0.1.0", path = "alch", optional = true }
 math = { version = "0.1.0", path = "math", optional = true }
 ui = { version = "0.1.0", path = "ui", optional = true }
-
-[workspace]
-members = [
-  "ui",
-  "kala",
-  "ctx",
-  "db",
-  "math",
-  "net",
-  "obj",
-  "crypto",
-  "hash",
-  "flate",
-  "eve",
-  "audio",
-  "alch",
-  "logger",
-  "util",
-  "organ",
-  "fu",
-]

@@ -1,8 +1,5 @@
 //! eve - event engines
 use std::{os::unix::io::RawFd, ptr};
-
-pub mod cbuff;
-pub use io_uring;
 use io_uring::{opcode, squeue, types, SubmissionQueue};
 
 #[derive(Clone, Debug)]
@@ -51,7 +48,3 @@ impl AcceptCount {
     sq.sync();
   }
 }
-
-#[cfg(test)]
-#[test]
-fn bench() {}

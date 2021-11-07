@@ -8,9 +8,6 @@ pub use audio;
 #[cfg(feature = "crypto")]
 #[doc(inline)]
 pub use crypto;
-#[cfg(feature = "ctx")]
-#[doc(inline)]
-pub use ctx;
 #[cfg(feature = "db")]
 #[doc(inline)]
 pub use db;
