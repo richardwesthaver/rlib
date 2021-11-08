@@ -1,6 +1,5 @@
-# Created 2021-11-06 Sat 21:33
+# Created 2021-11-07 Sun 20:59
 #+title: rlib
-#+author: ellis
 - what -- a Rust system library
 - why -- develop next-gen applications and services
 - how -- a common interface for low-level modules
