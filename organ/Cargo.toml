@@ -1,0 +1,18 @@
+[package]
+name = "organ"
+version = "0.1.0"
+authors = ["ellis"]
+edition = "2018"
+description = "Org-mode parser"
+documentation = "https://docs.rwest.io/rlib"
+repository = "https://hg.rwest.io/rlib"
+publish = ["crater"]
+build = "build.rs"
+
+[dependencies]
+lalrpop-util = { version = "0.19.6", features = ["lexer"] }
+regex = "1"
+
+[build-dependencies]
+lalrpop = "0.19.6"
+
