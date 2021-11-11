@@ -13,11 +13,12 @@ pub mod temperature;
 
 #[cfg(test)]
 mod test {
+  use crate::Objective;
   use super::*;
   use std::{fs, str::FromStr};
   #[test]
   fn test_location_points() {
-    let pnt = location::Point::new(&1.0, &2.0);
+    let pnt = location::Point::new(1.0, 2.0);
     assert_eq!(
       String::from_str("(\n  lat: 1,\n  lng: 2,\n)").unwrap(),
       pnt.to_ron_string().unwrap()
@@ -38,23 +39,15 @@ mod test {
   #[test]
   fn test_docs() {
     let doc = doc::Doc::default();
-    //  assert_eq!(doc.extension(), DocExtension::from_str("org").unwrap());
+    assert_eq!(doc.extension, doc::DocExtension::from_str("org").unwrap());
   }
 
   #[test]
   fn test_media() {
-    let media = media::Media::new("wav");
+    let media = media::Media::new("test_media","wav");
     assert_eq!(
       media.extension,
       media::MediaExtension::from_str("wav").unwrap()
     );
-  }
-
-  /// Test Org parser functionality
-  #[cfg(feature = "org")]
-  #[test]
-  fn test_org_docs() {
-    let org = doc::Org::new();
-    assert!(org.encode().is_ok());
   }
 }

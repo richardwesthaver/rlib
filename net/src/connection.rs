@@ -44,8 +44,8 @@ pub struct LocalSocket {
 
 #[derive(PartialEq, Hash, Eq, Clone, PartialOrd, Ord, Debug, Copy)]
 pub struct Connection {
-  pub remote_socket: Socket,
   pub local_socket: LocalSocket,
+  pub remote_socket: Socket,
 }
 
 pub fn display_ip_or_host(ip: IpAddr, ip_to_host: &HashMap<IpAddr, String>) -> String {

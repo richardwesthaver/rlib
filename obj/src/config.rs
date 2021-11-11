@@ -28,9 +28,9 @@ mod test {
         library: None)"#,
     )
     .unwrap();
-    assert_eq!(pkg, PackageConfig::new("test-pack-cfg"));
-    pkg.repo = Some(repo::RepoConfigRepoConfig::new());
-    assert_eq!(repo::RepoConfig::new(), pkg.repo.unwrap());
+    assert_eq!(pkg, package::PackageConfig::new("test-pack-cfg"));
+    pkg.repo = repo::RepoConfig::new();
+    assert_eq!(repo::RepoConfig::new(), pkg.repo);
   }
 
   #[test]
@@ -47,12 +47,6 @@ mod test {
     net.socket = "0.0.0.0:0".parse().unwrap();
     assert_eq!(net.socket, "0.0.0.0:0".parse().unwrap());
     assert_ne!(net, network::NetworkConfig::default());
-  }
-
-  #[test]
-  fn test_repo_type() {
-    assert_eq!(repo::RepoType::GitRepository.to_string(), "git");
-    assert_eq!(repo::RepoType::MercurialRepository.to_string(), "hg");
   }
 
   #[test]

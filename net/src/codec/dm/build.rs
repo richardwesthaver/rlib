@@ -27,8 +27,8 @@ pub struct Builder {
 impl Builder {
     pub fn new() -> Self {
         Builder {
-            // Default max frame length of 8MB
-            max_frame_len: 8 * 1_024 * 1_024,
+            // Default max frame length of 4KB
+            max_frame_len: 4 * 1_024,
             // Default byte length of 4
             length_field_len: 4,
             // Default to the header field being at the start of the header.

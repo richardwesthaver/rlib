@@ -5,33 +5,23 @@
 pub use rusty_ulid::{self, Ulid};
 use std::{fmt, str::FromStr};
 pub use uuid::Uuid;
-
+pub use hash::Id;
 /// Identity trait
 ///
 /// Defines Identity-related behaviors
 pub trait Identity: Sized {
   /// return the hashed bytes of an ObjectId
   fn id(&self) -> Id;
-  /// return the hexcode string of an ObjectId
-  fn hex_id(&self) -> String;
-  /// return the human-readable string of an ObjectId
-  fn string_id(&self) -> String;
-  /// return the namespace of an ObjectId
-  fn namespace_id(&self) -> String;
 }
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
-pub enum Id {
-  ObjectId(u128), // u128
-  UnitId(u32),    // u32
-  AtomId(u16),    // u16
-}
+pub struct ObjectId(u128);
 
 pub struct NameSpace {
-  pub custom_id: Option<String>,
-  pub id: Id,
-  pub uri: Vec<Id>,
-  pub next: Option<Id>,
+  pub prefix: Option<String>,
+  pub capacity: u64,
+  pub route: Vec<Id>,
+  pub key: Option<Id>,
 }
 
 pub struct Domain {
@@ -39,41 +29,39 @@ pub struct Domain {
   pub id: Id,
 }
 
-impl From<Uuid> for Id {
+impl From<Uuid> for ObjectId {
   fn from(uuid: Uuid) -> Self {
-    Id::ObjectId(uuid.as_u128())
+    ObjectId(uuid.as_u128())
   }
 }
 
-impl From<Ulid> for Id {
+impl From<Ulid> for ObjectId {
   fn from(ulid: Ulid) -> Self {
-    Id::ObjectId(u128::from(ulid))
+    ObjectId(u128::from(ulid))
   }
 }
 
-impl From<u128> for Id {
+impl From<u128> for ObjectId {
   fn from(src: u128) -> Self {
-    Id::ObjectId(src)
+    ObjectId(src)
   }
 }
 
-impl FromStr for Id {
+impl FromStr for ObjectId {
   type Err = ();
-  fn from_str(input: &str) -> std::result::Result<Id, Self::Err> {
+  fn from_str(input: &str) -> std::result::Result<ObjectId, Self::Err> {
     match input {
-      i => Ok(Id::ObjectId(u128::from(Ulid::from_str(i).unwrap()))),
+      i => Ok(ObjectId(u128::from(Ulid::from_str(i).unwrap()))),
     }
   }
 }
 
-impl fmt::Display for Id {
+impl fmt::Display for ObjectId {
   fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
     match *self {
-      Id::ObjectId(i) => {
+      ObjectId(i) => {
         write!(f, "{}", Ulid::from(i))
       }
-      Id::UnitId(i) => write!(f, "{}", i),
-      Id::AtomId(i) => write!(f, "{}", i),
     }
   }
 }
