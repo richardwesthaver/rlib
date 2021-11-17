@@ -1,4 +1,4 @@
-# Created 2021-11-17 Wed 00:43
+# Created 2021-11-17 Wed 03:41
 #+title: rlib
 - what -- a Rust system library
 - why -- develop next-gen applications and services
