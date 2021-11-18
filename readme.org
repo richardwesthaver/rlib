@@ -1,4 +1,4 @@
-# Created 2021-11-17 Wed 06:21
+# Created 2021-11-17 Wed 20:41
 #+title: rlib
 - what -- a Rust system library
 - why -- develop next-gen applications and services
@@ -8,8 +8,6 @@
 - [[https://docs.rwest.io/rlib][docs]] <-
 
 #+results: 
-| key     | val                                      |
-|---------+------------------------------------------|
 | name    | nil                                      |
 | version | alpha-0.1                                |
 | rev     | [[https://hg.rwest.io/nil/rev/nil][nil]] |
