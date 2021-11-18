@@ -3,16 +3,14 @@
 #![feature(derive_default_enum)]
 pub use ron;
 
-mod coll;
 mod err;
 mod id;
 
 mod config;
 mod object;
 
-pub use coll::{Coll, Collection};
 pub use err::{Error, Result};
-pub use id::{Domain, Id, NameSpace};
+pub use id::{Domain, Id, NameSpace, Identity};
 
 #[cfg(feature = "org")]
 pub use object::doc::org::Org;

@@ -1,7 +1,9 @@
 use std::{fmt, net::SocketAddr, time::Instant};
 use bytes::{Buf, BufMut, BytesMut};
 use crate::proto::coding::BufExt;
+
 pub const MAX_CID_SIZE: usize = 20;
+
 /// Events sent from an Endpoint to a Connection
 #[derive(Debug)]
 pub struct ConnectionEvent(pub(crate) ConnectionEventInner);

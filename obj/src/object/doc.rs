@@ -11,13 +11,13 @@ use std::{fmt, str::FromStr};
 /// Document object
 #[derive(Serialize, Deserialize, Debug, Hash, PartialEq)]
 pub struct Doc {
-  extension: DocExtension,
+  pub extension: DocExtension,
 }
 
 impl Doc {
-  pub fn new(_ext: &str) -> Self {
+  pub fn new(ext: &str) -> Self {
     Doc {
-      extension: DocExtension::from_str("").unwrap(),
+      extension: DocExtension::from_str(ext).unwrap(),
     }
   }
 }

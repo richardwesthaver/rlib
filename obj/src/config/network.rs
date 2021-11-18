@@ -9,18 +9,21 @@ use std::{fmt, net::SocketAddr};
 pub struct NetworkConfig {
   /// a socket to bind
   pub socket: SocketAddr,
+  /// a proxy to forward packets from
+  pub proxy: Option<SocketAddr>,
   /// tunnel to use
   pub tunnel: Option<String>,
   /// network engine to attach
   pub engine: EngineType,
   /// peers to register AOT
-  pub peers: Option<Vec<(String, String)>>,
+  pub peers: Option<Vec<SocketAddr>>,
 }
 
 impl Default for NetworkConfig {
   fn default() -> Self {
     NetworkConfig {
       socket: "127.0.0.1:0".parse().unwrap(),
+      proxy: None,
       tunnel: None,
       engine: EngineType::default(),
       peers: None,
