@@ -1,21 +1,31 @@
-# Created 2021-11-17 Wed 23:57
+# Created 2021-11-18 Thu 00:54
 #+title: rlib
-- what -- a Rust system library
-- why -- develop next-gen applications and services
-- how -- a common interface for low-level modules
-- status -- EXPERIMENTAL
-- [[https://hg.rwest.io/rlib][src]] <-
-- [[https://docs.rwest.io/rlib][docs]] <-
+=rlib= is a Rust Library. It provides a loose collection of /modules/
+which are conditionally compiled via [[https://doc.rust-lang.org/cargo/reference/features.html][features]]. Modules include
+boiler-plate, wrappers, errors, helper functions, and some custom
+interfaces.
+
+One thing this library does *not* do is re-export an [[https://rust-lang.github.io/async-book/08_ecosystem/00_chapter.html#async-runtimes][async runtime]]. In
+earlier versions it re-exported both [[https://github.com/rayon-rs/rayon][rayon]] and [[https://github.com/tokio-rs/tokio][tokio]] as a convenience
+to the programmer but this has been phased out. There are however many
+=async= functions available in this library, so you should come
+equipped with your own runtime if you plan to =.await=.
+
+This is a /personal/ library which is unfit for production use as it
+is quite bloated, some of the individual modules are useful on their
+own though.
+- [[https://hg.rwest.io/rlib][src]]
+- [[https://docs.rwest.io/rlib][docs]]
 
 #+results: 
 | name    | [[https://rwest.io/m#rlib][rlib]]                                                                                     |
 | version | alpha-0.1                                                                                                             |
-| vc      | [[https://hg.rwest.io/rlib/rev/b51b3283e20a][91+:b51b3283e20a]], [[https://github.com/richardwesthaver/rlib][github]] |
-| updated | 22 hours ago                                                                                                          |
-| count   | 5718 lines, 11028 words                                                                                               |
+| vc      | [[https://hg.rwest.io/rlib/rev/b90f4fe279ef][93+:b90f4fe279ef]], [[https://github.com/richardwesthaver/rlib][github]] |
+| updated | 23 hours ago                                                                                                          |
+| count   | 5719 lines, 11036 words                                                                                               |
 
 * Usage
-This crate is not (yet) published on crates.io. To get started you'll need
+This crate is not published on crates.io. To get started you'll need
 to clone the [[https://hg.rwest.io/rlib][repo]] and add it as a dependency to your project like so:
 #+begin_src toml
   [package]
