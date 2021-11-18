@@ -1,4 +1,4 @@
-# Created 2021-11-17 Wed 23:02
+# Created 2021-11-17 Wed 23:20
 #+title: rlib
 - what -- a Rust system library
 - why -- develop next-gen applications and services
@@ -10,7 +10,7 @@
 #+results: 
 | name    | [[https://rwest.io/m#rlib][rlib]]                                                                                 |
 | version | alpha-0.1                                                                                                         |
-| vc      | [[https://hg.rwest.io/rlib/rev/ed86cbe6f206][ed86cbe6f206]], [[https://github.com/richardwesthaver/rlib][github]] |
+| vc      | [[https://hg.rwest.io/rlib/rev/ee9179904360][ee9179904360]], [[https://github.com/richardwesthaver/rlib][github]] |
 | updated | 22 hours ago                                                                                                      |
 
 * Usage
