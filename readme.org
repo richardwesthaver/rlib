@@ -1,4 +1,4 @@
-# Created 2021-11-17 Wed 23:25
+# Created 2021-11-17 Wed 23:52
 #+title: rlib
 - what -- a Rust system library
 - why -- develop next-gen applications and services
@@ -8,10 +8,11 @@
 - [[https://docs.rwest.io/rlib][docs]] <-
 
 #+results: 
-| name    | [[https://rwest.io/m#rlib][rlib]]                                                                                 |
-| version | alpha-0.1                                                                                                         |
-| vc      | [[https://hg.rwest.io/rlib/rev/ee9179904360][ee9179904360]], [[https://github.com/richardwesthaver/rlib][github]] |
-| updated | 22 hours ago                                                                                                      |
+| name    | [[https://rwest.io/m#rlib][rlib]]                                                                                     |
+| version | alpha-0.1                                                                                                             |
+| vc      | [[https://hg.rwest.io/rlib/rev/b51b3283e20a][91+:b51b3283e20a]], [[https://github.com/richardwesthaver/rlib][github]] |
+| updated | 22 hours ago                                                                                                          |
+| count   | 5718 lines, 11028 words                                                                                               |
 
 * Usage
 This crate is not (yet) published on crates.io. To get started you'll need
