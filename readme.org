@@ -1,4 +1,4 @@
-# Created 2021-11-19 Fri 01:33
+# Created 2021-11-19 Fri 04:40
 #+title: rlib
 =rlib= is a Rust Library. It provides a loose collection of /modules/
 which are conditionally compiled via [[https://doc.rust-lang.org/cargo/reference/features.html][features]]. Modules include
@@ -16,12 +16,15 @@ is quite bloated, some of the individual modules are useful on their
 own though.
 
 #+results: 
+| info    |                                                                                                                       |
+|---------+-----------------------------------------------------------------------------------------------------------------------|
 | name    | [[https://rwest.io/m#rlib][rlib]]                                                                                     |
 | version | alpha-0.1                                                                                                             |
 | vc      | [[https://hg.rwest.io/rlib/rev/c3465cc34930][95+:c3465cc34930]], [[https://github.com/richardwesthaver/rlib][github]] |
-| updated | 24 hours ago                                                                                                          |
-| lines   | 6917 = λ:6179 #:253 _:952                                                                                             |
+| updated | 26 hours ago                                                                                                          |
+| lines   | 6946 = λ:6183 #:253 _:952                                                                                             |
 | langs   | (Org RON Rust Text Toml)                                                                                              |
+|---------+-----------------------------------------------------------------------------------------------------------------------|
 
 * Usage
 This crate is not published on crates.io. To get started you'll need
@@ -31,17 +34,16 @@ to clone the [[https://hg.rwest.io/rlib][repo]] and add it as a dependency to yo
   name = "foo"
   #...
   [dependencies]
-  rlib = { version = "0.1.0", path = "../rlib", features = ["kala","anyhow","logger"]} #include some features
+  rlib = { version = "0.1.0", path = "../rlib", features = ["kala","logger"]} #include some features
 #+end_src
 
 then just use the modules in your code:
 #+begin_src rust
   use rlib::{logger, kala};
   use rlib::util::Result;
-  async fn main() -> Result<()> {
-    logger::flexi("debug")?;
+  fn main() {
+    logger::flexi("debug").expect("logger init failed");
     println!("greetings stranger!");
     kala::cmd::sys::describe_host();
-    Ok(())
   }
 #+end_src
