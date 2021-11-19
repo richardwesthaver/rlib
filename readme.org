@@ -1,4 +1,4 @@
-# Created 2021-11-19 Fri 04:51
+# Created 2021-11-19 Fri 05:14
 #+title: rlib
 =rlib= is a Rust Library. It provides a loose collection of /modules/
 which are conditionally compiled via [[https://doc.rust-lang.org/cargo/reference/features.html][features]]. Modules include
@@ -16,15 +16,15 @@ is quite bloated, some of the individual modules are useful on their
 own though.
 
 #+results: 
-| info    |                                                                                                                       |
-|---------+-----------------------------------------------------------------------------------------------------------------------|
-| name    | [[https://rwest.io/m#rlib][rlib]]                                                                                     |
-| version | alpha-0.1                                                                                                             |
-| vc      | [[https://hg.rwest.io/rlib/rev/c3465cc34930][95+:c3465cc34930]], [[https://github.com/richardwesthaver/rlib][github]] |
-| updated | 26 hours ago                                                                                                          |
-| lines   | 6946 = λ:6183 #:253 _:952                                                                                             |
-| langs   | (Org RON Rust Text Toml)                                                                                              |
-|---------+-----------------------------------------------------------------------------------------------------------------------|
+| info    |                                                                                                                      |
+|---------+----------------------------------------------------------------------------------------------------------------------|
+| name    | [[https://rwest.io/m#rlib][rlib]]                                                                                    |
+| version | alpha-0.1                                                                                                            |
+| vc      | [[https://hg.rwest.io/rlib/rev/ea34d1911b80][99:ea34d1911b80]], [[https://github.com/richardwesthaver/rlib][github]] |
+| updated | 4 minutes ago                                                                                                        |
+| lines   | 7004 = λ:6182 #:253 _:952                                                                                            |
+| langs   | (Org RON Rust Text Toml)                                                                                             |
+|---------+----------------------------------------------------------------------------------------------------------------------|
 
 * Usage
 This crate is not published on crates.io. To get started you'll need
