@@ -43,10 +43,7 @@ pub struct Point {
 impl Point {
   /// Create a new Point from (f32, f32)
   pub fn new(lat: f32, lng: f32) -> Self {
-    Point {
-      lat: lat,
-      lng: lng,
-    }
+    Point { lat: lat, lng: lng }
   }
 
   /// Given an additional Point, and assuming Points are on Earth,

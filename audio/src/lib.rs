@@ -5,7 +5,7 @@ use std::{
   sync::{Arc, Mutex},
 };
 
-pub use cpal::traits::{DeviceTrait, StreamTrait, HostTrait};
+pub use cpal::traits::{DeviceTrait, HostTrait, StreamTrait};
 pub use hound::{Sample, SampleFormat, WavReader, WavSpec};
 
 /// convert between `cpal::SampleFormat` and `hound::SampleFormat`

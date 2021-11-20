@@ -1,8 +1,8 @@
 //! Mercurial command module
-use tokio::process::Command;
 use logger::log::debug;
 use obj::MercurialConfig;
 use std::{io::Error, process::Output, result::Result};
+use tokio::process::Command;
 /// Given a `HgwebConfig` struct, start the hgweb server and log to
 /// stdout.
 /// TODO: import old shed_multi_server

@@ -1,11 +1,6 @@
 //! hash - wrapper for hash algorithms and types
 
-pub use blake3::{
-  derive_key, hash, keyed_hash,
-  Hash as B3Hash,
-  Hasher as B3Hasher,
-  OutputReader
-};
+pub use blake3::{derive_key, hash, keyed_hash, Hash as B3Hash, Hasher as B3Hasher, OutputReader};
 pub use hex;
 use rand::Rng;
 use serde::{Deserialize, Serialize};

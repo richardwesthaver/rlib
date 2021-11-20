@@ -10,7 +10,7 @@ mod config;
 mod object;
 
 pub use err::{Error, Result};
-pub use id::{Domain, Id, NameSpace, Identity};
+pub use id::{Domain, Id, Identity, NameSpace};
 
 #[cfg(feature = "org")]
 pub use object::doc::org::Org;

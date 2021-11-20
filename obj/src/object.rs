@@ -13,8 +13,8 @@ pub mod temperature;
 
 #[cfg(test)]
 mod test {
-  use crate::Objective;
   use super::*;
+  use crate::Objective;
   use std::{fs, str::FromStr};
   #[test]
   fn test_location_points() {
@@ -44,7 +44,7 @@ mod test {
 
   #[test]
   fn test_media() {
-    let media = media::Media::new("test_media","wav");
+    let media = media::Media::new("test_media", "wav");
     assert_eq!(
       media.extension,
       media::MediaExtension::from_str("wav").unwrap()

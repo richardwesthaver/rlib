@@ -4,12 +4,12 @@
 
 #[cfg(feature = "hg")]
 pub mod hg;
-pub mod shell;
 #[cfg(feature = "input")]
 pub mod input;
 #[cfg(feature = "midi")]
 pub mod midi;
 pub mod repl;
+pub mod shell;
 #[cfg(feature = "sys")]
 pub mod sys;
 #[cfg(feature = "tmux")]

@@ -1,11 +1,10 @@
 //! cmd/x.rs --- X11 commands
 //!
 //! This module will only compile on GNU Linux.
-use tokio::{io::Result as CR, process::Command as Cmd};
-use std::process::Output;
 use logger::log::{debug, info, trace};
 use obj::DisplayConfig;
-use std::env;
+use std::{env, process::Output};
+use tokio::{io::Result as CR, process::Command as Cmd};
 // this import depends on x11 crate. the x11-sys build script fails on
 // non-gnu linux targets (including musl)
 use xrandr::XHandle;
@@ -21,9 +20,10 @@ pub async fn startx() {
   } else {
     info!("DISPLAY unset, starting X server.");
     Cmd::new("sh")
-      .args(["-c","'startx'"])
+      .args(["-c", "'startx'"])
       .output()
-      .await.expect("X didn't give it to ya");
+      .await
+      .expect("X didn't give it to ya");
   }
 }
 
@@ -53,8 +53,5 @@ pub async fn xrandr(cfg: DisplayConfig) -> CR<Output> {
   if cfg.primary == true {
     args.push("--primary");
   }
-  Cmd::new("xrandr")
-    .args(args)
-    .output()
-    .await
+  Cmd::new("xrandr").args(args).output().await
 }
