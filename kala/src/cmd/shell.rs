@@ -1,7 +1,7 @@
 //! cmd/shell.rs --- (async) Shell Commands
 use crate::Result;
-use tokio::{io::Result as CR, process::Command as Cmd};
 use std::process::Output;
+use tokio::{io::Result as CR, process::Command as Cmd};
 
 /// GNU Makefile command
 pub async fn make(args: Vec<&str>) -> CR<Output> {
@@ -43,7 +43,7 @@ pub async fn ffmpeg(args: Vec<&str>) -> CR<Output> {
 #[cfg(unix)]
 pub async fn fehbg(img_path: &str) -> CR<Output> {
   Cmd::new("feh")
-    .args(["--no-fehbg","--bg-center"])
+    .args(["--no-fehbg", "--bg-center"])
     .arg(img_path)
     .output()
     .await

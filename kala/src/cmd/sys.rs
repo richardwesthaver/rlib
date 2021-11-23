@@ -1,9 +1,9 @@
 //! cmd/sys.rs --- sys commands
 use crate::Result;
-use tokio::process::Command;
 pub use flate::pack;
 use logger::log::debug;
 use std::collections::HashMap;
+use tokio::process::Command;
 
 /// OS-specific browser command. supports Win/Mac/Linux
 pub async fn open_browser(url: &str) {

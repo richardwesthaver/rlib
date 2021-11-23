@@ -1,6 +1,6 @@
 //! eve - event engines
-use std::{os::unix::io::RawFd, ptr};
 use io_uring::{opcode, squeue, types, SubmissionQueue};
+use std::{os::unix::io::RawFd, ptr};
 
 #[derive(Clone, Debug)]
 pub enum Token {

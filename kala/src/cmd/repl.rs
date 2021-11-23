@@ -3,8 +3,8 @@
 //! note that all of these commands depend on something in your
 //! $PATH. These don't offer much, but other embedded REPLs are
 //! available (see `python` and `dmc` modules)
-use tokio::{io::Result as CR, process::Command};
 use std::process::Output;
+use tokio::{io::Result as CR, process::Command};
 
 #[macro_export]
 macro_rules! impl_cmd {
