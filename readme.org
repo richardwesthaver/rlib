@@ -1,4 +1,4 @@
-# Created 2021-11-23 Tue 04:46
+# Created 2021-11-24 Wed 03:12
 #+title: rlib
 =rlib= is a Rust Library. It provides a loose collection of /modules/
 which are conditionally compiled via [[https://doc.rust-lang.org/cargo/reference/features.html][features]]. Modules include
@@ -16,14 +16,14 @@ is quite bloated, some of the individual modules are useful on their
 own though.
 
 #+results: 
-|---------+------------------------------------------------------------------------------------------------------------------------|
-| name    | [[https://rwest.io/m#rlib][rlib]]                                                                                      |
-| version | alpha-0.1                                                                                                              |
-| vc      | [[https://hg.rwest.io/rlib/rev/597b9e0018fd][100+:597b9e0018fd]], [[https://github.com/richardwesthaver/rlib][github]] |
-| updated | 3 days ago                                                                                                             |
-| lines   | 7401 = λ:6195 #:253 _:953                                                                                              |
-| langs   | (Org RON Rust Text Toml)                                                                                               |
-|---------+------------------------------------------------------------------------------------------------------------------------|
+|---------+-----------------------------------------------------------------------------------------------------------------------|
+| name    | [[https://rwest.io/m#rlib][rlib]]                                                                                     |
+| version | alpha-0.1                                                                                                             |
+| vc      | [[https://hg.rwest.io/rlib/rev/f5ac22ebbdfc][101:f5ac22ebbdfc]], [[https://github.com/richardwesthaver/rlib][github]] |
+| updated | 63 minutes ago                                                                                                        |
+| lines   | 7402 = λ:6196 #:253 _:953                                                                                             |
+| langs   | (Org RON Rust Text Toml)                                                                                              |
+|---------+-----------------------------------------------------------------------------------------------------------------------|
 #+results: 
 | includes | (readme.org Cargo.toml rustfmt.toml ./*/) |
 
@@ -45,7 +45,7 @@ own though.
 | net          |   26 | 2021-11-02-23:09 |
 | obj          |   46 | 2021-11-02-22:37 |
 | organ        |   42 | 2021-10-19-03:16 |
-| readme.org   | 3.8K | 2021-11-23-03:21 |
+| readme.org   | 3.7K | 2021-11-23-04:46 |
 | rustfmt.toml |  105 | 2021-10-31-03:48 |
 | src          |   12 | 2021-11-02-23:31 |
 | tests        |   28 | 2021-11-02-23:00 |
