@@ -13,6 +13,4 @@ pub mod cmd;
 #[cfg(feature = "dmc")]
 pub mod dmc;
 mod err;
-#[cfg(feature = "python")]
-pub mod python;
 pub use err::{Error, Result};

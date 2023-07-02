@@ -8,6 +8,3 @@ index = "https://github.com/rust-lang/crates.io-index.git"
 
 [target.x86_64-unknown-linux-musl]
 linker = "x86_64-linux-musl-gcc"
-
-[unstable]
-multitarget = true

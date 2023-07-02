@@ -17,7 +17,6 @@ sys = ["rusb", "whoami"]
 x11 = ["xrandr"]
 tmux = ["tmux_interface"]
 hg = ["obj/hg"]
-python = ["rustpython-vm", "rustpython-parser", "rustpython-compiler", "pylib", "num-traits", "rustyline"]
 dmc = ["rustyline"]
 
 [dependencies]
@@ -39,13 +38,6 @@ rustyline = { version = "9.0.0", optional = true }
 crossterm = { version = "0.17", features = ["event-stream"] }
 rustyline-derive = { version = "0.5" }
 paste = "1.0"
-#python
-rustpython-vm = { version = "0.1.1", git = "https://github.com/RustPython/RustPython", features = ["ssl", "zlib"], rev = "fb4581bd453b45a23df71f6ec81e9c01e3e9b821", optional = true}
-rustpython-parser = { version = "0.1.1", git = "https://github.com/RustPython/RustPython", rev = "fb4581bd453b45a23df71f6ec81e9c01e3e9b821", optional = true}
-rustpython-compiler = { version = "0.1.1", git = "https://github.com/RustPython/RustPython", rev = "fb4581bd453b45a23df71f6ec81e9c01e3e9b821", optional = true}
-pylib = { version = "0.1.0", git = "https://github.com/RustPython/RustPython", package="rustpython-pylib", rev = "fb4581bd453b45a23df71f6ec81e9c01e3e9b821", optional = true}
-num-traits = { version = "0.2", optional = true}
-
 ## GNU/Linux
 [target.'cfg(all(target_os="linux", target_env="gnu"))'.dependencies]
 xrandr = { version = "0.1.0", optional = true } # x11 doesn't compile on musl or darwin as of 20210817

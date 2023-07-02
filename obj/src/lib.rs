@@ -1,6 +1,5 @@
 //! lib.rs --- Objective types
 #![feature(map_try_insert)]
-#![feature(derive_default_enum)]
 pub use ron;
 
 mod err;
@@ -11,9 +10,6 @@ mod object;
 
 pub use err::{Error, Result};
 pub use id::{Domain, Id, Identity, NameSpace};
-
-#[cfg(feature = "org")]
-pub use object::doc::org::Org;
 
 pub use object::{
   color::Color,

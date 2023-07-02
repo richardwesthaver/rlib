@@ -1,4 +1,4 @@
-# Created 2021-11-28 Sun 03:47
+# Created 2021-12-13 Mon 02:31
 #+title: rlib
 =rlib= is a Rust Library. It provides a loose collection of /modules/
 which are conditionally compiled via [[https://doc.rust-lang.org/cargo/reference/features.html][features]]. Modules include
